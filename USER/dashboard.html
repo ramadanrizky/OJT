@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K.O.M.A.N.D.O - Beranda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-[#eef3ff] text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-600 selection:text-white">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-[190px] bg-black flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center gap-2 px-4 h-14">
+                <div class="w-7 h-7 rounded-md bg-[#0b84ff] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <span class="font-bold text-white text-[13px] tracking-wide">K.O.M.A.N.D.O</span>
+            </div>
+
+            <nav class="flex-1 px-2.5 py-2 space-y-0.5 overflow-y-auto sidebar-scroll text-[12px]">
+                <a href="dashboard.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg"><i class="fas fa-th-large text-[13px] w-5 text-center mr-2.5"></i> Beranda</a>
+<a href="direktori-staf.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-user text-[13px] w-5 text-center mr-2.5"></i> Direktori Staf</a>
+<a href="tugas-saya.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-tasks text-[13px] w-5 text-center mr-2.5"></i> Tugas Saya<span class="nav-badge-tugas ml-auto text-[10px] font-bold bg-[#0b84ff]/30 text-[#7dd3fc] rounded-full min-w-[18px] h-[18px] hidden items-center justify-center px-1"></span></a>
+<a href="alat-bantuan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-file-alt text-[13px] w-5 text-center mr-2.5"></i> Alat Bantu Dokumen</a>
+<a href="riwayat-disposisi.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-history text-[13px] w-5 text-center mr-2.5"></i> Riwayat Disposisi</a>
+<a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-calendar-check text-[13px] w-5 text-center mr-2.5"></i> Jadwal Rapat</a>
+<a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-calendar text-[13px] w-5 text-center mr-2.5"></i> Kalender Kegiatan</a>
+<a href="bantuan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-question-circle text-[13px] w-5 text-center mr-2.5"></i> Pusat Bantuan</a>
+<a href="profile.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-user text-[13px] w-5 text-center mr-2.5"></i> Profil</a>
+            </nav>
+
+            <div class="p-3 border-t border-white/10">
+                <div class="flex items-center gap-2.5 px-1">
+                    <img class="avatar-user h-8 w-8 rounded-full object-cover flex-shrink-0" src="https://ui-avatars.com/api/?name={{ user_name or 'Maya Putri' }}&background=random&color=fff&bold=true" alt="Foto profil">
+                <div class="min-w-0">
+                    <p class="text-[11px] font-bold text-white truncate">{{ user_name or 'Maya Putri' }}</p>
+                    <p class="text-[10px] text-[#38bdf8] font-medium">User</p>
+                </div>
+                </div>
+                <a href="/logout" class="flex items-center gap-2 px-3 py-2 mt-2 text-[11px] font-semibold text-slate-400 hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors">
+                    <i class="fas fa-sign-out-alt text-[12px] w-5 text-center"></i> Keluar
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+
+        <!-- Topbar -->
+        <header class="relative z-10 flex-shrink-0 h-14 bg-white border-b border-slate-100 flex items-center px-4 sm:px-6 justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <p class="text-[12px] text-slate-500 font-medium whitespace-nowrap">Ruang kerja <span class="mx-1 text-slate-300">›</span> <span class="text-slate-700 font-semibold">Beranda</span></p>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                
+                <div class="flex items-center gap-2 border-l border-slate-200 pl-2 sm:pl-3">
+                    <img class="avatar-user h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'Maya Putri' }}&background=0c4a6e&color=fff&bold=true" alt="Foto profil">
+                    <div class="hidden sm:block leading-tight">
+                        <p class="nama-user text-[11px] font-bold text-slate-900">{{ user_name or 'Maya Putri' }}</p>
+                        <p class="text-[10px] text-slate-400">User</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-[190px] bg-black transform -translate-x-full lg:hidden transition-transform duration-300 text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between px-4 h-14">
+                    <span class="font-bold text-white text-[13px]">K.O.M.A.N.D.O</span>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+                </div>
+                <nav class="flex-1 px-2.5 py-2 space-y-0.5 text-[12px] overflow-y-auto sidebar-scroll">
+                    <a href="dashboard.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg"><i class="fas fa-th-large text-[13px] w-5 text-center mr-2.5"></i> Beranda</a>
+<a href="direktori-staf.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-user text-[13px] w-5 text-center mr-2.5"></i> Direktori Staf</a>
+<a href="tugas-saya.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-tasks text-[13px] w-5 text-center mr-2.5"></i> Tugas Saya<span class="nav-badge-tugas ml-auto text-[10px] font-bold bg-[#0b84ff]/30 text-[#7dd3fc] rounded-full min-w-[18px] h-[18px] hidden items-center justify-center px-1"></span></a>
+<a href="alat-bantuan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-file-alt text-[13px] w-5 text-center mr-2.5"></i> Alat Bantu Dokumen</a>
+<a href="riwayat-disposisi.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-history text-[13px] w-5 text-center mr-2.5"></i> Riwayat Disposisi</a>
+<a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-calendar-check text-[13px] w-5 text-center mr-2.5"></i> Jadwal Rapat</a>
+<a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-calendar text-[13px] w-5 text-center mr-2.5"></i> Kalender Kegiatan</a>
+<a href="bantuan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-question-circle text-[13px] w-5 text-center mr-2.5"></i> Pusat Bantuan</a>
+<a href="profile.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-user text-[13px] w-5 text-center mr-2.5"></i> Profil</a>
+                    <a href="/logout" class="text-red-400 flex items-center px-3 py-2 rounded-lg mt-4"><i class="fas fa-sign-out-alt w-5 text-center mr-2.5"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="flex-1 overflow-y-auto content-scroll p-4 sm:p-6">
+            <div class="max-w-6xl mx-auto">
+                <p id="hari-tanggal" class="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Rabu, 30 Juni 2026</p>
+                <h1 class="text-[26px] font-extrabold text-slate-900 tracking-tight leading-tight mt-0.5">Selamat pagi, <span id="nama-depan">{{ (user_name or 'Maya').split(' ')[0] }}</span></h1>
+                <p class="text-[12px] text-slate-500 mt-0.5 mb-4">Selesaikan hal terbaik di hari kamu hari ini.</p>
+
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 items-start">
+                    <!-- Kolom kiri -->
+                    <div class="xl:col-span-2 space-y-4">
+                        <!-- Hero -->
+                        <div class="relative overflow-hidden rounded-2xl shadow-sm bg-gradient-to-r from-[#0b1f3f] via-[#0c4a6e] to-[#082f49]">
+                            <img src="/static/logo-satsiber.png" alt="Satsiber TNI" class="absolute inset-0 w-full h-full object-cover opacity-90">
+                            <div class="absolute inset-0 bg-black/55"></div>
+                            <div class="relative z-10 p-5 sm:p-6 max-w-md">
+                                <h2 class="text-white text-[20px] sm:text-[22px] font-extrabold leading-snug">Buat hal hebat, bersama-sama.</h2>
+                                <p class="text-white/80 text-[12px] mt-1.5 leading-relaxed">Ada <span id="hero-jumlah">0</span> tugas yang sedang aktif<span id="hero-extra">.</span></p>
+                                <a href="tugas-saya.html" class="inline-flex items-center gap-2 mt-3 bg-[#0b84ff] hover:bg-blue-600 text-white text-[12px] font-bold rounded-lg px-3.5 py-2 transition-colors">
+                                    Lihat tugas saya <i class="fas fa-arrow-right text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Prioritas -->
+                        <div class="bg-white rounded-2xl shadow-sm p-5">
+                            <div class="flex items-center justify-between mb-1">
+                                <div>
+                                    <h3 class="text-[14px] font-extrabold text-slate-900">Prioritas kamu</h3>
+                                    <p class="text-[11px] text-slate-400">Jangan lupa selesaikan sebelum waktu habis.</p>
+                                </div>
+                                <a href="tugas-saya.html" class="text-[11px] font-bold text-blue-600 hover:underline">Lihat semua <i class="fas fa-arrow-right text-[9px]"></i></a>
+                            </div>
+                            <ul id="prioritas-list" class="divide-y divide-slate-100">
+                                <li class="py-3 text-center text-[12px] text-slate-400"><i class="fas fa-circle-notch fa-spin mr-2 text-blue-600"></i>Memuat tugas...</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Kolom kanan -->
+                    <div class="space-y-4">
+                        <!-- Jadwal -->
+                        <div class="bg-white rounded-2xl shadow-sm p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-[13px] font-extrabold text-slate-900">Jadwal hari ini</h3>
+                                <span class="text-[11px] font-bold text-blue-600">Hari Ini <i class="far fa-calendar-alt ml-0.5"></i></span>
+                            </div>
+                            <div id="jadwal-list" class="space-y-2.5">
+                                <div class="flex gap-3 bg-[#f2fbef] rounded-xl p-3">
+                                    <div class="text-[10px] font-bold text-slate-600 leading-tight w-9 flex-shrink-0">09.30<br><span class="font-medium text-slate-400">10.00</span></div>
+                                    <div class="border-l-2 border-emerald-300 pl-3 min-w-0">
+                                        <p class="text-[12px] font-bold text-slate-900 truncate">Digital daily sync</p>
+                                        <p class="text-[10px] text-slate-400">Google Meet</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 bg-slate-50 rounded-xl p-3">
+                                    <div class="text-[10px] font-bold text-slate-600 leading-tight w-9 flex-shrink-0">13.00<br><span class="font-medium text-slate-400">14.00</span></div>
+                                    <div class="border-l-2 border-slate-200 pl-3 min-w-0">
+                                        <p class="text-[12px] font-bold text-slate-900 truncate">Review sprint 4/12</p>
+                                        <p class="text-[10px] text-slate-400">Google Meet</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 bg-slate-50 rounded-xl p-3">
+                                    <div class="text-[10px] font-bold text-slate-600 leading-tight w-9 flex-shrink-0">15.30<br><span class="font-medium text-slate-400">16.00</span></div>
+                                    <div class="border-l-2 border-slate-200 pl-3 min-w-0">
+                                        <p class="text-[12px] font-bold text-slate-900 truncate">1:1 bersama Dimas</p>
+                                        <p class="text-[10px] text-slate-400">Google Meet</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kalender mini -->
+                        <div class="bg-white rounded-2xl shadow-sm p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-[13px] font-extrabold text-slate-900">Kalender Kegiatan</h3>
+                                <a href="kalender-kegiatan.html" class="text-[11px] font-bold text-blue-600 hover:underline">Buka <i class="fas fa-arrow-right text-[9px]"></i></a>
+                            </div>
+                            <p id="mini-bulan" class="text-[11px] font-bold text-slate-500 mb-2">Bulan ini</p>
+                            <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-bold text-slate-400 mb-1">
+                                <span>M</span><span>S</span><span>S</span><span>R</span><span>K</span><span>J</span><span>S</span>
+                            </div>
+                            <div id="mini-grid" class="grid grid-cols-7 gap-1 text-center"></div>
+                            <div class="border-t border-slate-100 mt-3 pt-2.5 flex items-center gap-3 text-[10px] text-slate-500">
+                                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#0b84ff] inline-block"></span>Hari ini</span>
+                                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>Ada kegiatan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    document.getElementById('mobile-sidebar-close')?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
+    // Sapaan + tanggal otomatis
+    (function() {
+        const jam = new Date().getHours();
+        const sapaan = jam < 11 ? 'Selamat pagi' : jam < 15 ? 'Selamat siang' : jam < 19 ? 'Selamat sore' : 'Selamat malam';
+        const h1 = document.querySelector('main h1');
+        if (h1) h1.childNodes[0].textContent = sapaan + ', ';
+        const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+        const bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        const d = new Date();
+        document.getElementById('hari-tanggal').textContent = hari[d.getDay()] + ', ' + d.getDate() + ' ' + bulan[d.getMonth()] + ' ' + d.getFullYear();
+    })();
+
+    function renderPrioritas(tasks) {
+        const list = document.getElementById('prioritas-list');
+        const semua = Array.isArray(tasks) ? tasks : [];
+        const aktif = semua.filter(t => t.status !== 'selesai');
+        const bobotPrioritas = { tinggi: 0, sedang: 1, rendah: 2 };
+        const data = aktif
+            .slice()
+            .sort((a, b) => {
+                const pa = bobotPrioritas[a.prioritas] ?? 1;
+                const pb = bobotPrioritas[b.prioritas] ?? 1;
+                if (pa !== pb) return pa - pb;
+                return String(a.deadline || '9999-99-99').localeCompare(String(b.deadline || '9999-99-99'));
+            })
+            .slice(0, 3);
+
+        const jumlah = document.getElementById('hero-jumlah');
+        const extra = document.getElementById('hero-extra');
+        if (jumlah) jumlah.textContent = aktif.length;
+        if (extra) extra.textContent = aktif.length ? '. Selesaikan hari ini agar tidak menumpuk.' : '.';
+
+        document.querySelectorAll('.nav-badge-tugas').forEach(badge => {
+            if (aktif.length > 0) {
+                badge.textContent = aktif.length;
+                badge.classList.remove('hidden');
+                badge.classList.add('flex');
+            } else {
+                badge.classList.add('hidden');
+                badge.classList.remove('flex');
+            }
+        });
+
+        if (!data.length) {
+            list.innerHTML = '<li class="py-6 text-center text-[11px] text-slate-400">Belum ada tugas aktif.</li>';
+            return;
+        }
+
+        const esc = s => {
+            const d = document.createElement('div');
+            d.textContent = s == null ? '' : String(s);
+            return d.innerHTML;
+        };
+
+        list.innerHTML = data.map((t, i) => {
+            const sub = t.diberikan_oleh ? 'Dari ' + t.diberikan_oleh : 'Tugas';
+            const waktu = t.deadline_tampil ? 'Jatuh tempo ' + t.deadline_tampil : 'Tanpa deadline';
+            const label = t.status === 'proses' ? 'Proses' : 'Belum';
+            return `
+            <li class="py-3 flex items-center gap-3">
+                <span class="w-5 h-5 rounded-full ${i === 0 ? 'bg-blue-50 text-blue-600' : i === 1 ? 'bg-amber-50 text-amber-500' : 'bg-slate-50 text-slate-400'} text-[10px] font-bold flex items-center justify-center flex-shrink-0">${i + 1}</span>
+                <div class="flex-1 min-w-0">
+                    <p class="text-[12px] font-bold text-slate-900 truncate">${esc(t.judul || '-')}</p>
+                    <p class="text-[10px] text-slate-400 truncate">${esc(sub)} &nbsp; <i class="far fa-clock"></i> &nbsp;${esc(waktu)}</p>
+                </div>
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-md flex-shrink-0 ${t.status === 'proses' ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-500'}">${label}</span>
+            </li>`;
+        }).join('');
+    }
+
+    let cacheTugas = [];
+    const bulanNama = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+    function kunciTanggal(d) {
+        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function normalisasiTanggal(s) {
+        if (!s) return '';
+        s = String(s).trim();
+        let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+        if (m) return m[1] + '-' + m[2].padStart(2, '0') + '-' + m[3].padStart(2, '0');
+        m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+        if (m) return m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');
+        return '';
+    }
+
+    // Libur nasional (sama dengan halaman Kalender Kegiatan)
+    const HARI_LIBUR = {
+        '2026-01-01': 'Tahun Baru Masehi', '2026-02-17': 'Tahun Baru Imlek',
+        '2026-03-20': 'Hari Raya Nyepi', '2026-03-29': 'Wafat Isa Almasih',
+        '2026-04-10': 'Hari Raya Idul Fitri 1', '2026-04-11': 'Hari Raya Idul Fitri 2',
+        '2026-05-01': 'Hari Buruh Internasional', '2026-05-14': 'Kenaikan Isa Almasih',
+        '2026-05-20': 'Hari Raya Waisak', '2026-06-01': 'Hari Lahir Pancasila',
+        '2026-06-27': 'Hari Raya Idul Adha', '2026-07-21': 'Tahun Baru Hijriah (1 Muharram)',
+        '2026-08-17': 'Hari Kemerdekaan RI', '2026-09-05': 'Maulid Nabi Muhammad SAW',
+        '2026-12-25': 'Hari Raya Natal'
+    };
+
+    // Jadwal hari ini: TEPAT 4 sumber — Tugas Saya, Jadwal Rapat,
+    // Jadwal Kegiatan (pengumuman), Kalender (libur). Tanpa tambahan lain.
+    async function muatJadwal() {
+        const box = document.getElementById('jadwal-list');
+        const hariIni = kunciTanggal(new Date());
+        const items = [];
+        let rapat = [], umum = [];
+        try {
+            const [resR, resU] = await Promise.all([fetch('/api/meetings'), fetch('/api/pengumuman')]);
+            if (resR.ok) rapat = await resR.json();
+            if (resU.ok) umum = await resU.json();
+        } catch (e) {}
+        // 1) Jadwal Rapat
+        (Array.isArray(rapat) ? rapat : []).forEach(mt => {
+            if (normalisasiTanggal(mt.tanggal_rapat || mt.tanggal_raw || mt.tanggal || '') !== hariIni) return;
+            const w = (mt.waktu_rapat || mt.waktu || '').toString().replace('.', ':').slice(0, 5) || '--:--';
+            items.push({ jam: w, adaJam: w !== '--:--', judul: mt.judul_rapat || mt.judul || '(Tanpa judul)', sub: mt.peserta_rapat || mt.peserta || 'Jadwal Rapat' });
+        });
+        // 2) Tugas Saya (deadline hari ini, belum selesai)
+        cacheTugas.filter(t => t.status !== 'selesai' && normalisasiTanggal(t.deadline || '') === hariIni)
+            .forEach(t => items.push({ jam: 'Batas', adaJam: false, judul: t.judul || '-', sub: 'Deadline tugas' }));
+        // 3) Jadwal Kegiatan (pengumuman terbit hari ini)
+        (Array.isArray(umum) ? umum : []).forEach(an => {
+            if (normalisasiTanggal(an.publish_date || an.date || '') !== hariIni) return;
+            const w = (an.publish_time || '').toString().slice(0, 5) || 'Info';
+            items.push({ jam: w, adaJam: /^\d/.test(w), judul: an.title || '(Tanpa judul)', sub: 'Jadwal Kegiatan' });
+        });
+        // 4) Kalender (libur nasional hari ini)
+        if (HARI_LIBUR[hariIni]) items.push({ jam: 'Libur', adaJam: false, judul: HARI_LIBUR[hariIni], sub: 'Kalender' });
+        if (!items.length) {
+            box.innerHTML = '<p class="text-[11px] text-slate-400 text-center py-6">Tidak ada jadwal hari ini.</p>';
+            return;
+        }
+        items.sort((a, b) => (b.adaJam - a.adaJam) || String(a.jam).localeCompare(String(b.jam)));
+        box.innerHTML = items.slice(0, 5).map((it, i) => `
+            <div class="flex gap-3 ${i === 0 ? 'bg-[#f2fbef]' : 'bg-slate-50'} rounded-xl p-3">
+                <div class="text-[10px] font-bold text-slate-600 leading-tight w-9 flex-shrink-0">${it.jam}</div>
+                <div class="border-l-2 ${i === 0 ? 'border-emerald-300' : 'border-slate-200'} pl-3 min-w-0">
+                    <p class="text-[12px] font-bold text-slate-900 truncate">${it.judul}</p>
+                    <p class="text-[10px] text-slate-400 truncate">${it.sub}</p>
+                </div>
+            </div>`).join('');
+    }
+
+    // Kalender mini bulan berjalan + tandai tanggal ada kegiatan
+    async function muatMiniKalender() {
+        const d = new Date(), y = d.getFullYear(), m = d.getMonth();
+        document.getElementById('mini-bulan').textContent = bulanNama[m] + ' ' + y;
+        const ada = new Set();
+        const prefixBulan = y + '-' + String(m + 1).padStart(2, '0');
+        try {
+            const [resR, resU] = await Promise.all([fetch('/api/meetings'), fetch('/api/pengumuman')]);
+            if (resR.ok) (await resR.json()).forEach(mt => {
+                const t = normalisasiTanggal(mt.tanggal_rapat || mt.tanggal_raw || mt.tanggal || '');
+                if (t.startsWith(prefixBulan)) ada.add(parseInt(t.slice(8, 10), 10));
+            });
+            if (resU.ok) (await resU.json()).forEach(an => {
+                const t = normalisasiTanggal(an.publish_date || an.date || '');
+                if (t.startsWith(prefixBulan)) ada.add(parseInt(t.slice(8, 10), 10));
+            });
+        } catch (e) {}
+        cacheTugas.forEach(t => {
+            const n = normalisasiTanggal(t.deadline || '');
+            if (n.startsWith(prefixBulan)) ada.add(parseInt(n.slice(8, 10), 10));
+        });
+        Object.keys(HARI_LIBUR).forEach(k => {
+            if (k.startsWith(prefixBulan)) ada.add(parseInt(k.slice(8, 10), 10));
+        });
+        const awal = new Date(y, m, 1).getDay(), total = new Date(y, m + 1, 0).getDate();
+        let html = '';
+        for (let i = 0; i < awal; i++) html += '<span></span>';
+        for (let tgl = 1; tgl <= total; tgl++) {
+            const isHariIni = tgl === d.getDate();
+            const cls = isHariIni
+                ? 'bg-[#0b84ff] text-white font-bold'
+                : ada.has(tgl) ? 'bg-emerald-50 text-emerald-700 font-bold border border-emerald-200' : 'text-slate-500 hover:bg-slate-100';
+            html += `<span class="text-[10px] rounded-md py-1 ${cls}">${tgl}</span>`;
+        }
+        document.getElementById('mini-grid').innerHTML = html;
+    }
+
+    // Samakan foto profil sidebar & topbar dengan foto di halaman Profil
+    async function samakanFoto() {
+        try {
+            const res = await fetch('/api/user/profile');
+            if (!res.ok) return;
+            const data = await res.json();
+            if (data.foto) document.querySelectorAll('.avatar-user').forEach(img => { img.src = data.foto; });
+            if (data.nama) document.querySelectorAll('.nama-user').forEach(el => { el.textContent = data.nama; });
+        } catch (e) {}
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const res = await fetch('/api/tugas');
+            if (!res.ok) throw new Error();
+            cacheTugas = await res.json();
+            renderPrioritas(cacheTugas);
+        } catch (e) { renderPrioritas(null); }
+        muatJadwal();
+        muatMiniKalender();
+        samakanFoto();
+    });
+</script>
+<!-- Modal kecil: surat disposisi baru untuk saya (penerima) -->
+<div id="modal-surat-masuk-user" class="fixed inset-0 bg-slate-900/60 hidden flex items-center justify-center z-[60] p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-sm overflow-hidden">
+        <div id="smu-head" class="px-5 py-4 text-white flex items-center gap-3 border-b bg-slate-800">
+            <span id="smu-dot" class="w-4 h-4 rounded-full flex-shrink-0 bg-slate-300 border-2 border-white/70"></span>
+            <div>
+                <h3 class="text-sm font-extrabold leading-tight">Surat Disposisi Baru!</h3>
+                <p id="smu-badge" class="text-[10px] font-bold opacity-90"></p>
+            </div>
+            <i class="fas fa-envelope-open-text ml-auto text-2xl opacity-90"></i>
+        </div>
+        <div class="p-5">
+            <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Perihal</p>
+            <p id="smu-perihal" class="text-sm font-bold text-slate-900 mb-3"></p>
+            <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Dari</p>
+            <p id="smu-dari" class="text-xs text-slate-700 mb-1"></p>
+            <p id="smu-nomor" class="text-[11px] text-slate-400"></p>
+        </div>
+        <div class="p-3 border-t border-slate-100 flex justify-end gap-2 bg-slate-50">
+            <a id="smu-unduh" href="#" class="px-4 py-2 bg-violet-600 text-white rounded-lg text-xs font-bold hover:bg-violet-700"><i class="fas fa-download mr-1"></i> Unduh</a>
+            <button onclick="tutupSuratMasukUser()" class="px-5 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-700">Tutup</button>
+        </div>
+    </div>
+</div>
+<!-- Modal pengingat tugas pribadi (muncul setiap buka dashboard) -->
+<div id="modal-pengingat" class="fixed inset-0 bg-slate-900/60 hidden flex items-center justify-center z-[60] p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-sm overflow-hidden">
+        <div class="px-5 py-4 bg-[#0b84ff] text-white flex items-center gap-3">
+            <span class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-bell"></i></span>
+            <div class="min-w-0">
+                <h3 class="text-sm font-extrabold leading-tight">Pengingat Tugas</h3>
+                <p id="pengingat-sub" class="text-[11px] font-medium opacity-90"></p>
+            </div>
+            <button onclick="tutupPengingat()" class="ml-auto p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg"><i class="fas fa-times"></i></button>
+        </div>
+        <ul id="pengingat-list" class="p-3 space-y-2 max-h-[50vh] overflow-y-auto"></ul>
+        <div class="p-3 border-t border-slate-100 flex justify-between gap-2 bg-slate-50">
+            <a href="tugas-saya.html" class="px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-100"><i class="fas fa-list-check mr-1"></i> Kelola Pengingat</a>
+            <button onclick="tutupPengingat()" class="px-5 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-700">Tutup</button>
+        </div>
+    </div>
+</div>
+<script>
+(function(){
+    const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+    window.tutupPengingat = function(){
+        const m = document.getElementById('modal-pengingat');
+        m.classList.add('hidden'); m.classList.remove('flex');
+    };
+    function gambarPengingat(items){
+        const list = document.getElementById('pengingat-list');
+        document.getElementById('pengingat-sub').textContent = items.length + ' pengingat aktif milikmu';
+        list.innerHTML = items.map(t => `
+            <li class="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-xl p-3" data-id="${t.id}">
+                <span class="w-2 h-2 rounded-full flex-shrink-0 ${t.prioritas === 'tinggi' ? 'bg-red-500' : t.prioritas === 'sedang' ? 'bg-amber-400' : 'bg-slate-300'}"></span>
+                <div class="flex-1 min-w-0">
+                    <p class="text-[12px] font-bold text-slate-900 truncate">${esc(t.judul)}</p>
+                    <p class="text-[10px] text-slate-400">${t.deadline_tampil ? 'Jatuh tempo ' + esc(t.deadline_tampil) : 'Tanpa deadline'}</p>
+                </div>
+                <button onclick="hapusPengingat('${t.id}')" title="Hapus pengingat" class="flex-shrink-0 w-8 h-8 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"><i class="fas fa-trash text-xs"></i></button>
+            </li>`).join('');
+    }
+    window.hapusPengingat = async function(id){
+        if (!confirm('Hapus pengingat ini?')) return;
+        try {
+            const res = await fetch('/api/tugas/' + id, { method: 'DELETE' });
+            const j = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(j.error || 'Gagal menghapus.');
+            const li = document.querySelector('#pengingat-list li[data-id="' + id + '"]');
+            if (li) li.remove();
+            const sisa = document.querySelectorAll('#pengingat-list li').length;
+            if (!sisa) { tutupPengingat(); return; }
+            document.getElementById('pengingat-sub').textContent = sisa + ' pengingat aktif milikmu';
+        } catch (e) { alert('Gagal menghapus: ' + e.message); }
+    };
+    async function cekPengingat(){
+        if (document.hidden) return;
+        try {
+            const res = await fetch('/api/tugas');
+            if (!res.ok) return;
+            const semua = await res.json();
+            const ingat = (Array.isArray(semua) ? semua : []).filter(t => !t.assigned_by && t.status !== 'selesai');
+            if (!ingat.length) return;
+            gambarPengingat(ingat);
+            const m = document.getElementById('modal-pengingat');
+            m.classList.remove('hidden'); m.classList.add('flex');
+        } catch (e) {}
+    }
+    setTimeout(cekPengingat, 4000);
+})();
+</script>
+<script>
+(function(){
+    const HEAD={red:'bg-red-600',yellow:'bg-yellow-500',black:'bg-slate-900',blue:'bg-blue-700',green:'bg-emerald-600',purple:'bg-violet-700',gray:'bg-slate-800'};
+    const DOT={red:'bg-red-500',yellow:'bg-yellow-400',black:'bg-slate-900',blue:'bg-blue-600',green:'bg-emerald-500',purple:'bg-violet-600',gray:'bg-slate-300'};
+    const EMO={red:'🔴',yellow:'🟡',black:'⬛',blue:'🔵',green:'🟢',purple:'🟣',gray:'⚪'};
+    function kunci(jenis){
+        const k=(jenis||'').trim().toLowerCase();
+        if(k==='sangat segera') return 'red';
+        if(k==='segera') return 'yellow';
+        if(k==='rahasia') return 'black';
+        if(k==='dinas') return 'blue';
+        if(k==='undangan') return 'green';
+        if(k==='laporan') return 'purple';
+        return 'gray';
+    }
+    window.tutupSuratMasukUser=function(){
+        const m=document.getElementById('modal-surat-masuk-user');
+        m.classList.add('hidden'); m.classList.remove('flex');
+    };
+    function tandaiBacaDash(id){
+        fetch(`/api/disposisi/surat-masuk/${id}/baca`, {method:'POST'}).catch(()=>{});
+    }
+    async function cek(){
+        if(document.hidden) return;
+        try{
+            const res=await fetch('/api/disposisi/surat-untuk-saya');
+            if(!res.ok) return;
+            const data=await res.json();
+            const belum=data.filter(x=>!x.sudah_dibaca);
+            if(!belum.length) return;
+            const s=belum[0], key=kunci(s.jenis_surat||'');
+            document.getElementById('smu-head').className=`px-5 py-4 text-white flex items-center gap-3 border-b ${HEAD[key]}`;
+            document.getElementById('smu-dot').className=`w-4 h-4 rounded-full flex-shrink-0 ${DOT[key]} border-2 border-white/70`;
+            document.getElementById('smu-badge').textContent=`${EMO[key]} ${(s.jenis_surat||'Biasa').toUpperCase()}${(key==='red'||key==='yellow')?' — SEGERA DITINDAKLANJUTI':''}`;
+            document.getElementById('smu-perihal').textContent=s.perihal||'-';
+            document.getElementById('smu-dari').textContent=s.pengirim_nama||'-';
+            document.getElementById('smu-nomor').textContent=s.nomor_surat||s.no_agenda||'';
+            const unduh=document.getElementById('smu-unduh');
+            unduh.href=`/api/disposisi/surat-masuk/${s.id}/download`;
+            unduh.onclick=()=>tandaiBacaDash(s.id);
+            const m=document.getElementById('modal-surat-masuk-user');
+            m.classList.remove('hidden'); m.classList.add('flex');
+            tandaiBacaDash(s.id);
+        }catch(e){}
+    }
+    setInterval(cek, 15000);
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) cek(); });
+    setTimeout(cek, 2000);
+})();
+</script>
+<script src="/static/nav-gate.js"></script>
+</body>
+</html>

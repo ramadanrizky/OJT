@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K.O.M.A.N.D.O - Pusat Bantuan</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-[#eef3ff] text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-700 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-[190px] bg-black flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center gap-2 px-4 h-14">
+                <div class="w-7 h-7 rounded-md bg-[#0b84ff] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <span class="font-bold text-white text-[13px] tracking-wide">K.O.M.A.N.D.O</span>
+            </div>
+
+            <nav class="flex-1 px-2.5 py-2 space-y-0.5 overflow-y-auto sidebar-scroll text-[12px]">
+                <a href="dashboard.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-th-large text-[13px] w-5 text-center mr-2.5"></i> Beranda</a>
+<a href="direktori-staf.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-user text-[13px] w-5 text-center mr-2.5"></i> Direktori Staf</a>
+<a href="tugas-saya.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-tasks text-[13px] w-5 text-center mr-2.5"></i> Tugas Saya<span class="nav-badge-tugas ml-auto text-[10px] font-bold bg-[#0b84ff]/30 text-[#7dd3fc] rounded-full min-w-[18px] h-[18px] hidden items-center justify-center px-1"></span></a>
+<a href="alat-bantuan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-file-alt text-[13px] w-5 text-center mr-2.5"></i> Alat Bantu Dokumen</a>
+<a href="riwayat-disposisi.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-history text-[13px] w-5 text-center mr-2.5"></i> Riwayat Disposisi</a>
+<a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-calendar-check text-[13px] w-5 text-center mr-2.5"></i> Jadwal Rapat</a>
+<a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-calendar text-[13px] w-5 text-center mr-2.5"></i> Kalender Kegiatan</a>
+<a href="bantuan.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg"><i class="far fa-question-circle text-[13px] w-5 text-center mr-2.5"></i> Pusat Bantuan</a>
+<a href="profile.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-user text-[13px] w-5 text-center mr-2.5"></i> Profil</a>
+            </nav>
+
+            <div class="p-3 border-t border-white/10">
+                <div class="flex items-center gap-2.5 px-1">
+                    <img class="avatar-user h-8 w-8 rounded-full object-cover flex-shrink-0" src="https://ui-avatars.com/api/?name={{ user_name or 'Maya Putri' }}&background=random&color=fff&bold=true" alt="Foto profil">
+                <div class="min-w-0">
+                    <p class="text-[11px] font-bold text-white truncate">{{ user_name or 'Maya Putri' }}</p>
+                    <p class="text-[10px] text-[#38bdf8] font-medium">User</p>
+                </div>
+                </div>
+                <a href="/logout" class="flex items-center gap-2 px-3 py-2 mt-2 text-[11px] font-semibold text-slate-400 hover:bg-white/10 hover:text-red-400 rounded-lg transition-colors">
+                    <i class="fas fa-sign-out-alt text-[12px] w-5 text-center"></i> Keluar
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="relative z-10 flex-shrink-0 h-14 bg-white border-b border-slate-100 flex items-center px-4 sm:px-6 justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <p class="text-[12px] text-slate-500 font-medium whitespace-nowrap">Ruang kerja <span class="mx-1 text-slate-300">›</span> <span class="text-slate-700 font-semibold">Pusat Bantuan</span></p>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                
+                <div class="flex items-center gap-2 border-l border-slate-200 pl-2 sm:pl-3">
+                    <img class="avatar-user h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'Maya Putri' }}&background=0c4a6e&color=fff&bold=true" alt="Foto profil">
+                    <div class="hidden sm:block leading-tight">
+                        <p class="nama-user text-[11px] font-bold text-slate-900">{{ user_name or 'Maya Putri' }}</p>
+                        <p class="text-[10px] text-slate-400">User</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden backdrop-blur-sm"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-[190px] bg-black transform -translate-x-full lg:hidden transition-transform duration-300 text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between px-4 h-14">
+                    <span class="font-bold text-white text-[13px]">K.O.M.A.N.D.O</span>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+                </div>
+                <nav class="flex-1 px-2.5 py-2 space-y-0.5 text-[12px] overflow-y-auto sidebar-scroll">
+                    <a href="dashboard.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-th-large text-[13px] w-5 text-center mr-2.5"></i> Beranda</a>
+<a href="direktori-staf.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-user text-[13px] w-5 text-center mr-2.5"></i> Direktori Staf</a>
+<a href="tugas-saya.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-tasks text-[13px] w-5 text-center mr-2.5"></i> Tugas Saya<span class="nav-badge-tugas ml-auto text-[10px] font-bold bg-[#0b84ff]/30 text-[#7dd3fc] rounded-full min-w-[18px] h-[18px] hidden items-center justify-center px-1"></span></a>
+<a href="alat-bantuan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-file-alt text-[13px] w-5 text-center mr-2.5"></i> Alat Bantu Dokumen</a>
+<a href="riwayat-disposisi.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-history text-[13px] w-5 text-center mr-2.5"></i> Riwayat Disposisi</a>
+<a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-calendar-check text-[13px] w-5 text-center mr-2.5"></i> Jadwal Rapat</a>
+<a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="far fa-calendar text-[13px] w-5 text-center mr-2.5"></i> Kalender Kegiatan</a>
+<a href="bantuan.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg"><i class="far fa-question-circle text-[13px] w-5 text-center mr-2.5"></i> Pusat Bantuan</a>
+<a href="profile.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3 py-2 rounded-lg transition-colors"><i class="fas fa-user text-[13px] w-5 text-center mr-2.5"></i> Profil</a>
+                    <a href="/logout" class="text-red-400 flex items-center px-3 py-2 rounded-lg mt-4"><i class="fas fa-sign-out-alt w-5 text-center mr-2.5"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area Scrollable -->
+        <main class="flex-1 overflow-y-auto bg-[#eef3ff] content-scroll p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <!-- Quick Contact Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-700 text-white flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-sm">Hotline Helpdesk IT</h3>
+                            <p class="text-xs text-slate-500 font-mono">Ext Internal: 101 / 102</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-700 text-white flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-sm">Email Layanan Support</h3>
+                            <p class="text-xs text-slate-500 font-mono">helpdesk@perusahaan.co.id</p>
+                        </div>
+                    </div>
+
+<div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-700 text-white flex items-center justify-center text-xl flex-shrink-0">
+                                <i class="fas fa-file-word"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-sm">Buku Panduan Pengguna</h3>
+                                <p class="text-[10px] text-slate-500 leading-snug mb-1">Login, tugas, disposisi, scan, dan tiket bantuan.</p>
+                                <a href="/api/panduan-portal" class="text-xs text-blue-700 font-bold hover:underline flex items-center gap-1" target="_blank">
+                                    <i class="fas fa-download"></i> Unduh Panduan (DOCX)
+                                </a>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- FAQ Column -->
+                    <div class="bg-white rounded-2xl border border-white shadow-[0_8px_24px_rgba(15,40,90,0.06)] overflow-hidden">
+                        <div class="p-5 border-b border-slate-200">
+                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fas fa-circle-question text-blue-700"></i> Pertanyaan Sering Diajukan (FAQ)
+                            </h3>
+                        </div>
+                        <div class="p-5 space-y-3.5 text-xs">
+                            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+                                <h4 class="font-bold text-slate-900 mb-1">Bagaimana cara mereset kata sandi akun portal?</h4>
+                                <p class="text-slate-600 leading-relaxed">Ajukan tiket ke Helpdesk IT melalui formulir di samping agar Admin dapat melakukan reset kata sandi secara manual.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+                                <h4 class="font-bold text-slate-900 mb-1">Ke mana saya harus melapor jika tugas salah alokasi?</h4>
+                                <p class="text-slate-600 leading-relaxed">Silakan koordinasikan dengan atasan langsung Anda yang tercantum pada Direktori Staf atau ajukan pengaduan administrasi melalui tiket bantuan.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+                                <h4 class="font-bold text-slate-900 mb-1">Bagaimana cara mengirim dan meneruskan surat disposisi?</h4>
+                                <p class="text-slate-600 leading-relaxed">Buka menu Alat Bantu Dokumen atau Riwayat Disposisi, isi identitas surat, pilih tujuan, centang isi disposisi, lalu klik Preview sebelum mengirim. Atasan dapat membuka menu Persetujuan, mengonfirmasi surat diterima, dan menekan Teruskan untuk mengirim ke bawahan, staf/persuratan, atau atasan lain.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+                                <h4 class="font-bold text-slate-900 mb-1">Mengapa tombol Teruskan tidak muncul pada surat?</h4>
+                                <p class="text-slate-600 leading-relaxed">Tombol mengikuti hak akses akun. Sebagian pengguna hanya dapat memantau jejak surat. Hubungi Admin jika akun Anda seharusnya memiliki hak mengirim atau meneruskan disposisi.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+                                <h4 class="font-bold text-slate-900 mb-1">Bagaimana prosedur penggunaan Alat Dokumen?</h4>
+                                <p class="text-slate-600 leading-relaxed">Gunakan menu "Alat Bantu Dokumen" untuk mengonversi PDF ke Word, Word ke PDF, meringkas atau menjelaskan dokumen, dan memindai berkas melalui scanner yang terpasang di komputer Anda (Scan Agent lokal) atau di server. Hasil konversi akan terunduh otomatis; izinkan unduhan/popup bila browser memblokir.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+                                <h4 class="font-bold text-slate-900 mb-1">Bagaimana cara scan dokumen?</h4>
+                                <p class="text-slate-600 leading-relaxed">Pastikan scanner menyala dan terpasang di komputer Anda atau di server. Jika scanner USB terpasang di komputer Anda, jalankan <strong>JALANKAN-SCAN-AGENT.bat</strong> dan biarkan jendelanya terbuka, lalu buka Alat Bantu Dokumen &rarr; Scan Dokumen. Pilih perangkat, mode warna, resolusi, dan opsi duplex bila memakai ADF. Jika scanner tidak terdeteksi, hubungi Helpdesk atau unggah PDF hasil scan manual.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50">
+                                <h4 class="font-bold text-slate-900 mb-1">Apa arti status pada tiket saya?</h4>
+                                <p class="text-slate-600 leading-relaxed">Status "menunggu" berarti tiket sudah diterima dan belum dibalas. Status "dibalas admin" berarti Admin sudah mengirim jawaban; balasan dapat dibaca pada bagian "Tiket Saya & Balasan Admin" di bawah formulir.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ticket Form Column -->
+                    <div class="bg-white rounded-2xl border border-white shadow-[0_8px_24px_rgba(15,40,90,0.06)] overflow-hidden">
+                        <div class="p-5 border-b border-slate-200">
+                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fas fa-ticket text-blue-700"></i> Buat Tiket Permohonan Bantuan
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-0.5">Sampaikan kendala teknis atau pengaduan masalah fasilitas.</p>
+                        </div>
+                        <div class="p-5">
+                            <form id="ticket-form" class="space-y-4">
+                                <div>
+                                    <label for="kategori" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Kategori Kendala</label>
+                                    <select id="kategori" name="kategori" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                                        <option>Kendala IT & Akses Sistem</option>
+                                        <option>Pertanyaan Administrasi</option>
+                                        <option>Sarana & Fasilitas Kantor</option>
+                                        <option>Lainnya</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="subjek" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Subjek Permasalahan</label>
+                                    <input type="text" name="subjek" id="subjek" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Contoh: Tidak bisa mengakses server intranet..." required>
+                                </div>
+
+                                <div>
+                                    <label for="pesan" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Deskripsi Lengkap Kendala</label>
+                                    <textarea id="pesan" name="pesan" rows="4" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Jelaskan kronologi kejadian dan kendala secara rinci..." required></textarea>
+                                </div>
+
+                                <button type="submit" id="btn-kirim-tiket" class="w-full bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-blue-800 transition-colors text-xs flex items-center justify-center gap-2 shadow-sm">
+                                    <i class="fas fa-paper-plane"></i> Kirim Tiket Bantuan
+                                </button>
+                                <div id="tiket-message" class="text-xs font-medium p-3 rounded-lg hidden"></div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Riwayat tiket + balasan admin -->
+                <div class="bg-white rounded-2xl border border-white shadow-[0_8px_24px_rgba(15,40,90,0.06)] overflow-hidden mt-6">
+                    <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fas fa-inbox text-blue-700"></i> Tiket Saya &amp; Balasan Admin
+                        </h3>
+                        <button onclick="muatTiketSaya()" class="text-[11px] font-bold text-blue-700 hover:text-blue-900"><i class="fas fa-sync mr-1"></i> Muat Ulang</button>
+                    </div>
+                    <div id="tiket-saya-list" class="p-5 space-y-3 text-xs">
+                        <p class="text-slate-400 text-center py-4">Memuat...</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+<script>
+    // Mobile Sidebar Logic
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const mobileClose = document.getElementById('mobile-sidebar-close');
+
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    mobileClose?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML; }
+
+    document.getElementById('ticket-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('btn-kirim-tiket');
+        const msg = document.getElementById('tiket-message');
+        const orig = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Mengirim...';
+        msg.className = 'text-xs font-medium p-3 rounded-lg hidden';
+        try {
+            const res = await fetch('/api/bantuan/kirim', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    kategori: document.getElementById('kategori').value,
+                    subjek: document.getElementById('subjek').value.trim(),
+                    pesan: document.getElementById('pesan').value.trim()
+                })
+            });
+            const j = await res.json();
+            if (!res.ok) throw new Error(j.error || 'Gagal mengirim tiket.');
+            msg.textContent = j.message || 'Tiket terkirim ke admin.';
+            msg.className = 'text-xs font-medium p-3 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200';
+            e.target.reset();
+            muatTiketSaya();
+        } catch (err) {
+            msg.textContent = 'Gagal: ' + err.message;
+            msg.className = 'text-xs font-medium p-3 rounded-lg bg-red-50 text-red-700 border border-red-200';
+        } finally {
+            msg.classList.remove('hidden');
+            btn.disabled = false;
+            btn.innerHTML = orig;
+        }
+    });
+
+    async function muatTiketSaya() {
+        const box = document.getElementById('tiket-saya-list');
+        try {
+            const res = await fetch('/api/bantuan/milik-saya');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Gagal memuat.');
+            if (!data.length) {
+                box.innerHTML = '<p class="text-slate-400 text-center py-4">Belum ada tiket. Tiket yang Anda kirim akan tercatat di sini.</p>';
+                return;
+            }
+            box.innerHTML = data.map(t => `
+                <div class="p-4 rounded-xl border ${t.balasan && !t.dibaca_user ? 'border-emerald-300 bg-emerald-50/50' : 'border-slate-200 bg-slate-50/50'}">
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <p class="font-bold text-slate-900">${esc(t.subjek)}</p>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${t.status === 'dibalas' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-amber-50 text-amber-700 border-amber-200'}">${t.status === 'dibalas' ? 'dibalas admin' : 'menunggu'}</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-0.5">${esc(t.kategori)} &bull; ${esc(t.created_at)}</p>
+                    <p class="text-slate-600 leading-relaxed mt-1.5">${esc(t.pesan)}</p>
+                    ${t.balasan ? `<div class="mt-2 p-3 rounded-lg bg-white border border-emerald-200"><p class="text-[10px] font-extrabold uppercase text-emerald-700 mb-1"><i class="fas fa-reply mr-1"></i>Balasan Admin ${t.dibalas_pada ? '&bull; ' + esc(t.dibalas_pada) : ''}</p><p class="text-slate-700 leading-relaxed">${esc(t.balasan)}</p></div>` : ''}
+                </div>`).join('');
+            // tandai balasan sudah dibaca
+            data.filter(t => t.balasan && !t.dibaca_user).forEach(t => {
+                fetch(`/api/bantuan/${t.id}/baca`, { method: 'POST' }).catch(() => {});
+            });
+        } catch (e) {
+            box.innerHTML = `<p class="text-red-500 text-center py-4">Gagal: ${esc(e.message)}</p>`;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', muatTiketSaya);
+</script>
+<script src="/static/nav-gate.js"></script>
+<script>
+(function(){
+    async function samakanFoto(){
+        try{
+            const res = await fetch('/api/user/profile');
+            if(!res.ok) return;
+            const data = await res.json();
+            if(data.foto) document.querySelectorAll('.avatar-user').forEach(img=>{img.src=data.foto;});
+            if(data.nama) document.querySelectorAll('.nama-user').forEach(el=>{el.textContent=data.nama;});
+        }catch(e){}
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',samakanFoto);
+    else samakanFoto();
+})();
+</script>
+</body>
+</html>
