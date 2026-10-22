@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K.O.M.A.N.D.O - Profil Saya</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-[#eef3ff] text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-700 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-[190px] bg-black border-r border-black flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between h-16 bg-black px-4 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded-md bg-[#0b84ff] flex items-center justify-center text-white shadow-sm font-bold text-lg">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-white text-sm tracking-tight block leading-tight">K.O.M.A.N.D.O</span>
+                        <span class="text-[10px] text-blue-400 font-medium">Atasan</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto sidebar-scroll">
+                <a href="dashboard.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tachometer-alt text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Dashboard
+                </a>
+                <a href="tim-saya.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-users text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Tim Saya
+                </a>
+                <a href="tugas-saya.html" data-nav-tugas-saya style="display:none" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-clipboard-list text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Tugas Saya
+                </a>
+                <a href="beri-tugas.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tasks text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Beri Tugas
+                </a>
+                <a href="persetujuan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-check-square text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Persetujuan
+                </a>
+                <a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-plus text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Jadwal Rapat
+                </a>
+                <a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-alt text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Kalender Kegiatan
+                </a>
+                <a href="kelola-pengumuman.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-bullhorn text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Kelola Pengumuman
+                </a>
+                <a href="profile.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg shadow-none border border-transparent">
+                    <i class="fas fa-user-circle text-sm w-5 text-center mr-3 text-blue-200"></i> Profil Saya
+                </a>
+            </nav>
+
+            <div class="p-3 border-t border-white/10">
+                <a href="/logout" class="flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-red-950/40 hover:text-red-400 rounded-lg transition-colors border border-transparent hover:border-red-900/50">
+                    <i class="fas fa-sign-out-alt text-sm w-5 text-center text-slate-400"></i> Keluar (Logout)
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="relative z-10 flex-shrink-0 h-14 bg-white border-b border-slate-100 flex items-center px-4 sm:px-6 justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <p class="text-[12px] text-slate-500 font-medium whitespace-nowrap">Ruang kerja <span class="mx-1 text-slate-300">›</span> <span class="text-slate-700 font-semibold">Profil Saya</span></p>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                
+                <div class="flex items-center gap-2 border-l border-slate-200 pl-2 sm:pl-3">
+                    <img class="avatar-user h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'Pimpinan' }}&background=0c4a6e&color=fff&bold=true" alt="Foto profil">
+                    <div class="hidden sm:block leading-tight">
+                        <p class="nama-user text-[11px] font-bold text-slate-900">{{ user_name or 'Pimpinan' }}</p>
+                        <p class="text-[10px] text-slate-400">Atasan Langsung</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden backdrop-blur-sm"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-[190px] bg-black border-r border-black transform -translate-x-full lg:hidden transition-transform duration-300 ease-out text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between h-16 bg-black px-4 border-b border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-7 h-7 rounded-md bg-[#0b84ff] flex items-center justify-center text-white font-bold text-sm"><i class="fas fa-building-columns"></i></div>
+                        <span class="font-bold text-white text-sm">K.O.M.A.N.D.O</span>
+                    </div>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white rounded-lg"><i class="fas fa-times text-lg"></i></button>
+                </div>
+                <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+                    <a href="dashboard.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3"></i> Dashboard</a>
+                    <a href="tim-saya.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-users text-sm w-5 text-center mr-3"></i> Tim Saya</a>
+                    <a href="tugas-saya.html" data-nav-tugas-saya style="display:none" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-clipboard-list text-sm w-5 text-center mr-3"></i> Tugas Saya</a>
+                    <a href="beri-tugas.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tasks text-sm w-5 text-center mr-3"></i> Beri Tugas</a>
+                    <a href="persetujuan.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-check-square text-sm w-5 text-center mr-3"></i> Persetujuan</a>
+                    <a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-plus text-sm w-5 text-center mr-3"></i> Jadwal Rapat</a>
+                    <a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-alt text-sm w-5 text-center mr-3"></i> Kalender Kegiatan</a>
+                    <a href="kelola-pengumuman.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-bullhorn text-sm w-5 text-center mr-3"></i> Kelola Pengumuman</a>
+                    <a href="profile.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg"><i class="fas fa-user-circle text-sm w-5 text-center mr-3"></i> Profil Saya</a>
+                    <a href="/logout" class="text-red-400 hover:bg-red-950/40 flex items-center px-3.5 py-2.5 text-xs rounded-lg mt-6"><i class="fas fa-sign-out-alt text-sm w-5 text-center mr-3"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area Scrollable -->
+        <main class="flex-1 overflow-y-auto bg-[#eef3ff] content-scroll p-4 sm:p-6 lg:p-8">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Profil: kartu identitas + informasi pribadi -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+
+                    <!-- Kartu identitas -->
+                    <div class="bg-[#0b1f3f] rounded-2xl p-6 text-center shadow-[0_8px_24px_rgba(15,40,90,0.18)]">
+                        <div class="relative inline-block">
+                            <img id="profile-photo" class="h-24 w-24 rounded-2xl object-cover bg-white/10" src="" alt="Foto Profil">
+                            <label for="photo-input" class="absolute -bottom-1 -right-1 bg-[#0b84ff] text-white w-8 h-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors cursor-pointer flex items-center justify-center" title="Ganti Foto">
+                                <i class="fas fa-camera text-xs"></i>
+                            </label>
+                            <input type="file" id="photo-input" accept="image/*" class="hidden" onchange="previewPhoto(this)">
+                        </div>
+                        <h2 id="display-name" class="text-xl font-extrabold text-white tracking-tight mt-3">{{ user_name or 'Pengguna' }}</h2>
+                        <p id="display-jabatan" class="text-xs text-slate-300 mt-0.5">-</p>
+                        <span id="display-email" class="hidden"></span>
+                        <div class="mt-3">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-bold text-slate-200"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Aktif bekerja</span>
+                        </div>
+                        <div class="border-t border-white/15 mt-5 pt-4 text-left space-y-3">
+                            <div>
+                                <p class="text-[11px] text-slate-400">Departemen</p>
+                                <p id="display-departemen" class="text-[13px] font-bold text-white">-</p>
+                            </div>
+                            <div>
+                                <p class="text-[11px] text-slate-400">Lokasi kerja</p>
+                                <p id="display-lokasi" class="text-[13px] font-bold text-white">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informasi pribadi -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl border border-white shadow-[0_8px_24px_rgba(15,40,90,0.06)] p-6 sm:p-7">
+                        <form id="biodata-form">
+                            <div class="flex items-start justify-between gap-3 mb-5">
+                                <div>
+                                    <h3 class="text-[15px] font-extrabold text-slate-900">Informasi pribadi</h3>
+                                    <p class="text-xs text-slate-500 mt-0.5">Perbarui data kontak dan informasi kerja.</p>
+                                </div>
+                                <button type="submit" class="flex-shrink-0 bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-colors">Simpan perubahan</button>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="biodata-nama" class="block text-[11px] font-semibold text-slate-500 mb-1.5">Nama lengkap</label>
+                                    <input type="text" id="biodata-nama" name="nama" class="block w-full bg-slate-100 border border-transparent rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white focus:border-blue-300" required>
+                                </div>
+                                <div>
+                                    <label for="biodata-email" class="block text-[11px] font-semibold text-slate-500 mb-1.5">Email</label>
+                                    <input type="email" id="biodata-email" name="email" class="block w-full bg-slate-100 border border-transparent rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white focus:border-blue-300" placeholder="nama@gmail.com" pattern="[a-z0-9._%+-]+@gmail\.com" required>
+                                </div>
+                                <div>
+                                    <label for="biodata-telepon" class="block text-[11px] font-semibold text-slate-500 mb-1.5">Nomor telepon</label>
+                                    <input type="tel" id="biodata-telepon" name="telepon" class="block w-full bg-slate-100 border border-transparent rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white focus:border-blue-300" placeholder="08xxxxxxxxxx" pattern="[0-9]*" inputmode="numeric" required>
+                                </div>
+                                <div>
+                                    <label for="biodata-jabatan" class="block text-[11px] font-semibold text-slate-500 mb-1.5">Jabatan</label>
+                                    <input type="text" id="biodata-jabatan" readonly tabindex="-1" class="block w-full bg-slate-100 border border-transparent rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white focus:border-blue-300 text-slate-500 cursor-default" value="-">
+                                </div>
+                                <div>
+                                    <label for="biodata-nrp" class="block text-[11px] font-semibold text-slate-500 mb-1.5">NRP</label>
+                                    <input type="text" id="biodata-nrp" name="nrp" inputmode="numeric" pattern="[0-9]*" class="block w-full bg-slate-100 border border-transparent rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white focus:border-blue-300" placeholder="Hanya angka" required>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="display-atasan" class="block text-[11px] font-semibold text-slate-500 mb-1.5">Atasan langsung</label>
+                                    <input type="text" id="display-atasan" readonly tabindex="-1" class="block w-full bg-slate-100 border border-transparent rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white focus:border-blue-300 text-slate-500 cursor-default" value="-">
+                                </div>
+                            </div>
+                            <div id="biodata-message" class="text-xs font-medium p-3 rounded-lg hidden mt-4"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Form Password -->
+                <div class="bg-white rounded-2xl border border-white shadow-[0_8px_24px_rgba(15,40,90,0.06)] p-6 sm:p-8">
+                    <div class="border-b border-slate-100 pb-4 mb-6">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fas fa-key text-blue-700"></i> Ubah Kata Sandi Akun
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">Pastikan Anda menggunakan kata sandi yang kuat dan aman.</p>
+                    </div>
+
+                    <form id="change-password-form" class="space-y-4 max-w-lg">
+                        <div>
+                            <label for="old_password" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Kata Sandi Lama</label>
+                            <input type="password" name="old_password" id="old_password" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                        </div>
+                        <div>
+                            <label for="new_password" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Kata Sandi Baru</label>
+                            <input type="password" name="new_password" id="new_password" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                        </div>
+                        <div>
+                            <label for="confirm_new_password" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Konfirmasi Kata Sandi Baru</label>
+                            <input type="password" name="confirm_new_password" id="confirm_new_password" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                        </div>
+
+                        <div id="password-message" class="text-xs font-medium p-3 rounded-lg hidden"></div>
+
+                        <button type="submit" class="w-full sm:w-auto bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg hover:bg-blue-800 transition-colors text-xs flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fas fa-save"></i> Simpan Kata Sandi Baru
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+<script>
+    // Mobile Sidebar Logic
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const mobileClose = document.getElementById('mobile-sidebar-close');
+
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    mobileClose?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
+    // Photo Preview
+    function previewPhoto(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-photo').src = e.target.result;
+                document.getElementById('nav-avatar').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Load biodata on page load
+    document.addEventListener('DOMContentLoaded', loadBiodata);
+
+    async function loadBiodata() {
+        try {
+            const response = await fetch('/api/user/profile');
+            if (response.ok) {
+                const data = await response.json();
+                fillBiodataForm(data);
+            }
+        } catch (error) {
+            console.error('Gagal memuat biodata:', error);
+        }
+    }
+
+    function fillBiodataForm(data) {
+        if (data.nama) document.getElementById('biodata-nama').value = data.nama;
+        if (data.nrp) document.getElementById('biodata-nrp').value = data.nrp;
+        if (data.email) document.getElementById('biodata-email').value = data.email;
+        if (data.telepon) document.getElementById('biodata-telepon').value = data.telepon;
+        if (data.foto) {
+            document.getElementById('profile-photo').src = data.foto;
+            document.getElementById('nav-avatar').src = data.foto;
+        }
+        if (data.nama) document.getElementById('display-name').textContent = data.nama;
+        if (data.email) document.getElementById('display-email').textContent = data.email;
+        document.getElementById('display-jabatan').textContent = data.jabatan_tampil || '-';
+        document.getElementById('biodata-jabatan').value = data.jabatan_tampil || '-';
+        document.getElementById('display-departemen').textContent = data.bagian || data.asal || '-';
+        document.getElementById('display-lokasi').textContent = data.asal || '-';
+        document.getElementById('display-atasan').value = data.atasan_nama || '-';
+    }
+
+    // Biodata Form Submit
+    document.getElementById('biodata-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);  
+        const messageArea = document.getElementById('biodata-message');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.innerHTML;
+
+        // Add photo if changed
+        const photoInput = document.getElementById('photo-input');
+        if (photoInput.files[0]) {
+            formData.append('foto', photoInput.files[0]);
+        }
+
+        messageArea.className = 'text-xs font-medium p-3 rounded-lg hidden';
+        submitButton.disabled = true;
+        submitButton.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Menyimpan...`;
+
+        try {
+            const response = await fetch('/api/user/profile', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+
+            messageArea.textContent = result.message || result.error;
+            messageArea.classList.remove('hidden');
+            if (response.ok) {
+                messageArea.classList.add('bg-emerald-50', 'text-emerald-700', 'border', 'border-emerald-200');
+                // Update display
+                loadBiodata();
+            } else {
+                messageArea.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
+            }
+        } catch (error) {
+            messageArea.textContent = 'Terjadi kesalahan jaringan. Coba lagi.';
+            messageArea.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
+            messageArea.classList.remove('hidden');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+        }
+    });
+
+    // Form Change Password
+    document.getElementById('change-password-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const messageArea = document.getElementById('password-message');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.innerHTML;
+
+        messageArea.className = 'text-xs font-medium p-3 rounded-lg hidden';
+        submitButton.disabled = true;
+        submitButton.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Memproses...`;
+
+        try {
+            const response = await fetch('/api/change-password', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+
+            messageArea.textContent = result.message || result.error;
+            messageArea.classList.remove('hidden');
+            if (response.ok) {
+                messageArea.classList.add('bg-emerald-50', 'text-emerald-700', 'border', 'border-emerald-200');
+                form.reset();
+            } else {
+                messageArea.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
+            }
+        } catch (error) {
+            messageArea.textContent = 'Terjadi kesalahan jaringan. Coba lagi.';
+            messageArea.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
+            messageArea.classList.remove('hidden');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+        }
+    });
+
+    // ===== END FORM PASSWORD =====
+</script>
+<script>
+// Tugas Saya hanya untuk atasan yang mempunyai atasan langsung;
+// atasan paling tinggi tidak menampilkannya.
+fetch('/api/user/profile').then(r=>r.ok?r.json():null).then(p=>{const ok=!!(p&&p.punya_atasan_langsung);document.querySelectorAll('[data-nav-tugas-saya]').forEach(e=>{if(ok){e.style.display='flex';}else{e.remove();}});}).catch(()=>{});
+</script>
+<script>
+(function(){
+    async function samakanFoto(){
+        try{
+            const res = await fetch('/api/user/profile');
+            if(!res.ok) return;
+            const data = await res.json();
+            if(data.foto) document.querySelectorAll('.avatar-user').forEach(img=>{img.src=data.foto;});
+            if(data.nama) document.querySelectorAll('.nama-user').forEach(el=>{el.textContent=data.nama;});
+        }catch(e){}
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',samakanFoto);
+    else samakanFoto();
+})();
+</script>
+</body>
+</html>

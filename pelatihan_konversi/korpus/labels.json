@@ -1,0 +1,505 @@
+{
+  "kasus": [
+    {
+      "margin_L_in": 1.25,
+      "paragraf": [
+        {
+          "kunci": "SURAT KEPUTUSAN",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "kesiapan operasional",
+          "align": "LEFT",
+          "indent": false
+        },
+        {
+          "kunci": "Ditetapkan di Jakarta",
+          "align": "LEFT",
+          "indent": true
+        },
+        {
+          "kunci": "Sangat Segera",
+          "align": "LEFT",
+          "warna": "FF0000"
+        },
+        {
+          "kunci": "Ttd. Komandan",
+          "align": "RIGHT"
+        }
+      ],
+      "tabel": 1,
+      "gambar": 1,
+      "teks_harus_ada": [
+        "seluruh anggota"
+      ],
+      "teks_harus_tidak_ada": [
+        "\n3\n"
+      ],
+      "pdf": "01-dasar.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "BULETIN DUA KOLOM",
+          "align": "HEADING"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "urutan": [
+        "apel pagi",
+        "latihan menembak"
+      ],
+      "pdf": "02-kolom.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "Hasil pemantauan wilayah",
+          "align": "LEFT"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "teks_harus_ada": [
+        "pemantauan",
+        "pelaksanaan"
+      ],
+      "teks_harus_tidak_ada": [
+        "pemantau-",
+        "pela-"
+      ],
+      "pdf": "03-hubung.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "DAFTAR HADIR",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "Apel pagi",
+          "align": "LIST"
+        },
+        {
+          "kunci": "Pembina apel",
+          "align": "LIST"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "pdf": "04-daftar.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "laporan kegiatan rutin",
+          "align": "LEFT"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "header_harus_ada": [
+        "MARKAS BESAR TNI"
+      ],
+      "kop_tidak_di_badan": [
+        "MARKAS BESAR TNI - SATUAN SIBER"
+      ],
+      "pdf": "05-kop.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "PENGUMUMAN PENTING",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "Jadwal latihan",
+          "align": "LEFT",
+          "bold": true
+        },
+        {
+          "kunci": "wajib membawa",
+          "align": "LEFT",
+          "italic": true
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "pdf": "06-format.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "SURAT EDARAN",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "apel pagi",
+          "align": "JUSTIFY"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "pdf": "07-justify.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "Hasil transformasi organisasi",
+          "align": "LEFT"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "teks_harus_ada": [
+        "transformasi",
+        "organisasi",
+        "implementasi"
+      ],
+      "teks_harus_tidak_ada": [
+        "organi­sasi",
+        "implemen­tasi"
+      ],
+      "pdf": "08-hubung-unicode.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "MARKAS BESAR",
+          "align": "CENTER"
+        },
+        {
+          "kunci": "Jakarta, 5 Oktober 2026",
+          "align": "RIGHT"
+        },
+        {
+          "kunci": "pemantauan wilayah",
+          "align_any": [
+            "LEFT",
+            "JUSTIFY"
+          ]
+        },
+        {
+          "kunci": "Panglima TNI",
+          "align": "LIST"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "teks_harus_ada": [
+        "Jakarta, 5 Oktober 2026",
+        "Kasum TNI"
+      ],
+      "pdf": "09-kopsurat.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "LAPORAN SINGKAT",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "Kegiatan evaluasi",
+          "align": "LEFT"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "teks_harus_ada": [
+        "staf operasi",
+        "September 2026"
+      ],
+      "pdf": "10-catatan-kaki.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "Mini Journal",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "transformasi digital",
+          "align": "LEFT"
+        },
+        {
+          "kunci": "REFERENCES",
+          "align": "HEADING"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "urutan": [
+        "membahas transformasi",
+        "Smith J"
+      ],
+      "teks_harus_ada": [
+        "Digital systems",
+        "Transformation. 2024"
+      ],
+      "pdf": "11-jurnal-mini.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "MINISTRY OF DEFENSE",
+          "align": "CENTER"
+        },
+        {
+          "kunci": "DEFENSE UNIVERSITY",
+          "align": "CENTER"
+        },
+        {
+          "kunci": "OFFICIAL MEMO NUMBER",
+          "align": "CENTER"
+        },
+        {
+          "kunci": "pursuant to the decree",
+          "align": "LEFT"
+        },
+        {
+          "kunci": "Bogor, 22 February 2026",
+          "align": "RIGHT"
+        },
+        {
+          "kunci": "Henry Setiyanto",
+          "align": "RIGHT"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "pdf": "12-kop-lebar.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "Catatan kaki",
+          "align": "LEFT",
+          "super": "1"
+        },
+        {
+          "kunci": "Rumus air H",
+          "align": "LEFT",
+          "super": "2"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "teks_harus_ada": [
+        "berlaku mulai Januari",
+        "sangat penting"
+      ],
+      "pdf": "13-pangkat.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "Pengantar singkat",
+          "align": "LEFT"
+        },
+        {
+          "kunci": "Penutup sesudah",
+          "align": "LEFT"
+        }
+      ],
+      "tabel": 1,
+      "gambar": 0,
+      "teks_harus_ada": [
+        "Pengantar singkat",
+        "Penutup sesudah"
+      ],
+      "teks_tidak_ganda": [
+        "Budi",
+        "Siber",
+        "Sari"
+      ],
+      "pdf": "14-tabel-teks.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "wajib dibaca",
+          "align": "LEFT"
+        }
+      ],
+      "tabel": 0,
+      "gambar": 0,
+      "tidak_di_badan": [
+        "RAHASIA",
+        "DITERIMA"
+      ],
+      "pdf": "15-watermark.pdf"
+    },
+    {
+      "paragraf": [
+        {
+          "kunci": "Rizky Ramadhan",
+          "align": "HEADING"
+        }
+      ],
+      "tabel": 1,
+      "gambar": 1,
+      "teks_harus_ada": [
+        "TECHNICAL SKILLS",
+        "ACHIEVEMENTS"
+      ],
+      "tidak_di_badan": [
+        "RAHASIA"
+      ],
+      "pdf": "16-cv-watermark.pdf",
+      "tabel_harus_ada": [
+        "Gold Medal National Olympiad",
+        "2022"
+      ]
+    },
+    {
+      "pdf": "17-uji-word.pdf",
+      "paragraf": [
+        {
+          "kunci": "Dokumen Uji Konversi Word ke PDF",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "Teks ini tebal (Bold)",
+          "align": "LEFT",
+          "bold": true
+        },
+        {
+          "kunci": "Teks ini miring (Italic)",
+          "align": "LEFT",
+          "italic": true
+        },
+        {
+          "kunci": "berwarna merah",
+          "align": "LEFT",
+          "warna": "FF0000"
+        },
+        {
+          "kunci": "berwarna biru",
+          "align": "LEFT",
+          "warna": "0000FF"
+        },
+        {
+          "kunci": "Daftar (List)",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "Item pertama (Bullet)",
+          "align": "LIST"
+        },
+        {
+          "kunci": "Langkah 1 (Number)",
+          "align": "LIST"
+        },
+        {
+          "kunci": "Tabel Data",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "Teks ini rata tengah",
+          "align": "CENTER"
+        },
+        {
+          "kunci": "Teks ini rata kanan",
+          "align": "RIGHT"
+        },
+        {
+          "kunci": "Di bawah ini adalah gambar",
+          "align": "LEFT"
+        }
+      ],
+      "tabel": 1,
+      "gambar": 1,
+      "teks_harus_ada": [
+        "Sisipan Gambar",
+        "dicoret"
+      ],
+      "teks_tidak_ganda": [
+        "Komponen 1",
+        "Menunggu",
+        "Nama Komponen"
+      ]
+    },
+    {
+      "pdf": "18-cv-nyata.pdf",
+      "paragraf": [
+        {
+          "kunci": "Rizky Ramadhan Nasution",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "PROFESSIONAL SUMMARY",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "strong interest in data analysis",
+          "align": "JUSTIFY"
+        },
+        {
+          "kunci": "operating systems",
+          "align": "JUSTIFY"
+        },
+        {
+          "kunci": "effective communication and teamwork",
+          "align": "JUSTIFY"
+        },
+        {
+          "kunci": "impactful technology solutions",
+          "align": "JUSTIFY"
+        },
+        {
+          "kunci": "TECHNICAL SKILLS",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "Public Speaking",
+          "align": "LEFT"
+        },
+        {
+          "kunci": "Programming Languages",
+          "align": "LEFT"
+        },
+        {
+          "kunci": "Game Engineering",
+          "align": "LEFT"
+        },
+        {
+          "kunci": "Windows Subsystem",
+          "align": "LEFT"
+        },
+        {
+          "kunci": "ACHIEVEMENTS",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "EDUCATION",
+          "align": "HEADING"
+        },
+        {
+          "kunci": "Bachelor of Informatics Engineering",
+          "align": "LEFT"
+        },
+        {
+          "kunci": "ORGANIZATIONAL EXPERIENCE",
+          "align": "HEADING"
+        }
+      ],
+      "tabel": 3,
+      "gambar": 1,
+      "teks_harus_ada": [
+        "ramadanrizky941@gmail.com"
+      ],
+      "tabel_harus_ada": [
+        "Silver Medal in the UIKA",
+        "2025",
+        "Republic of Indonesia Defense University",
+        "2023 - Present",
+        "Corps Regimental Logistics Commander",
+        "2020 - 2021"
+      ],
+      "tidak_di_badan": [
+        "RAHASIA"
+      ]
+    }
+  ]
+}

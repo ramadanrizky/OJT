@@ -1,0 +1,17 @@
+MEMO DINAS DARI ASINTELOPS KEPADA PARA DANSAT
+
+Menimbang bahwa intensitas serangan siber terhadap infrastruktur kritikal meningkat dalam dua pekan terakhir, dipandang perlu meningkatkan kewaspadaan seluruh jajaran.
+
+Mengingat Peraturan Panglima TNI Nomor 6 Tahun 2025 tentang organisasi dan tugas Satuan Siber, setiap satuan wajib melaporkan setiap insiden siber paling lambat 1 x 24 jam sejak kejadian terdeteksi.
+
+Memperhatikan hasil evaluasi pada tanggal 15 September 2026 yang menunjukkan masih adanya keterlambatan pelaporan dari 3 satuan, dengan ini diinstruksikan hal-hal sebagai berikut.
+
+Pertama, seluruh Dansat memastikan perangkat pemantau dalam kondisi aktif selama 24 jam setiap hari termasuk hari libur.
+
+Kedua, setiap temuan wajib didokumentasikan dalam format laporan insiden yang telah ditetapkan oleh dr. Tim Forensik.
+
+Ketiga, apel kesiapsiagaan dilaksanakan setiap hari Senin pukul 07.00 WIB dan dipimpin oleh perwira piket.
+
+Keempat, bagi satuan yang belum melengkapi laporan bulan Agustus 2026 agar segera melengkapi paling lambat tanggal 30 September 2026.
+
+Demikian memo ini dikeluarkan untuk dipedomani dan dilaksanakan dengan penuh tanggung jawab. Atas perhatian Sdr. Dansat sekalian disampaikan terima kasih.

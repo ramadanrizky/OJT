@@ -1,0 +1,16 @@
+MARKAS BESAR TENTARA NASIONAL INDONESIA
+SATUAN SIBER
+
+LAPORAN KEGIATAN PATROLI SIBER MINGGU KE-IV BULAN SEPTEMBER 2026
+
+1. Dasar: Surat Perintah Dansatsiber Nomor Sprin/45/IX/2026 tanggal 1 September 2026 tentang pelaksanaan patroli siber.
+2. Maksud dan tujuan: Laporan ini disusun untuk menyampaikan hasil pelaksanaan patroli siber oleh Tim Respons Insiden kepada Bpk. Dansatsiber sebagai bahan evaluasi.
+3. Pelaksanaan: Kegiatan dilaksanakan pada tanggal 22 s.d. 27 September 2026 oleh 6 personel yang dipimpin oleh Sdr. Kapten Inf Andi Pratama, S.T.
+4. Hasil yang dicapai: Tim mendeteksi 14 anomali lalu lintas data, 3 upaya phishing terhadap akun dinas, dan 1 percobaan injeksi pada portal internal.
+5. Tindak lanjut: Seluruh anomali telah diblokir dan dilaporkan kepada Bpk. Asintelops melalui nota dinas Nomor B/88/IX/2026.
+6. Kendala: Keterbatasan lisensi perangkat lunak pemantau versi terbaru sehingga analisis forensik terhadap 2 sampel malware tertunda.
+7. Saran: Mohon pengadaan lisensi tambahan pada triwulan IV tahun anggaran berjalan agar pemantauan berjalan optimal.
+8. Penutup: Demikian laporan ini dibuat dengan sebenarnya untuk dapat dipergunakan sebagaimana mestinya.
+
+Jakarta, 28 September 2026
+Tim Patroli Siber

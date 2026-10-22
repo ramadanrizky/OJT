@@ -1,0 +1,16 @@
+{
+  "kasus": [
+    {
+      "pdf": "scan-memo-dinas.pdf",
+      "ground_truth": "MEMORANDUM DINAS\nKepala Bagian Operasi kepada seluruh personel.\nBersama ini disampaikan jadwal apel pagi pada hari Senin.\nApel dilaksanakan pukul tujuh tepat di lapangan utama.\nSeluruh personel wajib hadir dengan seragam dinas."
+    },
+    {
+      "pdf": "scan-surat-undangan.pdf",
+      "ground_truth": "SURAT UNDANGAN RAPAT\nNomor B/12/VIII/2026 tanggal 3 Oktober 2026.\nRapat evaluasi mingguan dilaksanakan hari Jumat.\nTempat di ruang rapat utama lantai dua.\nPeserta seluruh perwira dan bintara tinggi."
+    },
+    {
+      "pdf": "scan-pengumuman.pdf",
+      "ground_truth": "PENGUMUMAN HASIL SELEKSI\nPanitia mengumumkan hasil seleksi administrasi.\nPeserta yang lulus agar hadir pada tahap berikutnya.\nMembawa kartu identitas dan berkas asli.\nJadwal menyusul melalui pengumuman resmi."
+    }
+  ]
+}

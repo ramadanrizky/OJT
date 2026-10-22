@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K.O.M.A.N.D.O - Format Surat</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-[#eef3ff] text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-700 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-[190px] bg-black border-r border-black flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <!-- Logo & Brand Header -->
+            <div class="flex items-center justify-between h-16 bg-black px-4 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded-md bg-[#0b84ff] flex items-center justify-center text-white shadow-sm font-bold text-lg">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-white text-sm tracking-tight block leading-tight">K.O.M.A.N.D.O</span>
+                        <span class="text-[10px] text-blue-400 font-medium">Administrator</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto sidebar-scroll">
+                <a href="dashboard.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tachometer-alt text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Dashboard
+                </a>
+                <a href="kelola-pengguna.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-users-cog text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Kelola Pengguna
+                </a>
+                <a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-plus text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Jadwal Rapat
+                </a>
+                <a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-alt text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Kalender Kegiatan
+                </a>
+                <a href="kelola-pengumuman.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-bullhorn text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Kelola Pengumuman
+                </a>
+                <a href="format-surat.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg shadow-none border border-transparent">
+                    <i class="fas fa-file-word text-sm w-5 text-center mr-3 text-blue-200"></i> Format Surat
+                </a>
+            </nav>
+
+            <!-- Bottom Profile & Logout -->
+            <div class="p-3 border-t border-white/10">
+                <a href="/logout" class="flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-red-950/40 hover:text-red-400 rounded-lg transition-colors border border-transparent hover:border-red-900/50">
+                    <i class="fas fa-sign-out-alt text-sm w-5 text-center text-slate-400"></i> Keluar (Logout)
+                </a>
+                <p class="text-center text-[10px] text-white/30 mt-3 font-medium">Versi Sistem: 3.2.0-PROD</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+
+        <!-- Top Navbar -->
+        <header class="relative z-10 flex-shrink-0 h-14 bg-white border-b border-slate-100 flex items-center px-4 sm:px-6 justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <p class="text-[12px] text-slate-500 font-medium whitespace-nowrap">Ruang kerja <span class="mx-1 text-slate-300">›</span> <span class="text-slate-700 font-semibold">Kelola Format Surat</span></p>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                
+                <div class="flex items-center gap-2 border-l border-slate-200 pl-2 sm:pl-3">
+                    <img class="avatar-user h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'Admin' }}&background=0c4a6e&color=fff&bold=true" alt="Foto profil">
+                    <div class="hidden sm:block leading-tight">
+                        <p class="nama-user text-[11px] font-bold text-slate-900">{{ user_name or 'Admin' }}</p>
+                        <p class="text-[10px] text-slate-400">Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden backdrop-blur-sm"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-[190px] bg-black border-r border-black transform -translate-x-full lg:hidden transition-transform duration-300 ease-out text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between h-16 bg-black px-4 border-b border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-7 h-7 rounded-md bg-[#0b84ff] flex items-center justify-center text-white font-bold text-sm"><i class="fas fa-building-columns"></i></div>
+                        <span class="font-bold text-white text-sm">K.O.M.A.N.D.O</span>
+                    </div>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white rounded-lg"><i class="fas fa-times text-lg"></i></button>
+                </div>
+                <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+                    <a href="dashboard.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3"></i> Dashboard</a>
+                    <a href="kelola-pengguna.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-users-cog text-sm w-5 text-center mr-3"></i> Kelola Pengguna</a>
+                    <a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-plus text-sm w-5 text-center mr-3"></i> Jadwal Rapat</a>
+                    <a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-alt text-sm w-5 text-center mr-3"></i> Kalender Kegiatan</a>
+                    <a href="kelola-pengumuman.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-bullhorn text-sm w-5 text-center mr-3"></i> Kelola Pengumuman</a>
+                    <a href="format-surat.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg"><i class="fas fa-file-word text-sm w-5 text-center mr-3"></i> Format Surat</a>
+                    <a href="/logout" class="text-red-400 hover:bg-red-950/40 flex items-center px-3.5 py-2.5 text-xs rounded-lg mt-6"><i class="fas fa-sign-out-alt text-sm w-5 text-center mr-3"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area Scrollable -->
+        <main class="flex-1 overflow-y-auto bg-[#eef3ff] content-scroll p-4 sm:p-6 lg:p-8">
+            <div class="max-w-5xl mx-auto space-y-6">
+
+                <!-- Form Tambah -->
+                <div class="bg-white rounded-2xl border border-white shadow-[0_8px_24px_rgba(15,40,90,0.06)] p-6">
+                    <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-plus-circle text-blue-700"></i> Tambah Format Baru
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-1">Nama Format *</label>
+                            <input id="f-nama" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="cth: Danpuscertan">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-1">Kode (opsional)</label>
+                            <input id="f-key" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="otomatis dari nama">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-1">YTH. Kepada</label>
+                            <input id="f-kepada" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="cth: YTH. DANPUSCERTAN">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-1">Daftar "Diteruskan Kepada" (pisahkan koma / baris baru)</label>
+                            <textarea id="f-terus" rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none resize-none" placeholder="ASINTELOPS, ASMINLOG, DANPUSCERTAN, ..."></textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-1">File Template .docx *</label>
+                            <input id="f-file" type="file" accept=".docx" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 bg-slate-50 focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                            <p class="text-[11px] text-slate-400 mt-1">Disarankan: duplikat salah satu file di folder dokum/ lalu edit kop & tabelnya, simpan sebagai .docx baru, upload di sini.</p>
+                        </div>
+                    </div>
+                    <button onclick="simpanFormat()" id="btn-simpan" class="mt-4 px-5 py-2 bg-blue-700 text-white rounded-lg text-sm font-bold hover:bg-blue-800"><i class="fas fa-save mr-1"></i> Simpan ke dokum/ & Tampilkan di Opsi</button>
+                    <p id="f-msg" class="text-xs mt-2"></p>
+                </div>
+
+                <!-- Daftar Format -->
+                <div class="bg-white rounded-2xl border border-white shadow-[0_8px_24px_rgba(15,40,90,0.06)] p-6">
+                    <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <i class="fas fa-list text-blue-700"></i> Daftar Format (sumber: folder dokum/)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs">
+                            <thead><tr class="text-left text-slate-500 border-b"><th class="py-2">Format / File</th><th>Kepada</th><th>Diteruskan</th><th>Aksi</th></tr></thead>
+                            <tbody id="format-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+<script>
+    // Mobile Sidebar Logic
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const mobileClose = document.getElementById('mobile-sidebar-close');
+
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    mobileClose?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
+    async function loadFormat(){
+        const res=await fetch('/api/format-surat'); const data=await res.json();
+        const tb=document.getElementById('format-body');
+        tb.innerHTML=data.map(f=>`<tr class="border-b"><td class="py-2"><b>${f.label}</b><br><span class="text-slate-400">dokum/${f.filename} • kode: ${f.key}${f.bawaan?' • bawaan':''}</span></td><td>${f.kepada||'-'}</td><td class="max-w-xs"><span class="text-slate-500">${(f.terus||[]).join(', ')}</span></td><td>${f.bawaan?'<span class="text-slate-400">bawaan</span>':`<button onclick="hapusFormat('${f.key}')" class="px-3 py-1 bg-red-600 text-white rounded-lg font-bold">Hapus</button>`}</td></tr>`).join('');
+    }
+    async function simpanFormat(){
+        const msg=document.getElementById('f-msg'); const btn=document.getElementById('btn-simpan');
+        const file=document.getElementById('f-file').files[0];
+        if(!file){msg.textContent='Pilih file .docx dahulu.';msg.className='text-xs mt-2 text-red-600';return;}
+        const fd=new FormData();
+        fd.append('nama',document.getElementById('f-nama').value);
+        fd.append('key',document.getElementById('f-key').value);
+        fd.append('kepada',document.getElementById('f-kepada').value);
+        fd.append('terus',document.getElementById('f-terus').value);
+        fd.append('file',file);
+        btn.disabled=true;btn.innerHTML='Menyimpan...';
+        try{const res=await fetch('/api/format-surat',{method:'POST',body:fd});const j=await res.json();if(!res.ok)throw new Error(j.error);msg.textContent=j.message;msg.className='text-xs mt-2 text-emerald-600';loadFormat();}catch(e){msg.textContent=e.message;msg.className='text-xs mt-2 text-red-600';}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-save mr-1"></i> Simpan ke dokum/ & Tampilkan di Opsi';}
+    }
+    async function hapusFormat(key){if(!confirm('Hapus format '+key+'? File di dokum/ ikut terhapus.'))return;const res=await fetch('/api/format-surat/'+key,{method:'DELETE'});const j=await res.json();alert(j.message||j.error);loadFormat();}
+    document.addEventListener('DOMContentLoaded',loadFormat);
+</script>
+<script>
+(function(){
+    async function samakanFoto(){
+        try{
+            const res = await fetch('/api/user/profile');
+            if(!res.ok) return;
+            const data = await res.json();
+            if(data.foto) document.querySelectorAll('.avatar-user').forEach(img=>{img.src=data.foto;});
+            if(data.nama) document.querySelectorAll('.nama-user').forEach(el=>{el.textContent=data.nama;});
+        }catch(e){}
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',samakanFoto);
+    else samakanFoto();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K.O.M.A.N.D.O - Persetujuan</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        @keyframes marker-pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+        .marker-pulse { animation: marker-pulse 1.2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-[#eef3ff] text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-700 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-[190px] bg-black border-r border-black flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between h-16 bg-black px-4 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded-md bg-[#0b84ff] flex items-center justify-center text-white shadow-sm font-bold text-lg">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-white text-sm tracking-tight block leading-tight">K.O.M.A.N.D.O</span>
+                        <span class="text-[10px] text-blue-400 font-medium">Atasan</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto sidebar-scroll">
+                <a href="dashboard.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tachometer-alt text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Dashboard
+                </a>
+                <a href="tim-saya.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-users text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Tim Saya
+                </a>
+                <a href="tugas-saya.html" data-nav-tugas-saya style="display:none" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-clipboard-list text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Tugas Saya
+                </a>
+                <a href="beri-tugas.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tasks text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Beri Tugas
+                </a>
+                <a href="persetujuan.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg shadow-none border border-transparent">
+                    <i class="fas fa-check-square text-sm w-5 text-center mr-3 text-blue-200"></i> Persetujuan
+                </a>
+                <a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-plus text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Jadwal Rapat
+                </a>
+                <a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-alt text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Kalender Kegiatan
+                </a>
+                <a href="kelola-pengumuman.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-bullhorn text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Kelola Pengumuman
+                </a>
+                <a href="profile.html" class="text-[#38bdf8] hover:bg-white/10 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-user-circle text-[13px] w-5 text-center mr-2.5 opacity-70"></i> Profil Saya
+                </a>
+            </nav>
+
+            <div class="p-3 border-t border-white/10">
+                <a href="/logout" class="flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-red-950/40 hover:text-red-400 rounded-lg transition-colors border border-transparent hover:border-red-900/50">
+                    <i class="fas fa-sign-out-alt text-sm w-5 text-center text-slate-400"></i> Keluar (Logout)
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="relative z-10 flex-shrink-0 h-14 bg-white border-b border-slate-100 flex items-center px-4 sm:px-6 justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <p class="text-[12px] text-slate-500 font-medium whitespace-nowrap">Ruang kerja <span class="mx-1 text-slate-300">›</span> <span class="text-slate-700 font-semibold">Persetujuan Tugas & Berkas</span></p>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                
+                <div class="flex items-center gap-2 border-l border-slate-200 pl-2 sm:pl-3">
+                    <img class="avatar-user h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'Pimpinan' }}&background=0c4a6e&color=fff&bold=true" alt="Foto profil">
+                    <div class="hidden sm:block leading-tight">
+                        <p class="nama-user text-[11px] font-bold text-slate-900">{{ user_name or 'Pimpinan' }}</p>
+                        <p class="text-[10px] text-slate-400">Atasan Langsung</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden backdrop-blur-sm"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-[190px] bg-black border-r border-black transform -translate-x-full lg:hidden transition-transform duration-300 ease-out text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between h-16 bg-black px-4 border-b border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-7 h-7 rounded-md bg-[#0b84ff] flex items-center justify-center text-white font-bold text-sm"><i class="fas fa-building-columns"></i></div>
+                        <span class="font-bold text-white text-sm">K.O.M.A.N.D.O</span>
+                    </div>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white rounded-lg"><i class="fas fa-times text-lg"></i></button>
+                </div>
+                <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+                    <a href="dashboard.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3"></i> Dashboard</a>
+                    <a href="tim-saya.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-users text-sm w-5 text-center mr-3"></i> Tim Saya</a>
+                    <a href="tugas-saya.html" data-nav-tugas-saya style="display:none" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-clipboard-list text-sm w-5 text-center mr-3"></i> Tugas Saya</a>
+                    <a href="beri-tugas.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tasks text-sm w-5 text-center mr-3"></i> Beri Tugas</a>
+                    <a href="persetujuan.html" class="bg-[#0b84ff] text-white font-semibold flex items-center px-3 py-2 rounded-lg"><i class="fas fa-check-square text-sm w-5 text-center mr-3"></i> Persetujuan</a>
+                    <a href="jadwal-rapat.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-plus text-sm w-5 text-center mr-3"></i> Jadwal Rapat</a>
+                    <a href="kalender-kegiatan.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-alt text-sm w-5 text-center mr-3"></i> Kalender Kegiatan</a>
+                    <a href="kelola-pengumuman.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-bullhorn text-sm w-5 text-center mr-3"></i> Kelola Pengumuman</a>
+                    <a href="profile.html" class="text-[#38bdf8] hover:bg-white/10 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-user-circle text-sm w-5 text-center mr-3"></i> Profil Saya</a>
+                    <a href="/logout" class="text-red-400 hover:bg-red-950/40 flex items-center px-3.5 py-2.5 text-xs rounded-lg mt-6"><i class="fas fa-sign-out-alt text-sm w-5 text-center mr-3"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area Scrollable -->
+        <main class="flex-1 overflow-y-auto bg-[#eef3ff] content-scroll p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fas fa-file-signature text-blue-700"></i> Antrean Persetujuan Hasil Tugas
+                            </h2>
+                            <p class="text-xs text-slate-500 mt-1">File hasil tugas yang dikirim staf untuk diverifikasi dan disetujui.</p>
+                        </div>
+                        <div class="flex gap-1 text-xs">
+                            <button onclick="setFilterPersetujuan('menunggu')" data-pfilter="menunggu" class="pfilter-btn px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition-colors">Menunggu</button>
+                            <button onclick="setFilterPersetujuan('disetujui')" data-pfilter="disetujui" class="pfilter-btn px-3 py-1.5 rounded-lg font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">Disetujui</button>
+                            <button onclick="setFilterPersetujuan('ditolak')" data-pfilter="ditolak" class="pfilter-btn px-3 py-1.5 rounded-lg font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">Ditolak</button>
+                            <button onclick="setFilterPersetujuan('semua')" data-pfilter="semua" class="pfilter-btn px-3 py-1.5 rounded-lg font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">Semua</button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">Tugas</th>
+                                    <th scope="col" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">Diajukan Oleh</th>
+                                    <th scope="col" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">File Hasil</th>
+                                    <th scope="col" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">Status</th>
+                                    <th scope="col" class="px-6 py-3.5 text-right text-xs font-bold text-slate-700 uppercase tracking-wider">Aksi Keputusan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="persetujuan-body" class="bg-white divide-y divide-slate-200 text-xs">
+                                <tr>
+                                    <td colspan="5" class="px-6 py-12 text-center text-slate-500">
+                                        <i class="fas fa-spinner fa-spin mr-2"></i> Memuat pengajuan...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Surat Masuk Disposisi -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fas fa-inbox text-violet-600"></i> Surat Disposisi
+                            </h2>
+                            <p class="text-xs text-slate-500 mt-1">Surat yang ditujukan kepada Anda, plus yang pernah Anda kirim/teruskan.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex gap-1 text-xs">
+                                <button onclick="setTabSurat('masuk')" data-tabsurat="masuk" class="tabsurat-btn px-3 py-1.5 rounded-lg font-semibold bg-violet-600 text-white transition-colors">Masuk</button>
+                                <button onclick="setTabSurat('keluar')" data-tabsurat="keluar" class="tabsurat-btn px-3 py-1.5 rounded-lg font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">Terkirim</button>
+                            </div>
+                            <button onclick="muatTabSurat()" class="px-3 py-1.5 bg-violet-50 border border-violet-200 text-violet-700 rounded-lg text-xs font-semibold hover:bg-violet-100"><i class="fas fa-sync mr-1"></i> Muat Ulang</button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase">Perihal / No. Surat</th>
+                                    <th id="th-surat-tengah" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase">Dari</th>
+                                    <th class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase">Tanggal</th>
+                                    <th class="px-6 py-3.5 text-right text-xs font-bold text-slate-700 uppercase">Berkas</th>
+                                </tr>
+                            </thead>
+                            <tbody id="surat-masuk-body" class="bg-white divide-y divide-slate-200 text-xs">
+                                <tr><td colspan="4" class="px-6 py-12 text-center text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat surat masuk...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Rantai Terusan Surat -->
+                <div id="panel-rantai" class="hidden bg-white rounded-2xl shadow-sm border border-violet-200 overflow-hidden">
+                    <div class="p-6 border-b border-violet-100 flex items-center justify-between bg-violet-50/50">
+                        <div>
+                            <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fas fa-link text-violet-600"></i> Rantai Terusan <span id="rantai-judul" class="text-xs font-semibold text-slate-500"></span>
+                            </h2>
+                        </div>
+                        <button onclick="tutupRantai()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div id="rantai-isi" class="p-6"></div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-200">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fas fa-history text-slate-500"></i> Riwayat Keputusan
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Semua pengajuan yang sudah disetujui atau ditolak, lengkap dengan berkasnya.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">Tugas</th>
+                                    <th scope="col" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">Diajukan Oleh</th>
+                                    <th scope="col" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">File Hasil</th>
+                                    <th scope="col" class="px-6 py-3.5 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">Keputusan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="riwayat-body" class="bg-white divide-y divide-slate-200 text-xs">
+                                <tr>
+                                    <td colspan="4" class="px-6 py-12 text-center text-slate-500">
+                                        <i class="fas fa-spinner fa-spin mr-2"></i> Memuat riwayat...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Teruskan Disposisi ke Bawahan -->
+    <div id="modal-teruskan" class="fixed inset-0 bg-slate-900/60 hidden flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-5xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="px-5 py-3 bg-slate-900 text-white flex justify-between items-center border-b border-slate-800 flex-shrink-0">
+                <div class="flex items-center gap-2"><i class="fas fa-share text-violet-400"></i><div><h3 class="text-sm font-bold">Teruskan Disposisi ke Bawahan</h3><p class="text-[10px] text-slate-400">Pilih bawahan langsung & format surat seperti user</p></div></div>
+                <button onclick="tutupTeruskan()" class="text-slate-400 hover:text-white"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-5 bg-slate-50 space-y-4" style="scrollbar-width:thin">
+                <div class="bg-white rounded-xl border border-violet-200 p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div id="terus-tujuan-wrap">
+                        <label class="block text-[10px] font-bold uppercase text-violet-700 mb-1">Teruskan Kepada — Pilih Tujuan <span class="normal-case font-semibold text-violet-500">(bisa lebih dari satu)</span></label>
+                        <input id="terus-cari" type="text" placeholder="🔍 Cari bawahan / atasan..." autocomplete="off" class="w-full border border-violet-200 rounded-lg px-3 py-1.5 text-xs mb-1.5 focus:ring-2 focus:ring-violet-600 focus:outline-none">
+                        <div id="terus-tujuan-check" class="border border-violet-300 rounded-lg max-h-44 overflow-y-auto bg-white">
+                            <p class="text-[11px] text-slate-400 px-3 py-2">Memuat daftar tujuan...</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-1">
+                            <p class="text-[10px] text-slate-400"><span id="terus-count" class="font-bold text-violet-700">0 dipilih</span> — centang bawahan & atasan, kirim ke semuanya sekaligus.</p>
+                            <div class="flex gap-1">
+                                <button type="button" onclick="teruskanPilihSemua(true)" class="text-[10px] font-bold px-2 py-1 rounded-full bg-violet-100 text-violet-700 hover:bg-violet-200">Semua</button>
+                                <button type="button" onclick="teruskanPilihSemua(false)" class="text-[10px] font-bold px-2 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200">Hapus</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="terus-otomatis-info" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-xs text-emerald-800">
+                        <p class="font-bold mb-1"><i class="fas fa-share mr-1"></i> Langsung ke Bagian Persuratan</p>
+                        <p>Atasan tingkat 1–2 meneruskan otomatis ke staf persuratan. Isi format & catatan, lalu tekan <b>Teruskan</b> / <b>Batal</b> di bawah.</p>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase text-violet-700 mb-1">Opsi Lembar Disposisi (Format Surat)</label>
+                        <select id="terus-varian" onchange="renderTeruskanCheck()" class="w-full border border-violet-300 rounded-lg px-3 py-2 text-xs font-semibold bg-violet-50 text-violet-900 focus:ring-2 focus:ring-violet-600 focus:outline-none">
+                            <option value="dansat">Opsi 1 — Dansatsiber (Lembar_Disposisi_Satsiber_TNI.docx)</option>
+                            <option value="wadan">Opsi 2 — Wadansatsiber (Wadansatsiber.docx)</option>
+                            <option value="asintelops">Opsi 3 — Asintelops (asintelops.docx)</option>
+                            <option value="asminlog">Opsi 4 — Asminlog (ASIMINLOG.docx)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border border-amber-200 p-4">
+                    <label class="block text-[10px] font-bold uppercase text-amber-700 mb-1"><i class="fas fa-file-pdf mr-1"></i> Lampiran PDF Surat Undangan (dari pengirim pertama)</label>
+                    <div id="terus-lampiran-asal" class="text-[11px] bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-500">Memuat info lampiran...</div>
+                    <p class="text-[10px] text-slate-400 mt-1">Lampiran ini otomatis ikut diteruskan ke bawahan bersama disposisi — atasan tidak perlu upload ulang.</p>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-4">
+                    <label class="block text-[10px] font-bold uppercase text-slate-600 mb-1">Paraf — Tanda Tangan Digital</label>
+                    <div class="border border-slate-300 rounded-xl overflow-hidden bg-white">
+                        <canvas id="terus-sig-canvas" width="700" height="180" class="w-full h-[120px] bg-white block" style="touch-action:none; cursor:crosshair;"></canvas>
+                        <div class="flex gap-2 p-2 bg-slate-50 border-t items-center">
+                            <button type="button" onclick="clearTerusSig()" class="text-xs px-3 py-1.5 bg-white border rounded-lg hover:bg-slate-100"><i class="fas fa-eraser mr-1"></i> Hapus</button>
+                            <label class="text-xs px-3 py-1.5 bg-white border rounded-lg hover:bg-slate-100 cursor-pointer"><i class="fas fa-upload mr-1"></i> Upload<input type="file" id="terus-sig-upload" accept="image/*" class="hidden" onchange="loadTerusSig(event)"></label>
+                            <input type="text" id="terus-paraf" placeholder="Nama/inisial paraf" class="flex-1 border border-slate-300 rounded-lg px-2 py-1 text-xs">
+                        </div>
+                    </div>
+                    <input type="hidden" id="terus-paraf-image">
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-4">
+                    <h4 class="text-xs font-extrabold text-slate-900 mb-2">Disposisi — Centang</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div><p class="text-[10px] font-extrabold uppercase text-violet-700 mb-1 border-b border-violet-200 pb-1">Diteruskan Kepada</p><div id="terus-check-terus" class="space-y-1 max-h-52 overflow-y-auto pr-1"></div></div>
+                        <div><p class="text-[10px] font-extrabold uppercase text-violet-700 mb-1 border-b border-violet-200 pb-1">Isi (1)</p><div id="terus-check-isi1" class="space-y-1 max-h-52 overflow-y-auto pr-1"></div></div>
+                        <div><p class="text-[10px] font-extrabold uppercase text-violet-700 mb-1 border-b border-violet-200 pb-1">Isi (2)</p><div id="terus-check-isi2" class="space-y-1 max-h-52 overflow-y-auto pr-1"></div></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-4">
+                    <label class="block text-[10px] font-bold uppercase text-slate-600 mb-1">Catatan / Instruksi Tambahan</label>
+                    <textarea id="terus-catatan" rows="3" placeholder="Tambahkan instruksi..." class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-violet-600 focus:outline-none resize-none"></textarea>
+                    <p class="text-[10px] text-slate-400 mt-1">Perihal, nomor, dan identitas surat asli akan otomatis terbawa. <b>Preview Hasil</b> menampilkan lembar disposisi sesuai isian Anda (format, centang, catatan, dan paraf) sebelum diteruskan.</p>
+                </div>
+            </div>
+            <div class="p-4 border-t flex flex-row items-center justify-end gap-2 bg-white flex-shrink-0 w-full sticky bottom-0 z-10">
+                <button type="button" onclick="previewTeruskan()" class="mr-auto px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-50"><i class="fas fa-eye mr-1"></i> Preview Hasil</button>
+                <button type="button" onclick="pdfTeruskan(this)" class="px-4 py-2 bg-red-500 text-white rounded-lg text-xs font-bold hover:bg-red-600"><i class="fas fa-file-pdf mr-1"></i> Unduh PDF</button>
+                <button onclick="tutupTeruskan()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-200">Batal</button>
+                <button id="btn-teruskan-kirim" onclick="kirimTeruskan()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold hover:bg-emerald-700"><i class="fas fa-paper-plane mr-1"></i> Teruskan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Preview Hasil Isian Teruskan (bukan surat asal) -->
+    <div id="modal-preview-teruskan" class="fixed inset-0 bg-slate-900/60 hidden flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="px-5 py-3 bg-slate-900 text-white flex justify-between items-center border-b border-slate-800 flex-shrink-0">
+                <div class="flex items-center gap-2"><i class="fas fa-file-signature text-violet-400"></i><div><h3 class="text-sm font-bold">Preview Hasil Teruskan</h3><p class="text-[10px] text-slate-400">Pratinjau sesuai isian Anda: format, centang disposisi, catatan & paraf</p></div></div>
+                <button onclick="tutupPreviewTeruskan()" class="text-slate-400 hover:text-white"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 bg-slate-100">
+                <div id="preview-teruskan-isi" class="bg-white shadow-sm border border-slate-300 mx-auto" style="width:210mm; min-height:270mm; padding:15mm 18mm; font-family:Arial, sans-serif; color:#000; font-size:9pt;"></div>
+            </div>
+            <div class="p-3 border-t flex justify-end gap-2 bg-white flex-wrap">
+                <button onclick="tutupPreviewTeruskan()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-200">Kembali</button>
+                <button id="btn-preview-teruskan-pdf" onclick="pdfPreviewTeruskan(this)" class="px-4 py-2 bg-red-500 text-white rounded-lg text-xs font-bold hover:bg-red-600"><i class="fas fa-file-pdf mr-1"></i> Unduh PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal jejak aktivitas surat -->
+    <div id="modal-jejak" class="fixed inset-0 bg-slate-900/60 hidden flex items-center justify-center z-[60] p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-md overflow-hidden">
+            <div class="px-5 py-3 bg-slate-900 text-white flex justify-between items-center border-b border-slate-800">
+                <div class="flex items-center gap-2"><i class="fas fa-route text-emerald-400"></i><h3 class="text-sm font-bold">Jejak Surat</h3></div>
+                <button onclick="tutupJejak()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-5">
+                <p id="jejak-perihal" class="text-sm font-bold text-slate-900 mb-3"></p>
+                <div id="jejak-isi" class="space-y-0"></div>
+            </div>
+            <div class="p-3 border-t border-slate-100 text-right bg-slate-50">
+                <button onclick="tutupJejak()" class="px-5 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-700">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal info tengah: sukses teruskan & surat baru tiba -->
+    <div id="modal-info-tengah" class="fixed inset-0 bg-slate-900/60 hidden flex items-center justify-center z-[60] p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-sm overflow-hidden">
+            <div id="info-tengah-head" class="px-5 py-4 text-white flex items-center gap-3 border-b bg-slate-800">
+                <span id="info-tengah-dot" class="w-4 h-4 rounded-full flex-shrink-0 bg-slate-300 border-2 border-white/70"></span>
+                <div>
+                    <h3 id="info-tengah-judul" class="text-sm font-extrabold leading-tight">Disposisi Diteruskan!</h3>
+                    <p id="info-tengah-badge" class="text-[10px] font-bold opacity-90"></p>
+                </div>
+                <i id="info-tengah-ikon" class="fas fa-check-circle ml-auto text-2xl opacity-90"></i>
+            </div>
+            <div class="p-5">
+                <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Perihal</p>
+                <p id="info-tengah-perihal" class="text-sm font-bold text-slate-900 mb-3"></p>
+                <p id="info-tengah-tujuan-label" class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Tujuan</p>
+                <p id="info-tengah-tujuan" class="text-xs text-slate-700 mb-3"></p>
+                <p id="info-tengah-tg" class="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2"></p>
+            </div>
+            <div class="p-3 border-t border-slate-100 flex justify-end gap-2 bg-slate-50">
+                <button id="info-tengah-lihat" onclick="infoTengahLihat()" class="hidden px-4 py-2 bg-violet-600 text-white rounded-lg text-xs font-bold hover:bg-violet-700"><i class="fas fa-eye mr-1"></i> Lihat Surat</button>
+                <button id="info-tengah-pdf" onclick="infoTengahPDF(this)" class="hidden px-4 py-2 bg-red-500 text-white rounded-lg text-xs font-bold hover:bg-red-600"><i class="fas fa-file-pdf mr-1"></i> Unduh PDF</button>
+                <button onclick="tutupInfoTengah()" class="px-5 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-700">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Lihat Disposisi -->
+    <div id="modal-lihat" class="fixed inset-0 bg-slate-900/60 hidden flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="px-5 py-3 bg-slate-900 text-white flex justify-between items-center border-b border-slate-800 flex-shrink-0">
+                <div class="flex items-center gap-2"><i class="fas fa-eye text-violet-400"></i><h3 class="text-sm font-bold">Lihat Lembar Disposisi</h3></div>
+                <button onclick="tutupLihat()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 bg-slate-100">
+                <div id="lihat-disposisi" class="bg-white shadow-sm border border-slate-300 mx-auto" style="width:210mm; min-height:270mm; padding:15mm 18mm; font-family:Arial, sans-serif; color:#000; font-size:9pt;"></div>
+            </div>
+            <div class="p-3 border-t flex justify-end gap-2 bg-white flex-wrap">
+                <button onclick="tutupLihat()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-200">Tutup</button>
+                <button id="btn-lihat-word" onclick="downloadLihat()" class="px-4 py-2 bg-blue-700 text-white rounded-lg text-xs font-bold hover:bg-blue-800"><i class="fas fa-file-word mr-1"></i> Unduh Word</button>
+                <button id="btn-lihat-pdf" onclick="downloadLihatPDF()" class="px-4 py-2 bg-violet-600 text-white rounded-lg text-xs font-bold hover:bg-violet-700"><i class="fas fa-file-pdf mr-1"></i> Unduh PDF</button>
+                <button id="btn-lihat-teruskan" onclick="teruskanDariLihat()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold hover:bg-emerald-700"><i class="fas fa-share"></i> Teruskan ke Bawahan/Atasan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tolak dengan Catatan -->
+    <div id="modal-tolak" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center z-50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
+                <h3 class="text-base font-bold text-slate-900">Tolak Hasil Tugas</h3>
+                <p class="text-xs text-slate-500 font-medium mt-0.5">Tulis alasan agar staf bisa memperbaiki dan mengirim ulang.</p>
+            </div>
+            <form id="form-tolak" class="p-6 space-y-4">
+                <input type="hidden" id="tolak-tugas-id">
+                <textarea id="tolak-catatan" rows="4" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Contoh: Laporan kurang lengkap, mohon tambahkan lampiran bukti..." required></textarea>
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="tutupModalTolak()" class="bg-slate-100 text-slate-700 px-4 py-2 rounded-lg hover:bg-slate-200 text-sm font-medium transition-colors">Batal</button>
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 text-sm font-medium transition-colors"><i class="fas fa-times mr-1"></i> Tolak & Kembalikan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script>
+    // Mobile Sidebar Logic
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const mobileClose = document.getElementById('mobile-sidebar-close');
+
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    mobileClose?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
+    // ===== Daftar pengajuan hasil tugas =====
+    let filterPersetujuan = 'menunggu';
+    let cachePengajuan = [];
+
+    function escapeHtml(text) {
+        if (text === null || text === undefined) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Popup tengah info disposisi (sukses teruskan & surat baru tiba)
+    const JENIS_DOT_BG={red:'bg-red-500',yellow:'bg-yellow-400',black:'bg-slate-900',blue:'bg-blue-600',green:'bg-emerald-500',purple:'bg-violet-600',gray:'bg-slate-300'};
+    const JENIS_HEAD_BG={red:'bg-red-600',yellow:'bg-yellow-500',black:'bg-slate-900',blue:'bg-blue-700',green:'bg-emerald-600',purple:'bg-violet-700',gray:'bg-slate-800'};
+    const JENIS_EMOJI={red:'🔴',yellow:'🟡',black:'⬛',blue:'🔵',green:'🟢',purple:'🟣',gray:'⚪'};
+    function kunciJenis(jenis){
+        const k=(jenis||'').trim().toLowerCase();
+        if(k==='sangat segera') return 'red';
+        if(k==='segera') return 'yellow';
+        if(k==='rahasia') return 'black';
+        if(k==='dinas') return 'blue';
+        if(k==='undangan') return 'green';
+        if(k==='laporan') return 'purple';
+        return 'gray';
+    }
+    let infoTengahSuratId=null;
+    function tampilInfoTengah({mode='sukses', jenis='', perihal='', tujuan=[], tg=0, suratId=null}){
+        const key=kunciJenis(jenis);
+        document.getElementById('info-tengah-head').className=`px-5 py-4 text-white flex items-center gap-3 border-b ${JENIS_HEAD_BG[key]}`;
+        document.getElementById('info-tengah-dot').className=`w-4 h-4 rounded-full flex-shrink-0 ${JENIS_DOT_BG[key]} border-2 border-white/70${(key==='red'||key==='yellow')?' marker-pulse':''}`;
+        document.getElementById('info-tengah-judul').textContent = mode==='baru' ? 'Surat Disposisi Baru!' : 'Disposisi Diteruskan!';
+        document.getElementById('info-tengah-ikon').className = mode==='baru'
+            ? 'fas fa-envelope-open-text ml-auto text-2xl opacity-90'
+            : 'fas fa-check-circle ml-auto text-2xl opacity-90';
+        document.getElementById('info-tengah-badge').textContent=`${JENIS_EMOJI[key]} ${(jenis||'Biasa').toUpperCase()}${(key==='red'||key==='yellow')?' — SEGERA DITINDAKLANJUTI':''}`;
+        document.getElementById('info-tengah-perihal').textContent=perihal||'-';
+        document.getElementById('info-tengah-tujuan-label').textContent = mode==='baru' ? 'Dari' : 'Tujuan';
+        document.getElementById('info-tengah-tujuan').textContent=(Array.isArray(tujuan)?tujuan.join(', '):tujuan)||'-';
+        document.getElementById('info-tengah-tg').textContent = mode==='baru'
+            ? '📬 Surat baru masuk ke kotak Anda. Segera lihat & tindak lanjuti.'
+            : (tg?`✈️ Notifikasi Telegram terkirim ke ${tg} penerima.`:`ℹ️ Penerima belum menghubungkan Telegram — notifikasi via aplikasi.`);
+        infoTengahSuratId=suratId;
+        // Preview & unduh PDF tersedia setelah meneruskan maupun saat surat baru tiba.
+        document.getElementById('info-tengah-lihat').classList.toggle('hidden', !suratId);
+        document.getElementById('info-tengah-pdf').classList.toggle('hidden', !suratId);
+        const m=document.getElementById('modal-info-tengah');
+        m.classList.remove('hidden'); m.classList.add('flex');
+    }
+    function tutupInfoTengah(){
+        const m=document.getElementById('modal-info-tengah');
+        m.classList.add('hidden'); m.classList.remove('flex');
+        infoTengahSuratId=null;
+    }
+    function infoTengahLihat(){
+        const id=infoTengahSuratId;
+        tutupInfoTengah();
+        if(id) lihatSurat(id);
+    }
+    function infoTengahPDF(btn){
+        if(infoTengahSuratId) downloadPDFRow(infoTengahSuratId, btn);
+    }
+    function tandaiBaca(id){
+        fetch(`/api/disposisi/surat-masuk/${id}/baca`, {method:'POST'}).catch(()=>{});
+    }
+    // Polling kedatangan: tampilkan popup untuk surat yang BELUM DIBACA
+    // (status baca tersimpan di server, jadi surat yang dikirim sebelum
+    // halaman dibuka pun tetap memunculkan popup — sekali saja).
+    async function cekSuratBaru(){
+        if(document.hidden) return;
+        try{
+            const res=await fetch('/api/disposisi/surat-masuk');
+            if(!res.ok) return;
+            const data=await res.json();
+            const belum=data.filter(s=>!s.sudah_dibaca);
+            if(belum.length){
+                const s=belum[0];
+                tampilInfoTengah({mode:'baru', jenis:s.jenis_surat||'', perihal:s.perihal||'-', tujuan:[s.pengirim_nama||'-'], suratId:s.id});
+                tandaiBaca(s.id);
+                loadSuratMasuk();
+            }
+        }catch(e){ /* abaikan, coba lagi interval berikut */ }
+    }
+    setInterval(cekSuratBaru, 15000);
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) cekSuratBaru(); });
+    document.addEventListener('DOMContentLoaded', ()=>{ setTimeout(cekSuratBaru, 2000); });
+    // Penanda warna jenis surat (padanan web dari marker server/Telegram)
+    const MARKER_DOT = {
+        red: 'bg-red-500', yellow: 'bg-yellow-400', black: 'bg-slate-900',
+        blue: 'bg-blue-500', green: 'bg-emerald-500', purple: 'bg-violet-500',
+        gray: 'bg-slate-300'
+    };
+    const MARKER_BADGE = {
+        red: 'bg-red-50 text-red-700 border-red-300',
+        yellow: 'bg-yellow-50 text-yellow-800 border-yellow-300',
+        black: 'bg-slate-900 text-white border-slate-900',
+        blue: 'bg-blue-50 text-blue-700 border-blue-200',
+        green: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        purple: 'bg-violet-50 text-violet-700 border-violet-200',
+        gray: 'bg-slate-50 text-slate-500 border-slate-200'
+    };
+    const MARKER_ROW = { red: 'border-l-4 !border-l-red-500 bg-red-50/40', yellow: 'border-l-4 !border-l-yellow-400 bg-yellow-50/40' };
+    function badgeJenis(s) {
+        const m = (s && s.marker) || {};
+        const dot = m.dot || 'gray';
+        const label = m.label || s.jenis_surat || 'Biasa';
+        const emoji = m.emoji || '⚪';
+        const pulse = !!m.pulse;
+        return {
+            label, emoji,
+            dotClass: `${MARKER_DOT[dot] || MARKER_DOT.gray}${pulse ? ' marker-pulse' : ''}`,
+            badge: `<span class="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-extrabold rounded-full border ${MARKER_BADGE[dot] || MARKER_BADGE.gray}${pulse ? ' marker-pulse' : ''}">${emoji} ${escapeHtml(label)}</span>`,
+            rowClass: pulse ? (MARKER_ROW[dot] || '') : ''
+        };
+    }
+
+    const badgePengajuan = {
+        menunggu: '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-50 text-amber-700 border border-amber-200">Menunggu</span>',
+        disetujui: '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Disetujui</span>',
+        ditolak: '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-50 text-red-700 border border-red-200">Ditolak</span>'
+    };
+
+    window.setFilterPersetujuan = function(status) {
+        filterPersetujuan = status;
+        document.querySelectorAll('.pfilter-btn').forEach(btn => {
+            if (btn.dataset.pfilter === status) {
+                btn.classList.add('bg-blue-600', 'text-white');
+                btn.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+            } else {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+            }
+        });
+        loadPengajuan();
+    }
+
+    async function loadPengajuan() {
+        const tbody = document.getElementById('persetujuan-body');
+        tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-12 text-center text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat pengajuan...</td></tr>';
+        try {
+            const res = await fetch(`/api/atasan/persetujuan?status=${filterPersetujuan}`);
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Gagal memuat pengajuan.');
+            cachePengajuan = data;
+            renderPengajuan();
+        } catch (e) {
+            tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-12 text-center text-red-500">Gagal memuat data: ${escapeHtml(e.message)}</td></tr>`;
+        }
+    }
+
+    function renderPengajuan() {
+        const tbody = document.getElementById('persetujuan-body');
+        if (!cachePengajuan.length) {
+            const pesan = filterPersetujuan === 'menunggu'
+                ? ['Semua Pengajuan Telah Diproses', 'Saat ini belum ada file hasil baru yang menunggu persetujuan Anda.']
+                : ['Tidak Ada Data', 'Belum ada pengajuan pada kategori ini.'];
+            tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-12 text-center text-slate-500">
+                <div class="flex flex-col items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3 text-lg"><i class="fas fa-check-double"></i></div>
+                    <p class="font-bold text-slate-700">${pesan[0]}</p>
+                    <p class="text-slate-400 text-[11px] mt-1">${pesan[1]}</p>
+                </div></td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = '';
+        cachePengajuan.forEach(t => {
+            const fileHtml = fileButtonsHtml(t);
+            const catatanUser = t.catatan_user ? `<p class="text-[11px] text-slate-500 mt-1 italic">"${escapeHtml(t.catatan_user)}"</p>` : '';
+            const catatanAtasan = t.catatan_atasan ? `<p class="text-[11px] text-slate-500 mt-1">Catatan Anda: ${escapeHtml(t.catatan_atasan)}</p>` : '';
+
+            let aksi = '';
+            if (t.pengajuan_status === 'menunggu') {
+                aksi = `<div class="flex justify-end gap-2">
+                    <button onclick="putusPengajuan('${t.id}', 'setuju')" class="px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700 transition-colors"><i class="fas fa-check mr-1"></i>Setujui</button>
+                    <button onclick="bukaModalTolak('${t.id}')" class="px-3 py-1.5 bg-red-50 border border-red-200 text-red-700 rounded-lg text-xs font-semibold hover:bg-red-100 transition-colors"><i class="fas fa-times mr-1"></i>Tolak</button>
+                </div>`;
+            } else {
+                aksi = `<span class="text-slate-400 text-[11px]">Diputus ${escapeHtml(t.diputus_pada || '-')}</span>`;
+            }
+
+            tbody.insertAdjacentHTML('beforeend', `<tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-6 py-4">
+                    <div class="text-sm font-bold text-slate-900">${escapeHtml(t.judul)}</div>
+                    ${t.deskripsi ? `<p class="text-[11px] text-slate-500 mt-0.5">${escapeHtml(t.deskripsi)}</p>` : ''}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-semibold text-slate-800">${escapeHtml(t.diberikan_kepada || '-')}</div>
+                    <div class="text-[11px] text-slate-400">Deadline: ${escapeHtml(t.deadline_tampil || '-')}</div>
+                </td>
+                <td class="px-6 py-4">${fileHtml}${catatanUser}</td>
+                <td class="px-6 py-4 whitespace-nowrap">${badgePengajuan[t.pengajuan_status] || '-'}${catatanAtasan}</td>
+                <td class="px-6 py-4 text-right">${aksi}</td>
+            </tr>`);
+        });
+    }
+
+    window.putusPengajuan = async function(id, keputusan, catatan = '') {
+        const label = keputusan === 'setuju' ? 'menyetujui' : 'menolak';
+        if (!confirm(`Yakin ${label} hasil tugas ini?`)) return;
+        try {
+            const res = await fetch(`/api/atasan/persetujuan/${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ keputusan, catatan })
+            });
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.error);
+            alert(result.message);
+            loadPengajuan();
+            loadRiwayat();
+        } catch (e) {
+            alert('Gagal: ' + e.message);
+        }
+    }
+
+    window.bukaModalTolak = function(id) {
+        document.getElementById('tolak-tugas-id').value = id;
+        document.getElementById('tolak-catatan').value = '';
+        document.getElementById('modal-tolak').classList.remove('hidden');
+        document.getElementById('modal-tolak').classList.add('flex');
+    }
+
+    window.tutupModalTolak = function() {
+        document.getElementById('modal-tolak').classList.add('hidden');
+        document.getElementById('modal-tolak').classList.remove('flex');
+    }
+
+    document.getElementById('form-tolak')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('tolak-tugas-id').value;
+        const catatan = document.getElementById('tolak-catatan').value.trim();
+        if (!catatan) { alert('Tulis alasan penolakan agar staf bisa memperbaiki.'); return; }
+        tutupModalTolak();
+        await putusPengajuan(id, 'tolak', catatan);
+    });
+
+    function fileButtonsHtml(t) {
+        const file = t.file_hasil || {};
+        if (!file.nama_asli) return '<span class="text-slate-400">-</span>';
+        const bisaLihat = /\.(pdf|jpg|jpeg|png|txt|csv)$/i.test(file.nama_asli);
+        return `<p class="text-xs font-semibold text-slate-800 truncate max-w-[220px]" title="${escapeHtml(file.nama_asli)}"><i class="fas fa-paperclip text-slate-400 mr-1"></i>${escapeHtml(file.nama_asli)}</p>
+            <div class="flex gap-1.5 mt-1.5">
+                ${bisaLihat ? `<a href="/api/tugas/${t.id}/unduh?inline=1" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-600 text-white rounded-lg text-[11px] font-semibold hover:bg-blue-700 transition-colors"><i class="fas fa-eye"></i>Lihat</a>` : ''}
+                <a href="/api/tugas/${t.id}/unduh" class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg text-[11px] font-semibold hover:bg-blue-100 transition-colors"><i class="fas fa-download"></i>Unduh</a>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Dikirim ${escapeHtml(file.dikirim_pada || '-')}</p>`;
+    }
+
+    async function loadRiwayat() {
+        const tbody = document.getElementById('riwayat-body');
+        try {
+            const res = await fetch('/api/atasan/persetujuan?status=semua');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Gagal memuat riwayat.');
+            const riwayat = data.filter(t => t.pengajuan_status === 'disetujui' || t.pengajuan_status === 'ditolak');
+            if (!riwayat.length) {
+                tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-12 text-center text-slate-500">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3 text-lg"><i class="fas fa-history"></i></div>
+                        <p class="font-bold text-slate-700">Belum Ada Riwayat</p>
+                        <p class="text-slate-400 text-[11px] mt-1">Keputusan yang Anda buat akan tercatat di sini.</p>
+                    </div></td></tr>`;
+                return;
+            }
+            tbody.innerHTML = '';
+            riwayat.forEach(t => {
+                const badge = t.pengajuan_status === 'disetujui'
+                    ? '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fas fa-check mr-1"></i>Disetujui</span>'
+                    : '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-50 text-red-700 border border-red-200"><i class="fas fa-times mr-1"></i>Ditolak</span>';
+                tbody.insertAdjacentHTML('beforeend', `<tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-bold text-slate-900">${escapeHtml(t.judul)}</div>
+                        ${t.deskripsi ? `<p class="text-[11px] text-slate-500 mt-0.5">${escapeHtml(t.deskripsi)}</p>` : ''}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-semibold text-slate-800">${escapeHtml(t.diberikan_kepada || '-')}</div>
+                    </td>
+                    <td class="px-6 py-4">${fileButtonsHtml(t)}${t.catatan_user ? `<p class="text-[11px] text-slate-500 mt-1 italic">"${escapeHtml(t.catatan_user)}"</p>` : ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${badge}
+                        <p class="text-[11px] text-slate-400 mt-1">Diputus ${escapeHtml(t.diputus_pada || '-')}</p>
+                        ${t.catatan_atasan ? `<p class="text-[11px] text-slate-500 mt-1">${escapeHtml(t.catatan_atasan)}</p>` : ''}
+                    </td>
+                </tr>`);
+            });
+        } catch (e) {
+            tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-12 text-center text-red-500">Gagal memuat riwayat: ${escapeHtml(e.message)}</td></tr>`;
+        }
+    }
+
+    async function loadSuratMasuk(){
+        const tbody=document.getElementById('surat-masuk-body');
+        if(!tbody) return;
+        tbody.innerHTML='<tr><td colspan="4" class="px-6 py-12 text-center text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat surat masuk...</td></tr>';
+        try{
+            const res=await fetch('/api/disposisi/surat-masuk');
+            const data=await res.json();
+            if(!res.ok) throw new Error(data.error||'Gagal memuat');
+            if(!data.length){
+                tbody.innerHTML=`<tr><td colspan="4" class="px-6 py-12 text-center text-slate-500">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-violet-50 flex items-center justify-center text-violet-400 mb-3"><i class="fas fa-inbox"></i></div>
+                        <p class="font-bold text-slate-700">Belum Ada Surat Masuk</p>
+                        <p class="text-[11px] text-slate-400">Surat disposisi yang ditujukan kepada Anda akan muncul di sini.</p>
+                    </div></td></tr>`;
+                return;
+            }
+            tbody.innerHTML='';
+            data.forEach(s=>{
+                const bd=badgeJenis(s);
+                tbody.insertAdjacentHTML('beforeend', `<tr class="hover:bg-slate-50 ${bd.rowClass}">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full flex-shrink-0 ${bd.dotClass}" title="${escapeHtml(bd.label)}"></span>
+                            <div class="text-sm font-bold text-slate-900">${escapeHtml(s.perihal || '-')}</div>
+                        </div>
+                        <div class="text-[11px] text-slate-500 mt-0.5">${escapeHtml(s.nomor_surat || s.no_agenda || '-')} • ${escapeHtml(s.varian||'')}</div>
+                        <div class="mt-1">${bd.badge}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-semibold text-slate-800">${escapeHtml(s.pengirim_nama||'-')}</div>
+                        <div class="text-[11px] text-slate-400">Dari: ${escapeHtml(s.surat_dari||'-')}</div>
+                    </td>
+                    <td class="px-6 py-4 text-[11px] text-slate-500">${escapeHtml(s.created_at||'-')}</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end gap-1.5 flex-wrap">
+                            <button onclick="lihatSurat('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-slate-300 text-slate-700 rounded-lg text-xs font-semibold hover:bg-slate-50"><i class="fas fa-eye"></i> Lihat</button>
+                            ${window._bolehUnduh()?`<a href="/api/disposisi/surat-masuk/${s.id}/download" onclick="tandaiBaca('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-violet-600 text-white rounded-lg text-xs font-semibold hover:bg-violet-700"><i class="fas fa-download"></i> Unduh</a><button onclick="downloadPDFRow('${s.id}',this)" class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-500 text-white rounded-lg text-xs font-semibold hover:bg-red-600"><i class="fas fa-file-pdf"></i> PDF</button>`:''}
+                            ${window._lockKirim()?(s.ada_lampiran ? `<a href="/api/disposisi/surat-masuk/${s.id}/lampiran?lihat=1" onclick="tandaiBaca('${s.id}')" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 bg-amber-500 text-white rounded-lg text-xs font-semibold hover:bg-amber-600"><i class="fas fa-eye"></i> Lihat PDF</a>` : ''):(s.ada_lampiran ? `<a href="/api/disposisi/surat-masuk/${s.id}/lampiran" onclick="tandaiBaca('${s.id}')" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 bg-amber-500 text-white rounded-lg text-xs font-semibold hover:bg-amber-600"><i class="fas fa-file-pdf"></i> PDF Surat</a>` : '')}
+                            ${window._bolehTeruskan()?`<button onclick="bukaTeruskan('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700"><i class="fas fa-share"></i> Teruskan</button>`:`<span class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 border border-slate-200 text-slate-400 rounded-lg text-xs font-semibold" title="Penerusan dilakukan oleh persuratan"><i class="fas fa-share"></i> Teruskan via Persuratan</span>`}
+                            ${s.konfirmasi_oleh_nama ? `<span class="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-50 border border-emerald-300 text-emerald-700 rounded-lg text-xs font-semibold"><i class="fas fa-check-double"></i> Dikonfirmasi</span>` : `<button onclick="konfirmasiSurat('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-emerald-300 text-emerald-700 rounded-lg text-xs font-semibold hover:bg-emerald-50"><i class="fas fa-check"></i> Konfirmasi Diterima</button>`}
+                            <button onclick="bukaRantai('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-violet-300 text-violet-700 rounded-lg text-xs font-semibold hover:bg-violet-50"><i class="fas fa-link"></i> Rantai</button>
+                            <button onclick="bukaJejak('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 rounded-lg text-xs font-semibold hover:bg-slate-50"><i class="fas fa-route"></i> Jejak</button>
+                            ${!window._lockKirim()?`<button onclick="hapusSurat('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 border border-red-200 text-red-700 rounded-lg text-xs font-semibold hover:bg-red-100"><i class="fas fa-trash"></i> Hapus</button>`:''}
+                        </div>
+                        <div class="text-[10px] text-slate-400 mt-1">${escapeHtml(s.file_nama_asli||'')}${s.ada_lampiran ? ` • <i class="fas fa-paperclip"></i> ${escapeHtml(s.lampiran_nama_asli||'PDF terlampir')}` : ''}</div>
+                    </td>
+                </tr>`);
+            });
+        }catch(e){
+            tbody.innerHTML=`<tr><td colspan="4" class="px-6 py-12 text-center text-red-500">Gagal: ${escapeHtml(e.message)}</td></tr>`;
+        }
+    }
+
+    // — Tab Masuk / Terkirim + Rantai + Jejak —
+    let tabSurat='masuk';
+    window.setTabSurat=function(mode){
+        tabSurat=mode;
+        document.querySelectorAll('.tabsurat-btn').forEach(b=>{
+            const aktif=b.dataset.tabsurat===mode;
+            b.className=`tabsurat-btn px-3 py-1.5 rounded-lg font-semibold transition-colors ${aktif?'bg-violet-600 text-white':'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
+        });
+        document.getElementById('th-surat-tengah').textContent = mode==='masuk' ? 'Dari' : 'Ke';
+        muatTabSurat();
+    };
+    window.muatTabSurat=function(){ if(tabSurat==='masuk') loadSuratMasuk(); else loadTerkirim(); };
+    async function loadTerkirim(){
+        const tbody=document.getElementById('surat-masuk-body');
+        if(!tbody) return;
+        tbody.innerHTML='<tr><td colspan="4" class="px-6 py-12 text-center text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat surat terkirim...</td></tr>';
+        try{
+            const res=await fetch('/api/disposisi/riwayat-keluar');
+            const data=await res.json();
+            if(!res.ok) throw new Error(data.error||'Gagal memuat');
+            if(!data.length){
+                tbody.innerHTML=`<tr><td colspan="4" class="px-6 py-12 text-center text-slate-500">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-violet-50 flex items-center justify-center text-violet-400 mb-3"><i class="fas fa-paper-plane"></i></div>
+                        <p class="font-bold text-slate-700">Belum Ada Surat Terkirim</p>
+                        <p class="text-[11px] text-slate-400">Surat yang Anda kirim/teruskan akan tercatat di sini.</p>
+                    </div></td></tr>`;
+                return;
+            }
+            tbody.innerHTML='';
+            data.forEach(s=>{
+                const bd=badgeJenis(s);
+                tbody.insertAdjacentHTML('beforeend', `<tr class="hover:bg-slate-50 ${bd.rowClass}">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full flex-shrink-0 ${bd.dotClass}"></span>
+                            <div class="text-sm font-bold text-slate-900">${escapeHtml(s.perihal || '-')}</div>
+                        </div>
+                        <div class="text-[11px] text-slate-500 mt-0.5">${escapeHtml(s.nomor_surat || s.no_agenda || '-')}</div>
+                        <div class="mt-1">${bd.badge}${s.jumlah_terusan?` <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-blue-50 text-blue-700 border border-blue-200"><i class="fas fa-share"></i> ${s.jumlah_terusan} terusan</span>`:''}${s.dibaca_penerima?` <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fas fa-check-double"></i> dibaca</span>`:''}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-semibold text-slate-800">${escapeHtml(s.atasan_nama||'-')}</div>
+                        <div class="text-[11px] text-slate-400">${escapeHtml(s.created_at||'-')}</div>
+                    </td>
+                    <td class="px-6 py-4 text-[11px] text-slate-500">${escapeHtml(s.created_at||'-')}</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end gap-1.5 flex-wrap">
+                            <button onclick="lihatSurat('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-slate-300 text-slate-700 rounded-lg text-xs font-semibold hover:bg-slate-50"><i class="fas fa-eye"></i> Lihat</button>
+                            <button onclick="downloadPDFRow('${s.id}',this)" class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-500 text-white rounded-lg text-xs font-semibold hover:bg-red-600"><i class="fas fa-file-pdf"></i> PDF</button>
+                            <button onclick="bukaRantai('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-violet-300 text-violet-700 rounded-lg text-xs font-semibold hover:bg-violet-50"><i class="fas fa-link"></i> Rantai</button>
+                            <button onclick="bukaJejak('${s.id}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 rounded-lg text-xs font-semibold hover:bg-slate-50"><i class="fas fa-route"></i> Jejak</button>
+                            <a href="/api/disposisi/surat-masuk/${s.id}/download" class="inline-flex items-center gap-1 px-3 py-1.5 bg-violet-600 text-white rounded-lg text-xs font-semibold hover:bg-violet-700"><i class="fas fa-download"></i> Unduh</a>
+                        </div>
+                    </td>
+                </tr>`);
+            });
+        }catch(e){
+            tbody.innerHTML=`<tr><td colspan="4" class="px-6 py-12 text-center text-red-500">Gagal: ${escapeHtml(e.message)}</td></tr>`;
+        }
+    }
+    window.bukaRantai=async function(id){
+        const panel=document.getElementById('panel-rantai');
+        const isi=document.getElementById('rantai-isi');
+        panel.classList.remove('hidden');
+        panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+        isi.innerHTML='<p class="text-xs text-slate-500 py-4 text-center"><i class="fas fa-spinner fa-spin mr-2"></i>Memuat rantai...</p>';
+        try{
+            const res=await fetch(`/api/disposisi/rantai/${id}`);
+            const j=await res.json();
+            if(!res.ok) throw new Error(j.error||'Gagal memuat rantai.');
+            document.getElementById('rantai-judul').textContent=`(${(j.rantai||[]).length} surat)`;
+            if(!(j.rantai||[]).length){ isi.innerHTML='<p class="text-xs text-slate-500">Rantai kosong.</p>'; return; }
+            isi.innerHTML='<div class="relative pl-6"><div class="absolute left-2 top-2 bottom-2 w-0.5 bg-violet-200"></div>' + j.rantai.map((s,i)=>{
+                const bd=badgeJenis(s);
+                const akar=s.id===j.akar_id;
+                return `<div class="relative mb-4">
+                    <span class="absolute -left-6 top-1 w-3 h-3 rounded-full ${bd.dotClass} border-2 border-white shadow"></span>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 ${bd.rowClass}">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            ${bd.badge}
+                            ${akar?'<span class="text-[10px] font-bold text-slate-500">SURAT ASAL</span>':''}
+                            <span class="text-[10px] text-slate-400">${escapeHtml(s.created_at||'')}</span>
+                        </div>
+                        <p class="text-sm font-bold text-slate-900 mt-1">${escapeHtml(s.perihal||'-')}</p>
+                        <p class="text-[11px] text-slate-500">${escapeHtml(s.pengirim_nama||'-')} → ${escapeHtml(s.atasan_nama||'-')}</p>
+                        <div class="flex gap-1.5 mt-2">
+                            <button onclick="lihatSurat('${s.id}')" class="text-[11px] font-bold text-violet-700 hover:underline"><i class="fas fa-eye mr-0.5"></i>Lihat</button>
+                            <button onclick="bukaJejak('${s.id}')" class="text-[11px] font-bold text-slate-600 hover:underline"><i class="fas fa-route mr-0.5"></i>Jejak</button>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('') + '</div>';
+        }catch(e){
+            isi.innerHTML=`<p class="text-xs text-red-500">Gagal: ${escapeHtml(e.message)}</p>`;
+        }
+    };
+    window.tutupRantai=function(){
+        document.getElementById('panel-rantai').classList.add('hidden');
+    };
+    const JEJAK_IKON={kirim:'fa-paper-plane text-blue-600', baca:'fa-check-double text-emerald-600', unduh:'fa-download text-violet-600', teruskan:'fa-share text-amber-600', konfirmasi:'fa-award text-emerald-700', ubah:'fa-pen text-orange-500'};
+    window.konfirmasiSurat=async function(id){
+        if(!confirm('Konfirmasi bahwa surat ini sudah Anda terima?')) return;
+        try{
+            const res=await fetch(`/api/disposisi/surat-masuk/${id}/konfirmasi`, {method:'POST'});
+            const j=await res.json();
+            if(!res.ok) throw new Error(j.error||'Gagal konfirmasi.');
+            alert(j.message||'Dikonfirmasi.');
+            if(typeof loadSuratMasuk==='function') loadSuratMasuk();
+        }catch(e){ alert('Gagal: '+e.message); }
+    };
+    window.bukaJejak=async function(id){
+        document.getElementById('jejak-perihal').textContent='Memuat...';
+        document.getElementById('jejak-isi').innerHTML='<p class="text-xs text-slate-500 py-4 text-center"><i class="fas fa-spinner fa-spin mr-2"></i>Memuat jejak...</p>';
+        const m=document.getElementById('modal-jejak');
+        m.classList.remove('hidden'); m.classList.add('flex');
+        try{
+            const res=await fetch(`/api/disposisi/surat-masuk/${id}/jejak`);
+            const j=await res.json();
+            if(!res.ok) throw new Error(j.error||'Gagal memuat jejak.');
+            document.getElementById('jejak-perihal').textContent=j.perihal||'-';
+            const ev=j.peristiwa||[];
+            document.getElementById('jejak-isi').innerHTML = ev.length
+                ? '<div class="relative pl-6"><div class="absolute left-2 top-2 bottom-2 w-0.5 bg-slate-200"></div>' + ev.map(p=>`
+                    <div class="relative mb-3">
+                        <span class="absolute -left-6 top-0.5 w-4 h-4 rounded-full bg-white border border-slate-300 flex items-center justify-center"><i class="fas ${JEJAK_IKON[p.jenis]||'fa-circle'} text-[8px]"></i></span>
+                        <p class="text-xs text-slate-700">${escapeHtml(p.teks||'')}</p>
+                        ${p.waktu?`<p class="text-[10px] text-slate-400">${escapeHtml(p.waktu)}</p>`:''}
+                    </div>`).join('') + '</div>'
+                : '<p class="text-xs text-slate-500">Belum ada aktivitas tercatat.</p>';
+        }catch(e){
+            document.getElementById('jejak-isi').innerHTML=`<p class="text-xs text-red-500">Gagal: ${escapeHtml(e.message)}</p>`;
+        }
+    };
+    window.tutupJejak=function(){
+        const m=document.getElementById('modal-jejak');
+        m.classList.add('hidden'); m.classList.remove('flex');
+    };
+
+    // — Teruskan disposisi — varian dinamis dari /api/format-surat (buatan admin) —
+    let DISP_VARIANTS_ATASAN = {
+        dansat: {label:"Dansatsiber", kepada:"YTH. DANSATSIBER TNI", terus:["WADANSATSIBER TNI","ASINTELOPS","ASMINLOG","DANPUSCERTAN","DANSATLINTA","DANSATINDIGI","DANSATDALTEN","PABANDYA UM","PABANDYA PERS","PABANDYA LOG","SPRI","PABANDA KU"]},
+        wadan: {label:"Wadansatsiber", kepada:"YTH. WADANSATSIBER TNI", terus:["ASINTELOPS","ASMINLOG","DANPUSCERTAN","DANSATLINTA","DANSATINDIGI","DANSATDALTEN","PABANDYA UM","PABANDYA PERS","PABANDYA LOG","SPRI","PABANDA KU"]},
+        asintelops: {label:"Asintelops", kepada:"YTH. ASINTELOPS SATSIBER TNI", terus:["DANPUSCERTAN","DANSATLINTA","DANSATINDIGI","DANSATDALTEN","PABAN INTEL","PABAN OPSLAT","PABAN RENPROGRAR","STAF INTELOPS"]},
+        asminlog: {label:"Asminlog", kepada:"YTH. ASMINLOG SATSIBER TNI", terus:["ASINTELOPS","DANPUSCERTAN","DANSATLINTA","DANSATINDIGI","DANSATDALTEN","PABANDYA UM","PABANDYA PERS","PABANDYA LOG","SPRI","PABANDA KU"]}
+    };
+    async function loadFormatAtasan(){
+        try{
+            const res=await fetch('/api/format-surat'); if(!res.ok) return;
+            const data=await res.json(); if(!Array.isArray(data)||!data.length) return;
+            const baru={}; data.forEach(f=>{ baru[f.key]={label:f.label||f.key, kepada:f.kepada||'', terus:f.terus||[]}; });
+            DISP_VARIANTS_ATASAN=baru;
+            const sel=document.getElementById('terus-varian');
+            if(sel){ const cur=sel.value; sel.innerHTML=data.map((f,i)=>`<option value="${f.key}">Opsi ${i+1} — ${f.label}</option>`).join(''); if(baru[cur]) sel.value=cur; }
+            renderTeruskanCheck();
+        }catch(e){ console.warn('gagal load format atasan',e); }
+    }
+    document.addEventListener('DOMContentLoaded', loadFormatAtasan);
+    const DISP_ISI1=["UDK","UDL","UMP","CATAT","ACC","WAKILI","PELAJARI/TELITI","KOORDINASIKAN","FASILITASI","PEDOMANI","EDARKAN/INFOKAN JAJARAN","DUKUNG","IKUTI BANGSIT"];
+    const DISP_ISI2=["JADWALKAN","TINDAKLANJUTI","SIAPKAN PERSONEL","PAPARKAN","SIAPKAN JAWABAN","SIAPKAN BAHAN","MONITOR","COPY","SARAN","INGATKAN","LAPORKAN HASILNYA","PERBAHARUI DATABASE","ARSIP"];
+    let teruskanId=null, terusSigCtx=null, terusHasStroke=false, terusDrawing=false;
+    let terusJenis='', terusPerihal='';
+    let terusAsalData=null, previewTeruskanAktif=false;
+    function renderTeruskanCheck(){
+        const v=document.getElementById('terus-varian')?.value||'dansat';
+        const terusList=(DISP_VARIANTS_ATASAN[v]||DISP_VARIANTS_ATASAN.dansat).terus;
+        const mk=(arr, id)=>{ const c=document.getElementById(id); if(!c) return; c.innerHTML=arr.map((l,i)=>`<label class="flex items-center gap-2 text-xs text-slate-700 hover:bg-violet-50 px-1.5 py-1 rounded cursor-pointer"><input type="checkbox" value="${escapeHtml(l)}" class="w-3.5 h-3.5 rounded border-slate-300 text-violet-600"><span class="text-[11px]">${escapeHtml(l)}</span></label>`).join(''); };
+        mk(terusList,'terus-check-terus'); mk(DISP_ISI1,'terus-check-isi1'); mk(DISP_ISI2,'terus-check-isi2');
+    }
+    function initTerusSig(){
+        const c=document.getElementById('terus-sig-canvas'); if(!c || terusSigCtx) return;
+        terusSigCtx=c.getContext('2d'); terusSigCtx.lineWidth=2; terusSigCtx.lineCap='round'; terusSigCtx.lineJoin='round'; terusSigCtx.strokeStyle='#0f172a';
+        const pos=e=>{ const r=c.getBoundingClientRect(); const t=e.touches?e.touches[0]:e; return {x:(t.clientX-r.left)*(c.width/r.width), y:(t.clientY-r.top)*(c.height/r.height)}; };
+        const s=e=>{ e.preventDefault(); terusDrawing=true; terusHasStroke=true; const p=pos(e); terusSigCtx.beginPath(); terusSigCtx.moveTo(p.x,p.y); };
+        const m=e=>{ if(!terusDrawing) return; e.preventDefault(); const p=pos(e); terusSigCtx.lineTo(p.x,p.y); terusSigCtx.stroke(); };
+        const e2=()=>{ terusDrawing=false; };
+        c.addEventListener('mousedown',s); c.addEventListener('mousemove',m); window.addEventListener('mouseup',e2);
+        c.addEventListener('touchstart',s,{passive:false}); c.addEventListener('touchmove',m,{passive:false}); c.addEventListener('touchend',e2);
+    }
+    function clearTerusSig(){ const c=document.getElementById('terus-sig-canvas'); if(!c) return; c.getContext('2d').clearRect(0,0,c.width,c.height); terusHasStroke=false; document.getElementById('terus-paraf-image').value=''; }
+    function loadTerusSig(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ const img=new Image(); img.onload=()=>{ const c=document.getElementById('terus-sig-canvas'); const ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height); const sc=Math.min(c.width/img.width,c.height/img.height)*0.9; const w=img.width*sc, h=img.height*sc; ctx.drawImage(img,(c.width-w)/2,(c.height-h)/2,w,h); terusHasStroke=true; }; img.src=r.result; }; r.readAsDataURL(f); }
+     async function loadBawahanTeruskan(){
+        const cari=document.getElementById('terus-cari');
+        const box=document.getElementById('terus-tujuan-check');
+        if(cari && !cari.dataset.aktif){ cari.dataset.aktif='1'; cari.addEventListener('input', gambarTujuanTeruskan); }
+        window._tujuanGagal=false;
+        try{
+            const [r1,r2,r3]=await Promise.all([fetch('/api/disposisi/bawahan-list'), fetch('/api/disposisi/atasan-list'), fetch('/api/disposisi/staf-list')]);
+            if(r1.status===401||r1.status===403) throw new Error('SESI');
+            const bawahan=await r1.json().catch(()=>[]), atasan=await r2.json().catch(()=>[]), staf=await r3.json().catch(()=>[]);
+            // gabung: bawahan langsung + semua atasan + staf/persuratan (role=user)
+            const map=new Map();
+            [...(Array.isArray(bawahan)?bawahan:[]), ...(Array.isArray(atasan)?atasan:[]), ...(Array.isArray(staf)?staf:[])].forEach(u=>{ if(u&&u.id&&!map.has(u.id)) map.set(u.id,u); });
+            const idBawahan=new Set((Array.isArray(bawahan)?bawahan:[]).map(u=>u.id));
+            const idAtasan=new Set((Array.isArray(atasan)?atasan:[]).map(u=>u.id));
+            cacheTujuanTeruskan=Array.from(map.values()).map(u=>({...u, _isBawahan:idBawahan.has(u.id), _isAtasan:idAtasan.has(u.id)}));
+            gambarTujuanTeruskan();
+            perbaruiHitunganTeruskan();
+        }catch(e){
+            console.warn('tujuan teruskan:', e);
+            window._tujuanGagal=true;
+            if(box) box.innerHTML=`<div class="px-3 py-3 text-center"><p class="text-[11px] text-red-600 font-bold">${e.message==='SESI'?'Sesi habis — login ulang lalu buka lagi.':'Gagal memuat daftar tujuan. Periksa koneksi ke server.'}</p><button onclick="loadBawahanTeruskan()" class="mt-1.5 text-[11px] font-bold px-3 py-1.5 rounded-lg bg-violet-600 text-white hover:bg-violet-700"><i class="fas fa-rotate-right mr-1"></i>Coba lagi</button></div>`;
+        }
+    }
+    function labelTujuan(u){
+        return u.jabatan_atasan?`${u.fullname} — ${u.jabatan_atasan}`: u.bagian?`${u.fullname} — ${u.bagian}`: (u.fullname||'-');
+    }
+    function tujuanTeruskanTerpilih(){
+        return Array.from(document.querySelectorAll('#terus-tujuan-check input[type="checkbox"]:checked')).map(c=>c.value).filter(v=>v);
+    }
+    // Atasan memilih tujuan teruskan seperti user persuratan (lihat Activity
+    // Diagram: atasan memilih surat/tujuan, membubuhkan paraf, lalu meneruskan).
+    // Opsi tujuan tidak lagi disembunyikan/dikunci untuk atasan tingkat 1-2.
+    async function autoPilihPersuratan(){
+        const wrap=document.getElementById('terus-tujuan-wrap');
+        const info=document.getElementById('terus-otomatis-info');
+        if(wrap) wrap.classList.remove('hidden');
+        if(info) info.classList.add('hidden');
+    }
+    function perbaruiHitunganTeruskan(){
+        const n=tujuanTeruskanTerpilih().length;
+        const el=document.getElementById('terus-count');
+        if(el) el.textContent=`${n} dipilih`;
+        const btn=document.getElementById('btn-teruskan-kirim');
+        if(btn) btn.innerHTML=`<i class="fas fa-paper-plane mr-1"></i> Teruskan${n>1?` (${n})`:''}`;
+    }
+    function gambarTujuanTeruskan(){
+        const box=document.getElementById('terus-tujuan-check');
+        if(!box) return;
+        const q=(document.getElementById('terus-cari')?.value||'').trim().toLowerCase();
+        const dipilih=new Set(tujuanTeruskanTerpilih());
+        const cocok=(u)=>!q||((u.fullname||'')+' '+(u.jabatan_atasan||'')+' '+(u.bagian||'')).toLowerCase().includes(q);
+        const grup=[
+            {judul:'Bawahan Langsung', items:cacheTujuanTeruskan.filter(u=>u._isBawahan&&cocok(u))},
+            {judul:'Staf / Persuratan', items:cacheTujuanTeruskan.filter(u=>!u._isBawahan&&!u._isAtasan&&cocok(u))},
+            {judul:'Atasan Lain (termasuk atasan sebelumnya)', items:cacheTujuanTeruskan.filter(u=>!u._isBawahan&&u._isAtasan&&cocok(u))}
+        ];
+        box.innerHTML='';
+        let ada=false;
+        grup.forEach(g=>{
+            if(!g.items.length) return;
+            ada=true;
+            const h=document.createElement('p');
+            h.className='text-[10px] font-extrabold uppercase text-violet-700 bg-violet-50 px-3 py-1.5 sticky top-0';
+            h.textContent=g.judul;
+            box.appendChild(h);
+            g.items.forEach(u=>{
+                const label=document.createElement('label');
+                label.className='flex items-center gap-2.5 px-3 py-1.5 hover:bg-violet-50 cursor-pointer border-b border-slate-50';
+                const cb=document.createElement('input');
+                cb.type='checkbox'; cb.value=u.id; cb.checked=dipilih.has(u.id);
+                cb.className='w-4 h-4 rounded border-violet-300 text-violet-600 focus:ring-violet-600 flex-shrink-0';
+                cb.addEventListener('change', perbaruiHitunganTeruskan);
+                const tx=document.createElement('span');
+                tx.className='text-xs text-slate-700'; tx.textContent=labelTujuan(u);
+                label.appendChild(cb); label.appendChild(tx);
+                box.appendChild(label);
+            });
+        });
+        if(!ada) box.innerHTML='<p class="text-[11px] text-slate-400 px-3 py-2 italic">Tidak ada tujuan yang cocok / belum ada data.</p>';
+    }
+    function teruskanPilihSemua(ya){
+        document.querySelectorAll('#terus-tujuan-check input[type="checkbox"]').forEach(c=>{ c.checked=ya; });
+        perbaruiHitunganTeruskan();
+    }
+    let cacheTujuanTeruskan=[];
+    let lihatId=null, lihatData=null;
+    function buildLihatHTML(d){
+        const v=DISP_VARIANTS_ATASAN[d.varian]||DISP_VARIANTS_ATASAN.dansat;
+        const WARNA_JENIS={'sangat segera':'#FF0000','segera':'#B8860B','rahasia':'#000000','dinas':'#1D4ED8','undangan':'#047857','laporan':'#7C3AED'};
+        const wJenis=WARNA_JENIS[(d.jenis_surat||'').trim().toLowerCase()]||'#000000';
+        const jenisHtml=`<span style="color:${wJenis}; font-weight:700;">${escapeHtml((d.jenis_surat||'').toUpperCase())}</span>`;
+        const box=(label,checked)=>`<div style="font-size:7.5pt; line-height:1.4; padding:1px 0;">${checked?'☑':'☐'}&nbsp;&nbsp;${escapeHtml(label)}</div>`;
+        const colTerus=v.terus.map(x=>box(x,(d.diteruskan_kepada||[]).includes(x))).join('');
+        const colIsi1=DISP_ISI1.map(x=>box(x,(d.isi_disposisi||[]).includes(x))).join('');
+        const colIsi2=DISP_ISI2.map(x=>box(x,(d.isi_disposisi||[]).includes(x))).join('');
+        const kepada=escapeHtml(d.kepada_custom||v.kepada||'');
+        const parafHTML=d.paraf_image?`<div style="display:flex; align-items:center; gap:8px;"><span><b>PARAF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${escapeHtml(d.paraf||'')}</span><img src="${d.paraf_image}" style="max-width:110px; max-height:38px; object-fit:contain; border:1px dashed #e2e8f0; background:#fff; padding:2px;" /></div>`:`<div><b>PARAF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${escapeHtml(d.paraf||'')}</div>`;
+        return `<div style="text-align:center; margin-bottom:6px;"><div style="font-size:11pt; font-weight:700; letter-spacing:0.3px;">MARKAS BESAR TENTARA NASIONAL INDONESIA</div><div style="font-size:11pt; font-weight:700;">SATUAN SIBER</div><div style="font-size:12pt; font-weight:700; margin-top:8px; letter-spacing:1px;">LEMBAR DISPOSISI</div></div>
+        <table style="width:100%; border-collapse:collapse; font-size:8pt;"><tr><td style="width:50%; border:1px solid #000; padding:6px 8px; vertical-align:top; line-height:1.5;">${parafHTML}<div style="margin-top:6px;"><b>DITERIMA DARI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${escapeHtml(d.diterima_dari||'')}</div><div style="margin-top:6px;"><b>TANGGAL TERIMA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${escapeHtml(d.tanggal_terima||'')}</div><div><b>NO. AGENDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${escapeHtml(d.no_agenda||'')}</div><div><b>SURAT DARI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${escapeHtml(d.surat_dari||'')}</div><div><b>NOMOR SURAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${escapeHtml(d.nomor_surat||'')}</div><div><b>JENIS SURAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${jenisHtml}</div><div><b>TANGGAL SURAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${escapeHtml(d.tanggal_surat||'')}</div></td><td colspan="2" style="border:1px solid #000; padding:6px 8px; vertical-align:top;"><div>KEPADA :</div><div style="margin-top:10px; font-weight:700;">${kepada}</div></td></tr><tr><td colspan="3" style="border:1px solid #000; padding:6px 8px;"><b>PERIHAL :</b> ${escapeHtml(d.perihal||'')}</td></tr><tr><td colspan="3" style="border:1px solid #000; padding:4px; text-align:center; font-weight:700;">DISPOSISI</td></tr><tr><td style="border:1px solid #000; padding:4px; text-align:center; font-weight:700; background:#f1f5f9;">DITERUSKAN KEPADA</td><td colspan="2" style="border:1px solid #000; padding:4px; text-align:center; font-weight:700; background:#f1f5f9;">ISI DISPOSISI / INSTRUKSI</td></tr><tr><td style="border:1px solid #000; padding:6px 8px; vertical-align:top;">${colTerus}</td><td style="border:1px solid #000; padding:6px 8px; vertical-align:top;">${colIsi1}</td><td style="border:1px solid #000; padding:6px 8px; vertical-align:top;">${colIsi2}</td></tr><tr><td colspan="3" style="border:1px solid #000; padding:6px 8px;"><div style="font-weight:700;">CATATAN:</div><div style="margin-top:6px; min-height:40px; white-space:pre-wrap;">${escapeHtml(d.catatan||'')}</div></td></tr></table>yle="font-weight:700;">CATATAN:</div><div style="margin-top:6px; min-height:40px;">${d.catatan||''}</div></td></tr></table>`;
+    }
+    window.lihatSurat=async function(id){
+        tandaiBaca(id);
+        try{ const res=await fetch(`/api/disposisi/surat-masuk/${id}`); const d=await res.json(); if(!res.ok) throw new Error(d.error); lihatId=id; lihatData=d; const bolehTeruskan=window._bolehTeruskan(); const bisaUnduh=window._bolehUnduh(); ['btn-lihat-teruskan'].forEach(bid=>{ const b=document.getElementById(bid); if(b) b.classList.toggle('hidden', !bolehTeruskan); }); ['btn-lihat-word','btn-lihat-pdf'].forEach(bid=>{ const b=document.getElementById(bid); if(b) b.classList.toggle('hidden', !bisaUnduh); }); let html=buildLihatHTML(d); if(d.ada_lampiran){ html=`<div id="lihat-lampiran-banner" class="mb-3 bg-amber-50 border border-amber-300 rounded-lg px-3 py-2 text-xs text-amber-800 flex items-center gap-2"><i class="fas fa-file-pdf text-amber-600"></i><span><b>Lampiran PDF surat:</b> ${escapeHtml(d.lampiran_nama_asli||'PDF')} — ikut diteruskan bersama disposisi ini.</span><a href="/api/disposisi/surat-masuk/${id}/lampiran?lihat=1" target="_blank" class="ml-auto px-3 py-1 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700 whitespace-nowrap"><i class="fas fa-eye mr-1"></i>Buka PDF</a></div>`+html; } document.getElementById('lihat-disposisi').innerHTML=html; document.getElementById('modal-lihat').classList.remove('hidden'); document.getElementById('modal-lihat').classList.add('flex'); }catch(e){ alert('Gagal lihat: '+e.message); }
+    }
+    window.tutupLihat=function(){ document.getElementById('modal-lihat').classList.add('hidden'); document.getElementById('modal-lihat').classList.remove('flex'); }
+    window.downloadPDFRow=async function(id, btn){
+        const orig=btn?btn.innerHTML:'';
+        try{
+            if(btn){ btn.innerHTML='<i class="fas fa-spinner fa-spin mr-1"></i>'; btn.disabled=true; }
+            const rs=await fetch(`/api/disposisi/surat-masuk/${id}`); const d=await rs.json();
+            if(!rs.ok) throw new Error(d.error||'Gagal memuat surat.');
+            const payload={ perihal:d.perihal||'', nomor_surat:d.nomor_surat||'', no_agenda:d.no_agenda||'', surat_dari:d.surat_dari||'', jenis_surat:d.jenis_surat||'dinas', tanggal_surat:d.tanggal_surat||'', tanggal_terima:d.tanggal_terima||'', diterima_dari:d.diterima_dari||'', diteruskan_kepada:d.diteruskan_kepada||[], isi_disposisi:d.isi_disposisi||[], catatan:d.catatan||'', paraf:d.paraf||'', paraf_image:d.paraf_image||'', varian:d.varian||'dansat', kepada_custom:d.kepada_custom||'' };
+            const res=await fetch('/api/disposisi/generate-pdf', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+            if(!res.ok){ const j=await res.json().catch(()=>({})); throw new Error(j.error||'Gagal membuat PDF.'); }
+            const blob=await res.blob();
+            if(!blob||blob.size<1000) throw new Error('Hasil PDF kosong.');
+            const a=document.createElement('a'); const url=URL.createObjectURL(blob);
+            const nama=(d.nomor_surat||d.no_agenda||'Satsiber').replace(/[^a-zA-Z0-9-_]/g,'_');
+            a.href=url; a.download=`Lembar_Disposisi_${nama}.pdf`; document.body.appendChild(a); a.click();
+            setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },1000);
+            tandaiBaca(id);
+        }catch(e){ alert('Gagal unduh PDF: '+e.message); }
+        finally{ if(btn){ btn.innerHTML=orig; btn.disabled=false; } }
+    };
+    window.downloadLihat=function(){ if(!lihatId) return; window.location.href=`/api/disposisi/surat-masuk/${lihatId}/download`; }
+    window.downloadLihatPDF=async function(){
+        if(!lihatId || !lihatData){ alert('Buka surat terlebih dahulu.'); return; }
+        const btn=document.getElementById('btn-lihat-pdf'); const orig=btn?btn.innerHTML:'';
+        if(btn){ btn.innerHTML='<i class="fas fa-spinner fa-spin mr-1"></i> Membuat PDF...'; btn.disabled=true; }
+        // 1) Server dulu (MS Word asli -> hasil pasti sama dengan lembar Word)
+        try{
+            const d=lihatData;
+            const payload={ perihal:d.perihal||'', nomor_surat:d.nomor_surat||'', no_agenda:d.no_agenda||'', surat_dari:d.surat_dari||'', jenis_surat:d.jenis_surat||'dinas', tanggal_surat:d.tanggal_surat||'', tanggal_terima:d.tanggal_terima||'', diterima_dari:d.diterima_dari||'', diteruskan_kepada:d.diteruskan_kepada||[], isi_disposisi:d.isi_disposisi||[], catatan:d.catatan||'', paraf:d.paraf||'', paraf_image:d.paraf_image||'', varian:d.varian||'dansat', kepada_custom:d.kepada_custom||'' };
+            const res=await fetch('/api/disposisi/generate-pdf', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+            if(res.ok){
+                const blob=await res.blob();
+                if(blob && blob.size>1000){
+                    const a=document.createElement('a'); const url=URL.createObjectURL(blob);
+                    const nama=(d.nomor_surat||d.no_agenda||'Satsiber').replace(/[^a-zA-Z0-9-_]/g,'_');
+                    a.href=url; a.download=`Lembar_Disposisi_${nama}.pdf`; document.body.appendChild(a); a.click();
+                    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },1000);
+                    if(btn){ btn.innerHTML=orig; btn.disabled=false; }
+                    return;
+                }
+            }
+        }catch(e){ console.error('PDF server gagal, fallback browser:', e); }
+        // 2) Fallback browser (html2pdf dari preview) bila server gagal
+        try{
+            // clone preview tanpa banner lampiran agar hasil PDF bersih seperti lembar disposisi
+            const src=document.getElementById('lihat-disposisi');
+            const temp=document.createElement('div');
+            temp.style.cssText='position:absolute; left:-9999px; top:0; width:210mm; background:#fff; padding:15mm 18mm; font-family:Arial, sans-serif; color:#000; font-size:9pt;';
+            temp.innerHTML=src.innerHTML;
+            const banner=temp.querySelector('#lihat-lampiran-banner'); if(banner) banner.remove();
+            document.body.appendChild(temp);
+            const nama=(lihatData.nomor_surat||lihatData.no_agenda||'Satsiber').replace(/[^a-zA-Z0-9-_]/g,'_');
+            const opt={ margin:0, filename:`Lembar_Disposisi_${nama}.pdf`, image:{type:'jpeg', quality:0.98}, html2canvas:{scale:2, useCORS:true}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'}, pagebreak:{mode:['avoid-all','css','legacy']} };
+            await html2pdf().set(opt).from(temp).save();
+            temp.remove();
+        }catch(e){ console.error(e); alert('Gagal membuat PDF: '+e.message); }
+        finally{ if(btn){ btn.innerHTML=orig; btn.disabled=false; } }
+    }
+    window.teruskanDariLihat=function(){ tutupLihat(); bukaTeruskan(lihatId); }
+    // ===== Preview hasil isian atasan (bukan surat asal) =====
+    // Ambil seluruh nilai form Teruskan + data identitas surat asal, lalu
+    // susun payload yang sama persis dengan yang akan dikirim ke server.
+    function dataPreviewTeruskan(){
+        const getChecked=id=>Array.from(document.querySelectorAll(`#${id} input:checked`)).map(el=>el.value);
+        let parafImg=document.getElementById('terus-paraf-image')?.value||'';
+        const c=document.getElementById('terus-sig-canvas');
+        if(!parafImg && c && terusHasStroke) parafImg=c.toDataURL('image/png');
+        const asal=terusAsalData||{};
+        return {
+            ...asal,
+            varian: document.getElementById('terus-varian')?.value||asal.varian||'dansat',
+            diteruskan_kepada: getChecked('terus-check-terus'),
+            isi_disposisi: [...getChecked('terus-check-isi1'), ...getChecked('terus-check-isi2')],
+            catatan: (document.getElementById('terus-catatan')?.value||'').trim(),
+            paraf: (document.getElementById('terus-paraf')?.value||'').trim(),
+            paraf_image: parafImg,
+            kepada_custom: '' // server selalu memakai KEPADA dari format/varian terpilih
+        };
+    }
+    function renderPreviewTeruskan(){
+        const d=dataPreviewTeruskan();
+        let html=buildLihatHTML(d);
+        if(terusAsalData && terusAsalData.ada_lampiran){
+            html=`<div class="mb-3 bg-amber-50 border border-amber-300 rounded-lg px-3 py-2 text-xs text-amber-800 flex items-center gap-2"><i class="fas fa-file-pdf text-amber-600"></i><span><b>Lampiran PDF surat:</b> ${escapeHtml(terusAsalData.lampiran_nama_asli||'PDF')} — otomatis ikut diteruskan.</span><a href="/api/disposisi/surat-masuk/${teruskanId}/lampiran?lihat=1" target="_blank" class="ml-auto px-3 py-1 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700 whitespace-nowrap"><i class="fas fa-eye mr-1"></i>Buka PDF</a></div>`+html;
+        }
+        const box=document.getElementById('preview-teruskan-isi');
+        if(box) box.innerHTML=html;
+    }
+    window.previewTeruskan=function(){
+        if(!terusAsalData){ alert('Data surat belum selesai dimuat. Coba lagi sebentar.'); return; }
+        renderPreviewTeruskan();
+        previewTeruskanAktif=true;
+        const m=document.getElementById('modal-preview-teruskan');
+        if(m){ m.classList.remove('hidden'); m.classList.add('flex'); }
+    }
+    window.tutupPreviewTeruskan=function(){
+        const m=document.getElementById('modal-preview-teruskan');
+        if(m){ m.classList.add('hidden'); m.classList.remove('flex'); }
+        previewTeruskanAktif=false;
+    }
+    window.previewTeruskanRefresh=function(){ if(previewTeruskanAktif) renderPreviewTeruskan(); }
+    // Unduh PDF dari isian form (belum tentu sudah dikirim).
+    window.pdfPreviewTeruskan=async function(btn){
+        if(!terusAsalData){ alert('Data surat belum selesai dimuat. Coba lagi sebentar.'); return; }
+        const d=dataPreviewTeruskan();
+        const orig=btn?btn.innerHTML:'';
+        if(btn){ btn.innerHTML='<i class="fas fa-spinner fa-spin mr-1"></i> Membuat PDF...'; btn.disabled=true; }
+        try{
+            const payload={ perihal:d.perihal||'', nomor_surat:d.nomor_surat||'', no_agenda:d.no_agenda||'', surat_dari:d.surat_dari||'', jenis_surat:d.jenis_surat||'dinas', tanggal_surat:d.tanggal_surat||'', tanggal_terima:d.tanggal_terima||'', diterima_dari:d.diterima_dari||'', diteruskan_kepada:d.diteruskan_kepada||[], isi_disposisi:d.isi_disposisi||[], catatan:d.catatan||'', paraf:d.paraf||'', paraf_image:d.paraf_image||'', varian:d.varian||'dansat', kepada_custom:d.kepada_custom||'' };
+            const res=await fetch('/api/disposisi/generate-pdf', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+            if(!res.ok){ const j=await res.json().catch(()=>({})); throw new Error(j.error||'Gagal membuat PDF.'); }
+            const blob=await res.blob();
+            if(!blob || blob.size<1000) throw new Error('Hasil PDF kosong.');
+            const a=document.createElement('a'); const url=URL.createObjectURL(blob);
+            const nama=(d.nomor_surat||d.no_agenda||'Satsiber').replace(/[^a-zA-Z0-9-_]/g,'_');
+            a.href=url; a.download=`Lembar_Disposisi_${nama}_terusan.pdf`; document.body.appendChild(a); a.click();
+            setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },1000);
+        }catch(e){ alert('Gagal unduh PDF: '+e.message); }
+        finally{ if(btn){ btn.innerHTML=orig; btn.disabled=false; } }
+    }
+    // PDF di footer modal Teruskan juga memakai isian form yang sedang aktif.
+    window.pdfTeruskan=function(btn){ window.pdfPreviewTeruskan(btn); }
+    // Perbarui preview secara langsung saat form diubah/ditandatangani.
+    function pasangPreviewLive(){
+        const m=document.getElementById('modal-teruskan');
+        if(!m || m.dataset.previewLive) return;
+        m.dataset.previewLive='1';
+        m.addEventListener('input', window.previewTeruskanRefresh);
+        m.addEventListener('change', window.previewTeruskanRefresh);
+        const c=document.getElementById('terus-sig-canvas');
+        if(c){ c.addEventListener('mouseup', window.previewTeruskanRefresh); c.addEventListener('touchend', window.previewTeruskanRefresh); }
+    }
+    window.bukaTeruskan=async function(id){
+        teruskanId=id;
+        terusAsalData=null;
+        // Reset tampilan dulu: semua seksi tampil (anti modal kosong),
+        // mode otomatis ditentukan ulang oleh autoPilihPersuratan().
+        document.getElementById('terus-tujuan-wrap')?.classList.remove('hidden');
+        document.getElementById('terus-otomatis-info')?.classList.add('hidden');
+        try{ renderTeruskanCheck(); }catch(e){ console.error('render check teruskan gagal:', e); }
+        loadBawahanTeruskan(); autoPilihPersuratan(); pasangPreviewLive();
+        const asalBox=document.getElementById('terus-lampiran-asal');
+        if(asalBox) asalBox.innerHTML='<span class="text-slate-400"><i class="fas fa-spinner fa-spin mr-1"></i>Memuat info lampiran...</span>';
+        // prefill dari surat asal
+        try{ const res=await fetch(`/api/disposisi/surat-masuk/${id}`); const s=await res.json(); if(res.ok){ terusAsalData=s; document.getElementById('terus-varian').value=s.varian||'dansat'; renderTeruskanCheck(); terusJenis=s.jenis_surat||''; terusPerihal=s.perihal||''; document.getElementById('terus-catatan').value=s.catatan||''; document.getElementById('terus-paraf').value=s.paraf||''; // centang sesuai asal
+            const setCheck=(cid, vals)=>{ const set=new Set(vals||[]); document.querySelectorAll(`#${cid} input`).forEach(el=>{ el.checked=set.has(el.value); }); };
+            setCheck('terus-check-terus', s.diteruskan_kepada); setCheck('terus-check-isi1', s.isi_disposisi); setCheck('terus-check-isi2', s.isi_disposisi);
+            if(asalBox){
+                asalBox.innerHTML = s.ada_lampiran
+                    ? `<i class="fas fa-paperclip text-amber-600"></i> <b>${escapeHtml(s.lampiran_nama_asli||'PDF surat undangan')}</b> — <a href="/api/disposisi/surat-masuk/${id}/lampiran" target="_blank" class="text-amber-700 underline font-bold">lihat PDF</a> <span class="text-slate-400">(otomatis ikut diteruskan)</span>`
+                    : '<span class="text-slate-400">(Surat asal tidak memiliki lampiran PDF)</span>';
+            }
+        }}catch(e){ if(asalBox) asalBox.innerHTML='<span class="text-red-500">Gagal memuat info lampiran.</span>'; }
+        document.getElementById('modal-teruskan').classList.remove('hidden'); document.getElementById('modal-teruskan').classList.add('flex');
+        setTimeout(initTerusSig,100);
+    }
+    window.tutupTeruskan=function(){ document.getElementById('modal-teruskan').classList.add('hidden'); document.getElementById('modal-teruskan').classList.remove('flex'); teruskanId=null; }
+    window.kirimTeruskan=async function(){
+        if(!teruskanId) return;
+        const tujuan=tujuanTeruskanTerpilih();
+        const modeOtomatis=document.getElementById('terus-tujuan-wrap')?.classList.contains('hidden');
+        // Mode otomatis (atasan 1-2, opsi disembunyikan): kosong = server teruskan ke persuratan.
+        if(!tujuan.length && !modeOtomatis){ alert('Centang minimal satu tujuan (bawahan / atasan).'); return; }
+        const namaTujuan=tujuan.length?tujuan.map(id=>{ const u=(cacheTujuanTeruskan||[]).find(x=>x.id===id); return u?labelTujuan(u):'-'; }):['Bagian Persuratan (otomatis)'];
+        const varian=document.getElementById('terus-varian').value;
+        const getChecked=id=>Array.from(document.querySelectorAll(`#${id} input:checked`)).map(el=>el.value);
+        let parafImg=document.getElementById('terus-paraf-image')?.value||'';
+        const c=document.getElementById('terus-sig-canvas');
+        if(!parafImg && c && terusHasStroke) parafImg=c.toDataURL('image/png');
+        const payload={ tujuan_ids:tujuan, tujuan_id:tujuan[0], varian, diteruskan_kepada:getChecked('terus-check-terus'), isi_disposisi:[...getChecked('terus-check-isi1'), ...getChecked('terus-check-isi2')], catatan:document.getElementById('terus-catatan').value.trim(), paraf:document.getElementById('terus-paraf').value.trim(), paraf_image:parafImg };
+        const btn=document.getElementById('btn-teruskan-kirim'); const orig=btn.innerHTML; btn.innerHTML='<i class="fas fa-spinner fa-spin mr-1"></i> Mengirim...'; btn.disabled=true;
+        try{ const res=await fetch(`/api/disposisi/teruskan/${teruskanId}`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)}); const j=await res.json(); if(!res.ok) throw new Error(j.error); const newId=j.id||(Array.isArray(j.ids)?j.ids[0]:null); tutupTeruskan(); if(typeof loadSuratMasuk==='function') loadSuratMasuk(); if(typeof loadTerkirim==='function') loadTerkirim(); tampilInfoTengah({mode:'sukses', jenis:terusJenis, perihal:terusPerihal, tujuan:namaTujuan, tg:j.telegram_terkirim||0, suratId:newId}); }catch(e){ alert('Gagal: '+e.message); } finally{ btn.innerHTML=orig; btn.disabled=false; }
+    }
+    window.hapusSurat=async function(id){
+        if(!confirm('Hapus surat disposisi ini? File dan data akan terhapus permanen.')) return;
+        try{ const res=await fetch(`/api/disposisi/surat-masuk/${id}`, {method:'DELETE'}); const j=await res.json(); if(!res.ok) throw new Error(j.error); alert(j.message); loadSuratMasuk(); }catch(e){ alert('Gagal hapus: '+e.message); }
+    }
+
+    window._sayaTingkat = null;
+    window._sayaRole = null;
+    window._sayaBagian = '';
+    window._sayaBolehKirim = false;
+    window._lockKirim = function(){ const t = window._sayaTingkat; return (t===1||t===2||(t!==null&&t>=4)) && !window._sayaBolehKirim; };
+    // Teruskan dipulihkan: atasan semua tingkat, admin, dan staf persuratan
+    // boleh meneruskan surat yang dipegangnya. Server tetap memvalidasi
+    // kepemilikan surat, jadi tampilan fail-open saat profil belum termuat.
+    window._bolehTeruskan = function(){
+        const r = window._sayaRole, b = window._sayaBagian;
+        if (!r) return true;
+        return r === 'admin' || r === 'atasan' || (r === 'user' && b === 'persuratan') || !!window._sayaBolehKirim;
+    };
+    window._bolehUnduh = function(){ if(!window._lockKirim()) return true; const t = window._sayaTingkat; return t===1||t===2; };
+    fetch('/api/user/profile').then(r=>r.json()).then(u=>{ window._sayaTingkat = u.tingkat ?? null; window._sayaRole = u.role || null; window._sayaBagian = u.bagian || ''; window._sayaBolehKirim = !!u.disp_kirim; try{ muatTabSurat(); }catch(e){} }).catch(()=>{});
+    document.addEventListener('DOMContentLoaded', () => { loadPengajuan(); loadRiwayat(); loadSuratMasuk(); });
+</script>
+<script>
+// Tugas Saya hanya untuk atasan yang mempunyai atasan langsung;
+// atasan paling tinggi tidak menampilkannya.
+fetch('/api/user/profile').then(r=>r.ok?r.json():null).then(p=>{const ok=!!(p&&p.punya_atasan_langsung);document.querySelectorAll('[data-nav-tugas-saya]').forEach(e=>{if(ok){e.style.display='flex';}else{e.remove();}});}).catch(()=>{});
+</script>
+<script>
+(function(){
+    async function samakanFoto(){
+        try{
+            const res = await fetch('/api/user/profile');
+            if(!res.ok) return;
+            const data = await res.json();
+            if(data.foto) document.querySelectorAll('.avatar-user').forEach(img=>{img.src=data.foto;});
+            if(data.nama) document.querySelectorAll('.nama-user').forEach(el=>{el.textContent=data.nama;});
+        }catch(e){}
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',samakanFoto);
+    else samakanFoto();
+})();
+</script>
+</body>
+</html>

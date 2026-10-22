@@ -1,0 +1,28 @@
+{
+  "bobot_pagerank": 0.471,
+  "bobot_posisi": 0.059,
+  "bobot_panjang": 0.235,
+  "bobot_kata_kunci": 0.235,
+  "bobot_angka": 0.0,
+  "ambang_kemiripan": 0.05,
+  "damping": 0.85,
+  "kata_kunci": [
+    "menimbang",
+    "mengingat",
+    "memperhatikan",
+    "memutuskan",
+    "menetapkan",
+    "disposisi",
+    "instruksi",
+    "evaluasi",
+    "kesimpulan",
+    "hasil",
+    "saran",
+    "tindak lanjut",
+    "lapor",
+    "penting",
+    "segera",
+    "wajib",
+    "sasaran"
+  ]
+}

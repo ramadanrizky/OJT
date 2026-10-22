@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pindai Dokumen iOS - Web Scanner</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- jsPDF for multi-page PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .ios-blur {
+      background: rgba(22, 22, 24, 0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+    .ios-btn-active:active {
+      transform: scale(0.94);
+      transition: transform 0.1s ease;
+    }
+    .shutter-ring {
+      box-shadow: 0 0 0 3.5px rgba(255, 255, 255, 0.35);
+    }
+    /* Loupe / Magnifier iOS Style */
+    #corner-loupe {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.2);
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 60;
+      transform: translate(-50%, -120%);
+      display: none;
+      background: #000;
+    }
+    #loupe-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    /* Progress ring for auto-capture */
+    .progress-ring-circle {
+      transition: stroke-dashoffset 0.1s linear;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    /* iOS Camera Tap-to-Focus Reticle */
+    #focus-reticle {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      border: 1.5px solid #facc15;
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 35;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.3);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #focus-reticle.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    /* Quick fly-to-thumbnail animation for continuous scanning */
+    @keyframes flyToThumb {
+      0% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(0.5) translate(80px, 120px); opacity: 0.8; }
+      100% { transform: scale(0.1) translate(140px, 260px); opacity: 0; }
+    }
+    .animate-fly-thumb {
+      animation: flyToThumb 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-black text-white h-screen w-screen overflow-hidden flex flex-col antialiased">
+
+  <!-- OpenCV Loading Banner -->
+  <div id="cv-loader" class="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-6 text-center transition-opacity duration-300">
+    <div class="relative w-16 h-16 mb-4">
+      <div class="absolute inset-0 rounded-full border-4 border-neutral-700"></div>
+      <div class="absolute inset-0 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div>
+    </div>
+    <h2 class="text-xl font-semibold mb-2">Menyiapkan Pemindai Dokumen...</h2>
+    <p class="text-sm text-neutral-400 max-w-sm">Memuat modul OpenCV.js untuk deteksi tepi dan perataan perspektif otomatis.</p>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full ios-blur border border-white/10 text-xs text-neutral-200 shadow-xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2">
+    <i data-lucide="info" class="w-3.5 h-3.5 text-blue-400"></i>
+    <span id="toast-message">Pesan</span>
+  </div>
+
+  <!-- Screen Flash for Camera Capture -->
+  <div id="camera-flash" class="fixed inset-0 bg-white opacity-0 pointer-events-none z-50 transition-opacity duration-200"></div>
+
+  <!-- Top Bar (iOS Style) -->
+  <header class="h-16 px-4 flex items-center justify-between z-20 ios-blur border-b border-white/10 shrink-0">
+    <div class="flex items-center gap-2">
+      <button id="btn-flash" class="p-2 rounded-full hover:bg-white/10 ios-btn-active text-neutral-300 hover:text-white" title="Flashlight">
+        <i data-lucide="zap-off" class="w-5 h-5"></i>
+      </button>
+      <button id="btn-mode-toggle" class="px-3 py-1.5 text-xs font-semibold rounded-full bg-blue-600 text-white ios-btn-active flex items-center gap-1.5 transition">
+        <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+        <span id="mode-text">Otomatis</span>
+      </button>
+    </div>
+
+    <div class="text-center">
+      <h1 class="text-sm font-semibold tracking-wide">Pindai Dokumen</h1>
+      <p id="top-status-text" class="text-[10px] text-blue-400 font-medium">Mencari dokumen...</p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <!-- File upload fallback -->
+      <label class="p-2 rounded-full hover:bg-white/10 ios-btn-active text-neutral-300 hover:text-white cursor-pointer" title="Unggah Foto Dokumen">
+        <i data-lucide="image-plus" class="w-5 h-5"></i>
+        <input type="file" id="file-input" accept="image/*" class="hidden">
+      </label>
+      <button id="btn-open-gallery" class="relative p-2 rounded-full hover:bg-white/10 ios-btn-active text-neutral-300 hover:text-white" title="Koleksi Halaman">
+        <i data-lucide="files" class="w-5 h-5"></i>
+        <span id="badge-count" class="hidden absolute top-1 right-1 w-4 h-4 bg-blue-500 text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Viewport Area -->
+  <main id="viewport-container" class="relative flex-1 bg-black flex items-center justify-center overflow-hidden">
+    <!-- Live Webcam Stream -->
+    <video id="webcam" playsinline autoplay muted class="absolute max-w-full max-h-full object-contain"></video>
+
+    <!-- Still Display Canvas (Active when adjusting uploaded file or captured photo) -->
+    <canvas id="canvas-capture-display" class="absolute max-w-full max-h-full object-contain hidden"></canvas>
+
+    <!-- Overlay Canvas for Auto-Detection Polygon Display -->
+    <canvas id="canvas-overlay" class="absolute max-w-full max-h-full object-contain pointer-events-none"></canvas>
+
+    <!-- Animated Document Capture Ghost effect -->
+    <canvas id="canvas-ghost" class="absolute max-w-full max-h-full object-contain pointer-events-none z-30 hidden"></canvas>
+
+    <!-- Tap to Focus Reticle -->
+    <div id="focus-reticle">
+      <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-0.5 bg-yellow-400"></div>
+      <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-0.5 bg-yellow-400"></div>
+      <div class="absolute -left-1 top-1/2 -translate-y-1/2 w-0.5 h-2 bg-yellow-400"></div>
+      <div class="absolute -right-1 top-1/2 -translate-y-1/2 w-0.5 h-2 bg-yellow-400"></div>
+    </div>
+
+    <!-- Center Leveling Guide Crosshair (iOS camera leveler) -->
+    <div id="camera-crosshair" class="absolute pointer-events-none flex items-center justify-center opacity-40 transition-opacity">
+      <div class="w-8 h-0.5 bg-white/60"></div>
+      <div class="h-8 w-0.5 bg-white/60 -ml-[17px]"></div>
+    </div>
+
+    <!-- Interactive Crop / Corner Tuning Overlay -->
+    <div id="corner-tuning-box" class="absolute inset-0 z-30 hidden pointer-events-auto">
+      <svg id="polygon-svg" class="w-full h-full absolute inset-0 pointer-events-none">
+        <polygon id="guide-polygon" points="" fill="rgba(59, 130, 246, 0.28)" stroke="#60a5fa" stroke-width="2.5" stroke-dasharray="4" />
+      </svg>
+      
+      <!-- Draggable Corner Handles -->
+      <div id="handle-tl" class="absolute w-10 h-10 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-blue-500 shadow-xl cursor-grab active:cursor-grabbing flex items-center justify-center touch-none">
+        <div class="w-3 h-3 rounded-full bg-white"></div>
+      </div>
+      <div id="handle-tr" class="absolute w-10 h-10 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-blue-500 shadow-xl cursor-grab active:cursor-grabbing flex items-center justify-center touch-none">
+        <div class="w-3 h-3 rounded-full bg-white"></div>
+      </div>
+      <div id="handle-br" class="absolute w-10 h-10 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-blue-500 shadow-xl cursor-grab active:cursor-grabbing flex items-center justify-center touch-none">
+        <div class="w-3 h-3 rounded-full bg-white"></div>
+      </div>
+      <div id="handle-bl" class="absolute w-10 h-10 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-blue-500 shadow-xl cursor-grab active:cursor-grabbing flex items-center justify-center touch-none">
+        <div class="w-3 h-3 rounded-full bg-white"></div>
+      </div>
+
+      <!-- iOS Magnifier / Loupe -->
+      <div id="corner-loupe">
+        <canvas id="loupe-canvas" width="100" height="100"></canvas>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div class="w-2 h-2 rounded-full border border-blue-400 bg-blue-500/40"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instruction Pill with Auto-Capture Radial Progress -->
+    <div id="instruction-pill" class="absolute top-4 px-4 py-1.5 rounded-full ios-blur border border-white/10 text-xs text-neutral-300 pointer-events-none flex items-center gap-2 shadow-xl z-20">
+      <div class="relative w-4 h-4 flex items-center justify-center">
+        <svg class="w-4 h-4" viewBox="0 0 36 36">
+          <path class="text-neutral-700" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+          <path id="progress-indicator" class="text-blue-500 progress-ring-circle" stroke-dasharray="100, 100" stroke-dashoffset="100" stroke-width="4" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+        </svg>
+      </div>
+      <span id="instruction-text">Sejajarkan dokumen di dalam bingkai</span>
+    </div>
+
+    <!-- Camera Offline / Permission Card -->
+    <div id="camera-fallback" class="hidden absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center bg-neutral-950">
+      <div class="w-16 h-16 rounded-2xl bg-neutral-900 flex items-center justify-center mb-4 text-neutral-400">
+        <i data-lucide="camera-off" class="w-8 h-8"></i>
+      </div>
+      <h3 class="text-base font-semibold mb-1">Kamera Tidak Aktif</h3>
+      <p class="text-xs text-neutral-400 max-w-xs mb-4">Izinkan akses kamera atau pilih file foto dokumen dari perangkat Anda.</p>
+      <button id="btn-request-cam" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white shadow-lg ios-btn-active">
+        Buka Kamera
+      </button>
+    </div>
+  </main>
+
+  <!-- Bottom Control Bar -->
+  <footer id="bottom-bar" class="h-28 px-8 flex items-center justify-between z-20 ios-blur border-t border-white/10 shrink-0">
+    <!-- Left: Cancel or Retake -->
+    <button id="btn-left-action" class="w-16 text-sm font-medium text-neutral-300 hover:text-white transition ios-btn-active text-left">
+      Batal
+    </button>
+
+    <!-- Center: Primary Capture Button -->
+    <div class="flex flex-col items-center">
+      <button id="btn-shutter" class="relative w-18 h-18 rounded-full border-[3px] border-white flex items-center justify-center shutter-ring transition ios-btn-active focus:outline-none">
+        <div class="w-14 h-14 rounded-full bg-white active:scale-95 transition-transform duration-75"></div>
+      </button>
+    </div>
+
+    <!-- Right: Save / Next / Gallery Button -->
+    <div class="w-16 flex justify-end">
+      <button id="btn-right-action" class="flex flex-col items-center gap-1 group">
+        <div id="thumb-preview-box" class="w-11 h-11 rounded-lg border border-white/20 bg-neutral-800 overflow-hidden flex items-center justify-center relative shadow-sm">
+          <i data-lucide="file-text" class="w-5 h-5 text-neutral-500"></i>
+        </div>
+        <span id="right-action-text" class="text-[11px] font-semibold text-neutral-300 group-hover:text-white">Simpan</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Processing & Filter Review Modal -->
+  <div id="review-modal" class="fixed inset-0 z-40 bg-neutral-950 flex flex-col hidden">
+    <!-- Top Modal Header -->
+    <div class="h-16 px-4 flex items-center justify-between ios-blur border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <button id="btn-review-back" class="text-sm font-medium text-blue-400 hover:text-blue-300 ios-btn-active flex items-center gap-1">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Atur Sudut
+        </button>
+        <button id="btn-review-retake" class="text-sm font-medium text-red-400 hover:text-red-300 ios-btn-active flex items-center gap-1">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Ulangi
+        </button>
+      </div>
+      <div class="text-center">
+        <h2 class="text-sm font-semibold">Sesuaikan Hasil Pindai</h2>
+        <span id="resolution-badge" class="text-[10px] text-green-400 font-mono font-medium">Resolusi HD</span>
+      </div>
+      <button id="btn-review-done" class="text-sm font-semibold text-blue-400 hover:text-blue-300 ios-btn-active">
+        Simpan
+      </button>
+    </div>
+
+    <!-- Image Preview Container -->
+    <div class="flex-1 bg-black/60 flex items-center justify-center p-4 overflow-hidden relative">
+      <canvas id="canvas-warped" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl border border-white/10 transition-transform duration-200"></canvas>
+      <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-neutral-400 pointer-events-none flex items-center gap-1.5 border border-white/10">
+        <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-blue-400"></i> Ketuk 2x untuk perbesar detail
+      </div>
+    </div>
+
+    <!-- Fine Tuning Sliders (Sharpness, Contrast & Brightness) -->
+    <div class="px-6 py-2 bg-neutral-900/90 border-t border-white/10 flex items-center justify-center gap-6 text-xs text-neutral-300">
+      <div class="flex items-center gap-2">
+        <span class="text-neutral-400">Ketajaman:</span>
+        <input type="range" id="slider-sharpness" min="1" max="5" step="0.5" value="3" class="w-24 accent-blue-500 cursor-pointer">
+        <span id="label-sharpness" class="font-mono text-[11px] text-blue-400 w-4">3.0</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-neutral-400">Kontras:</span>
+        <input type="range" id="slider-contrast" min="1" max="2" step="0.1" value="1.3" class="w-24 accent-blue-500 cursor-pointer">
+        <span id="label-contrast" class="font-mono text-[11px] text-blue-400 w-6">1.3x</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-neutral-400">Cahaya:</span>
+        <input type="range" id="slider-brightness" min="-60" max="60" step="5" value="0" class="w-24 accent-blue-500 cursor-pointer">
+        <span id="label-brightness" class="font-mono text-[11px] text-blue-400 w-6">0</span>
+      </div>
+    </div>
+
+    <!-- Filter Control Bar (iOS Style) -->
+    <div class="h-22 ios-blur border-t border-white/10 px-4 flex items-center justify-around">
+      <button class="filter-opt flex flex-col items-center gap-1 text-xs text-white focus:outline-none" data-filter="magic">
+        <div class="w-9 h-9 rounded-full bg-blue-600 border-2 border-white flex items-center justify-center icon-filter shadow-lg">
+          <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
+        </div>
+        <span class="text-[11px]">Warna Jernih</span>
+      </button>
+
+      <button class="filter-opt flex flex-col items-center gap-1 text-xs text-neutral-400 focus:outline-none" data-filter="bw">
+        <div class="w-9 h-9 rounded-full bg-neutral-800 border-2 border-transparent flex items-center justify-center icon-filter">
+          <i data-lucide="contrast" class="w-4 h-4 text-white"></i>
+        </div>
+        <span class="text-[11px]">Teks Tajam</span>
+      </button>
+
+      <button class="filter-opt flex flex-col items-center gap-1 text-xs text-neutral-400 focus:outline-none" data-filter="gray">
+        <div class="w-9 h-9 rounded-full bg-neutral-800 border-2 border-transparent flex items-center justify-center icon-filter">
+          <i data-lucide="palette" class="w-4 h-4 text-white"></i>
+        </div>
+        <span class="text-[11px]">Abu-abu</span>
+      </button>
+
+      <button class="filter-opt flex flex-col items-center gap-1 text-xs text-neutral-400 focus:outline-none" data-filter="original">
+        <div class="w-9 h-9 rounded-full bg-neutral-800 border-2 border-transparent flex items-center justify-center icon-filter">
+          <i data-lucide="image" class="w-4 h-4 text-white"></i>
+        </div>
+        <span class="text-[11px]">Asli HD</span>
+      </button>
+    </div>
+    <p class="text-center text-[10px] text-neutral-500 pb-2">untuk arsip gunakan warna jernih</p>
+  </div>
+
+  <!-- Saved Documents Gallery & Export Modal -->
+  <div id="gallery-modal" class="fixed inset-0 z-40 bg-neutral-950 flex flex-col hidden">
+    <div class="h-16 px-4 flex items-center justify-between ios-blur border-b border-white/10">
+      <button id="btn-gallery-close" class="text-sm font-medium text-neutral-400 hover:text-white">
+        Tutup
+      </button>
+      <h2 class="text-sm font-semibold">Dokumen Tersimpan (<span id="gallery-count">0</span>)</h2>
+      <button id="btn-export-pdf" class="text-sm font-semibold text-blue-400 hover:text-blue-300 disabled:opacity-40">
+        Ekspor PDF
+      </button>
+    </div>
+
+    <!-- Scanned Pages Grid -->
+    <div id="scanned-grid" class="flex-1 overflow-y-auto p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+
+    <!-- Footer Action -->
+    <div class="h-20 ios-blur border-t border-white/10 px-6 flex items-center justify-between">
+      <button id="btn-clear-all" class="text-xs text-red-400 hover:text-red-300 font-medium">Hapus Semua</button>
+      <button id="btn-add-more" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white shadow-lg ios-btn-active flex items-center gap-2">
+        <i data-lucide="plus" class="w-4 h-4"></i> Tambah Halaman
+      </button>
+    </div>
+  </div>
+
+  <!-- Hidden Working Offscreen Canvases for OpenCV -->
+  <canvas id="canvas-processing" class="hidden"></canvas>
+  <canvas id="canvas-original-capture" class="hidden"></canvas>
+
+  <!-- Load OpenCV.js asynchronously -->
+  <script async src="https://docs.opencv.org/4.8.0/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+
+  <script>
+    const AppState = {
+      isOpenCvReady: false,
+      videoStream: null,
+      facingMode: 'environment',
+      autoDetectMode: true,
+      flashEnabled: false,
+      
+      // Auto-capture stability tracking (iOS-like)
+      previousCorners: null,
+      smoothedCorners: null,
+      stableFrames: 0,
+      REQUIRED_STABLE_FRAMES: 7, // ~0.5 - 0.7s of steady holding
+      isAutoCapturing: false,
+      isCooldown: false,
+      
+      // Points for 4 corners [TL, TR, BR, BL] in image resolution coords
+      detectedCorners: null,
+      rawCapturedImage: null, // Canvas holding original captured/uploaded bitmap
+      currentFilter: 'magic', // Default to iOS Magic Color for clean white paper + sharp colored text
+      activeDragHandle: null,
+      isAdjustingMode: false,
+      
+      // Fine-tuning parameters for razor-sharp scans
+      sharpnessBoost: 3.0,
+      contrastBoost: 1.3,
+      brightnessBoost: 0, // -60..60, 0 = asli
+      isPreviewZoomed: false,
+
+      // Scanned pages collection
+      scannedPages: []
+    };
+
+    // ================= PUSAT TUNING SCANNER (hasil latih) =================
+    // Semua angka keramat pipeline vision dikumpulkan di sini agar mudah
+    // dilatih ulang tanpa mengobrak-abrik logika. Nilai = hasil tuning.
+    const SCAN_TUNE = {
+      deteksi: {
+        maxDim: 520,        // downscale deteksi (naikkan bila HP kuat)
+        blur: 5,            // Gaussian blur pra-ambang
+        morph: 9,           // kernel penutup morfologi (satukan teks)
+        cannyRendah: 50, cannyTinggi: 150,
+        minArea: 0.10,      // abaikan kontur <10% layar (noise)
+        maxArea: 0.94,      // abaikan kontur ~selayar (bingkai kamera)
+        approxEpsilon: 0.025 // toleransi penyederhanaan poligon
+      },
+      stabilitas: {
+        ema: 0.45,          // penghalus sudut antar-frame
+        ambangPx: 14,       // drift dianggap stabil
+        penalti: 2          // pengurang frame saat goyang
+      },
+      magic: {
+        dilatasi: 21,       // estimasi iluminasi kertas
+        median: 21,          // penghalus iluminasi
+        kontrasKurang: -10   // offset pasca-bagi iluminasi
+      },
+      bw: {
+        blur: 3,            // pra-blur anti-grain
+        blokAdaptif: 27, konstantaAdaptif: 13,
+        denoiseMedian: 3    // penghilang bintik (0 = mati)
+      },
+      warp: { minSisiPanjang: 2000 }, // resolusi minimal hasil (penting untuk OCR)
+      ekspor: { jpeg: 0.93 } // kompresi halaman (0.98 boros MB tanpa guna OCR)
+    };
+    // =====================================================================
+
+    // Synthesize subtle iOS-like camera shutter sound and haptics
+    function playShutterSound() {
+      try {
+        if (navigator.vibrate) {
+          navigator.vibrate([20, 30, 20]); // Realistic iOS haptic click
+        }
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(520, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.09);
+      } catch (e) {
+        // AudioContext might be restricted until user gesture
+      }
+    }
+
+    // Trigger visual screen flash
+    function triggerScreenFlash() {
+      const flash = document.getElementById('camera-flash');
+      flash.classList.remove('opacity-0');
+      flash.classList.add('opacity-80');
+      setTimeout(() => {
+        flash.classList.remove('opacity-80');
+        flash.classList.add('opacity-0');
+      }, 150);
+    }
+
+    const elements = {
+      cvLoader: document.getElementById('cv-loader'),
+      toast: document.getElementById('toast'),
+      toastMsg: document.getElementById('toast-message'),
+      video: document.getElementById('webcam'),
+      captureDisplay: document.getElementById('canvas-capture-display'),
+      overlayCanvas: document.getElementById('canvas-overlay'),
+      canvasGhost: document.getElementById('canvas-ghost'),
+      instructionPill: document.getElementById('instruction-pill'),
+      instructionText: document.getElementById('instruction-text'),
+      progressIndicator: document.getElementById('progress-indicator'),
+      topStatusText: document.getElementById('top-status-text'),
+      btnShutter: document.getElementById('btn-shutter'),
+      btnModeToggle: document.getElementById('btn-mode-toggle'),
+      modeText: document.getElementById('mode-text'),
+      btnFlash: document.getElementById('btn-flash'),
+      fileInput: document.getElementById('file-input'),
+      cameraFallback: document.getElementById('camera-fallback'),
+      btnRequestCam: document.getElementById('btn-request-cam'),
+      btnLeftAction: document.getElementById('btn-left-action'),
+      btnRightAction: document.getElementById('btn-right-action'),
+      rightActionText: document.getElementById('right-action-text'),
+      
+      // Corner tuning elements
+      cornerBox: document.getElementById('corner-tuning-box'),
+      guidePolygon: document.getElementById('guide-polygon'),
+      handleTL: document.getElementById('handle-tl'),
+      handleTR: document.getElementById('handle-tr'),
+      handleBR: document.getElementById('handle-br'),
+      handleBL: document.getElementById('handle-bl'),
+      loupe: document.getElementById('corner-loupe'),
+      loupeCanvas: document.getElementById('loupe-canvas'),
+      
+      // Review Modal
+      reviewModal: document.getElementById('review-modal'),
+      btnReviewBack: document.getElementById('btn-review-back'),
+      btnReviewDone: document.getElementById('btn-review-done'),
+      canvasWarped: document.getElementById('canvas-warped'),
+      filterButtons: document.querySelectorAll('.filter-opt'),
+      
+      // Gallery Modal
+      galleryModal: document.getElementById('gallery-modal'),
+      btnOpenGallery: document.getElementById('btn-open-gallery'),
+      btnGalleryClose: document.getElementById('btn-gallery-close'),
+      btnExportPdf: document.getElementById('btn-export-pdf'),
+      scannedGrid: document.getElementById('scanned-grid'),
+      galleryCount: document.getElementById('gallery-count'),
+      badgeCount: document.getElementById('badge-count'),
+      thumbBox: document.getElementById('thumb-preview-box'),
+      btnClearAll: document.getElementById('btn-clear-all'),
+      btnAddMore: document.getElementById('btn-add-more'),
+      
+      // Focus & tuning
+      focusReticle: document.getElementById('focus-reticle'),
+      sliderSharpness: document.getElementById('slider-sharpness'),
+      labelSharpness: document.getElementById('label-sharpness'),
+      sliderContrast: document.getElementById('slider-contrast'),
+      labelContrast: document.getElementById('label-contrast')
+    };
+
+    function showToast(msg) {
+      elements.toastMsg.innerText = msg;
+      elements.toast.classList.remove('opacity-0', 'pointer-events-none');
+      elements.toast.classList.add('opacity-100');
+      setTimeout(() => {
+        elements.toast.classList.remove('opacity-100');
+        elements.toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2300);
+    }
+
+    function onOpenCvReady() {
+      cv['onRuntimeInitialized'] = () => {
+        AppState.isOpenCvReady = true;
+        elements.cvLoader.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => elements.cvLoader.remove(), 400);
+        showToast("Pemindai Dokumen Siap");
+        startCamera();
+      };
+    }
+
+    async function startCamera() {
+      if (AppState.videoStream) {
+        AppState.videoStream.getTracks().forEach(track => track.stop());
+      }
+      try {
+        // Request ultra-high definition camera stream with continuous autofocus & exposure
+        const constraints = {
+          audio: false,
+          video: {
+            facingMode: AppState.facingMode,
+            width: { ideal: 3840, min: 1920 },
+            height: { ideal: 2160, min: 1080 },
+            focusMode: { ideal: "continuous" },
+            exposureMode: { ideal: "continuous" },
+            whiteBalanceMode: { ideal: "continuous" }
+          }
+        };
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        AppState.videoStream = stream;
+        elements.video.srcObject = stream;
+        elements.cameraFallback.classList.add('hidden');
+        
+        elements.video.onloadedmetadata = () => {
+          elements.video.play();
+          elements.video.classList.remove('hidden');
+          elements.captureDisplay.classList.add('hidden');
+          requestAnimationFrame(processVideoFrame);
+        };
+      } catch (err) {
+        // Fallback to standard 1080p if 4K constraints are rejected by browser
+        try {
+          const fallbackConstraints = {
+            audio: false,
+            video: {
+              facingMode: AppState.facingMode,
+              width: { ideal: 1920 },
+              height: { ideal: 1080 }
+            }
+          };
+          const stream = await navigator.mediaDevices.getUserMedia(fallbackConstraints);
+          AppState.videoStream = stream;
+          elements.video.srcObject = stream;
+          elements.cameraFallback.classList.add('hidden');
+          elements.video.onloadedmetadata = () => {
+            elements.video.play();
+            requestAnimationFrame(processVideoFrame);
+          };
+        } catch (err2) {
+          console.warn("Kamera tidak dapat diakses:", err2);
+          elements.cameraFallback.classList.remove('hidden');
+          showToast("Kamera tidak diizinkan. Silakan gunakan tombol unggah foto.");
+        }
+      }
+    }
+
+    // Interactive Tap-to-Focus with visual indicator
+    function handleTapToFocus(e) {
+      if (AppState.isAdjustingMode || !AppState.videoStream) return;
+      const rect = elements.video.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      if (!clientX || !clientY) return;
+
+      const reticle = elements.focusReticle;
+      reticle.style.left = `${clientX}px`;
+      reticle.style.top = `${clientY}px`;
+      reticle.classList.add('active');
+
+      // Attempt hardware point-of-interest focus if supported by modern browser
+      const track = AppState.videoStream.getVideoTracks()[0];
+      const capabilities = track.getCapabilities ? track.getCapabilities() : {};
+      if (capabilities.focusMode && capabilities.focusMode.includes('continuous')) {
+        try {
+          track.applyConstraints({
+            advanced: [{
+              focusMode: 'continuous',
+              exposureMode: 'continuous'
+            }]
+          });
+        } catch (e) {}
+      }
+
+      setTimeout(() => {
+        reticle.classList.remove('active');
+      }, 1000);
+    }
+
+    // (definisi onOpenCvReady & startCamera utama ada di atas — blok duplikat dihapus agar tidak konflik)
+
+    async function startCamera() {
+      if (AppState.videoStream) {
+        AppState.videoStream.getTracks().forEach(track => track.stop());
+      }
+      try {
+        const constraints = {
+          audio: false,
+          video: {
+            facingMode: AppState.facingMode,
+            width: { ideal: 3840, max: 4096 },
+            height: { ideal: 2160, max: 2160 },
+            focusMode: { ideal: "continuous" },
+            exposureMode: { ideal: "continuous" },
+            whiteBalanceMode: { ideal: "continuous" }
+          }
+        };
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        AppState.videoStream = stream;
+        elements.video.srcObject = stream;
+        elements.cameraFallback.classList.add('hidden');
+        
+        elements.video.onloadedmetadata = () => {
+          elements.video.play();
+          elements.video.classList.remove('hidden');
+          elements.captureDisplay.classList.add('hidden');
+          requestAnimationFrame(processVideoFrame);
+        };
+      } catch (err) {
+        // Fallback to standard 1080p if 4K is rejected by device
+        try {
+          const fallbackConstraints = {
+            audio: false,
+            video: {
+              facingMode: AppState.facingMode,
+              width: { ideal: 1920 },
+              height: { ideal: 1080 }
+            }
+          };
+          const stream = await navigator.mediaDevices.getUserMedia(fallbackConstraints);
+          AppState.videoStream = stream;
+          elements.video.srcObject = stream;
+          elements.cameraFallback.classList.add('hidden');
+          elements.video.onloadedmetadata = () => {
+            elements.video.play();
+            requestAnimationFrame(processVideoFrame);
+          };
+        } catch (err2) {
+          console.warn("Kamera tidak dapat diakses:", err2);
+          elements.cameraFallback.classList.remove('hidden');
+          showToast("Kamera tidak diizinkan. Silakan unggah foto dokumen.");
+        }
+      }
+    }
+
+    async function toggleFlash() {
+      if (!AppState.videoStream) return;
+      const track = AppState.videoStream.getVideoTracks()[0];
+      const capabilities = track.getCapabilities ? track.getCapabilities() : {};
+      if (!capabilities.torch) {
+        showToast("Lampu kilat tidak didukung pada perangkat ini.");
+        return;
+      }
+      AppState.flashEnabled = !AppState.flashEnabled;
+      await track.applyConstraints({ advanced: [{ torch: AppState.flashEnabled }] });
+      elements.btnFlash.innerHTML = AppState.flashEnabled ? 
+        '<i data-lucide="zap" class="w-5 h-5 text-yellow-400"></i>' : 
+        '<i data-lucide="zap-off" class="w-5 h-5"></i>';
+      safeIcons();
+    }
+
+    let lastDetectionTime = 0;
+    function processVideoFrame(timestamp) {
+      if (!AppState.isOpenCvReady || !AppState.videoStream || elements.video.paused || elements.video.ended || AppState.isAdjustingMode) {
+        requestAnimationFrame(processVideoFrame);
+        return;
+      }
+
+      // Sync overlay canvas dimensions to video
+      if (elements.overlayCanvas.width !== elements.video.videoWidth) {
+        elements.overlayCanvas.width = elements.video.videoWidth;
+        elements.overlayCanvas.height = elements.video.videoHeight;
+      }
+
+      const ctx = elements.overlayCanvas.getContext('2d');
+      ctx.clearRect(0, 0, elements.overlayCanvas.width, elements.overlayCanvas.height);
+
+      // Analyze frame roughly every 65ms for fast responsive tracking
+      if (timestamp - lastDetectionTime > 65 && !AppState.isAutoCapturing && !AppState.isCooldown) {
+        lastDetectionTime = timestamp;
+        const rawCorners = detectDocumentContourFromSource(elements.video);
+        
+        if (rawCorners) {
+          // Smooth corners using Exponential Moving Average to eliminate jitter
+          AppState.smoothedCorners = smoothCorners(AppState.smoothedCorners, rawCorners, SCAN_TUNE.stabilitas.ema);
+          AppState.detectedCorners = AppState.smoothedCorners;
+          drawPolyOnCanvas(ctx, AppState.detectedCorners);
+
+          // Evaluate stability between frames
+          if (AppState.autoDetectMode) {
+            checkStabilityAndAutoCapture(AppState.detectedCorners);
+          } else {
+            elements.topStatusText.innerText = "Dokumen terdeteksi (Manual)";
+            elements.topStatusText.className = "text-[10px] text-green-400 font-medium";
+            updateAutoProgress(0);
+          }
+        } else {
+          // Decay stability if document is lost
+          AppState.smoothedCorners = null;
+          AppState.stableFrames = Math.max(0, AppState.stableFrames - 1);
+          updateAutoProgress(AppState.stableFrames / AppState.REQUIRED_STABLE_FRAMES);
+          elements.topStatusText.innerText = "Mencari dokumen...";
+          elements.topStatusText.className = "text-[10px] text-blue-400 font-medium";
+        }
+      }
+
+      requestAnimationFrame(processVideoFrame);
+    }
+
+    // Exponential Moving Average filter for rock-solid iOS-style overlays
+    function smoothCorners(prev, curr, alpha) {
+      if (!prev) return curr;
+      return {
+        tl: { x: prev.tl.x * (1 - alpha) + curr.tl.x * alpha, y: prev.tl.y * (1 - alpha) + curr.tl.y * alpha },
+        tr: { x: prev.tr.x * (1 - alpha) + curr.tr.x * alpha, y: prev.tr.y * (1 - alpha) + curr.tr.y * alpha },
+        br: { x: prev.br.x * (1 - alpha) + curr.br.x * alpha, y: prev.br.y * (1 - alpha) + curr.br.y * alpha },
+        bl: { x: prev.bl.x * (1 - alpha) + curr.bl.x * alpha, y: prev.bl.y * (1 - alpha) + curr.bl.y * alpha }
+      };
+    }
+
+    function checkStabilityAndAutoCapture(curr) {
+      if (!AppState.previousCorners) {
+        AppState.previousCorners = curr;
+        AppState.stableFrames = 1;
+        return;
+      }
+
+      const prev = AppState.previousCorners;
+      const drift = (
+        Math.hypot(curr.tl.x - prev.tl.x, curr.tl.y - prev.tl.y) +
+        Math.hypot(curr.tr.x - prev.tr.x, curr.tr.y - prev.tr.y) +
+        Math.hypot(curr.br.x - prev.br.x, curr.br.y - prev.br.y) +
+        Math.hypot(curr.bl.x - prev.bl.x, curr.bl.y - prev.bl.y)
+      ) / 4;
+
+      AppState.previousCorners = curr;
+
+      // Small drift means user holds camera steady over paper
+      const STABILITY_THRESHOLD = SCAN_TUNE.stabilitas.ambangPx; // pixels
+      if (drift < STABILITY_THRESHOLD) {
+        AppState.stableFrames++;
+      } else {
+        AppState.stableFrames = Math.max(0, AppState.stableFrames - SCAN_TUNE.stabilitas.penalti);
+      }
+
+      const progressRatio = Math.min(1, AppState.stableFrames / AppState.REQUIRED_STABLE_FRAMES);
+      updateAutoProgress(progressRatio);
+
+      if (progressRatio > 0.25) {
+        elements.topStatusText.innerText = "Tahan stabil...";
+        elements.topStatusText.className = "text-[10px] text-yellow-400 font-medium";
+      }
+
+      // Automatically trigger capture when steady limit is reached
+      if (AppState.stableFrames >= AppState.REQUIRED_STABLE_FRAMES && !AppState.isAutoCapturing) {
+        AppState.isAutoCapturing = true;
+        updateAutoProgress(1);
+        elements.topStatusText.innerText = "Memindai...";
+        elements.topStatusText.className = "text-[10px] text-green-400 font-semibold";
+        
+        playShutterSound();
+        triggerScreenFlash();
+
+        setTimeout(() => {
+          captureFrame(true); // true = auto-triggered continuous scan
+          AppState.isAutoCapturing = false;
+          AppState.stableFrames = 0;
+          AppState.previousCorners = null;
+          AppState.smoothedCorners = null;
+          updateAutoProgress(0);
+
+          // Brief cooldown so user can move to next page
+          AppState.isCooldown = true;
+          setTimeout(() => {
+            AppState.isCooldown = false;
+          }, 1200);
+        }, 160);
+      }
+    }
+
+    function updateAutoProgress(ratio) {
+      const offset = 100 - (ratio * 100);
+      elements.progressIndicator.style.strokeDashoffset = offset;
+    }
+
+    function detectDocumentContourFromSource(sourceElement) {
+      try {
+        const offCanvas = document.getElementById('canvas-processing');
+        const srcW = sourceElement.videoWidth || sourceElement.naturalWidth || sourceElement.width;
+        const srcH = sourceElement.videoHeight || sourceElement.naturalHeight || sourceElement.height;
+        if (!srcW || !srcH) return null;
+
+        // Downscale for real-time computational efficiency
+        const maxDim = SCAN_TUNE.deteksi.maxDim;
+        const scale = Math.min(1.0, maxDim / Math.max(srcW, srcH));
+        offCanvas.width = Math.round(srcW * scale);
+        offCanvas.height = Math.round(srcH * scale);
+        
+        const offCtx = offCanvas.getContext('2d');
+        offCtx.drawImage(sourceElement, 0, 0, offCanvas.width, offCanvas.height);
+
+        let src = cv.imread(offCanvas);
+        let gray = new cv.Mat();
+        let blurred = new cv.Mat();
+        let thresh = new cv.Mat();
+        let edges = new cv.Mat();
+        let closed = new cv.Mat();
+        let contours = new cv.MatVector();
+        let hierarchy = new cv.Mat();
+
+        cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+        cv.GaussianBlur(gray, blurred, new cv.Size(SCAN_TUNE.deteksi.blur, SCAN_TUNE.deteksi.blur), 0);
+
+        // Pass 1: Morphological solid-blob analysis (connects text into one solid page area)
+        cv.threshold(blurred, thresh, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
+        let morphKernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(SCAN_TUNE.deteksi.morph, SCAN_TUNE.deteksi.morph));
+        cv.morphologyEx(thresh, closed, cv.MORPH_CLOSE, morphKernel);
+
+        // Pass 2: Edge detection combining with Canny
+        cv.Canny(closed, edges, SCAN_TUNE.deteksi.cannyRendah, SCAN_TUNE.deteksi.cannyTinggi);
+        let dilateKernel = cv.Mat.ones(3, 3, cv.CV_8U);
+        cv.dilate(edges, edges, dilateKernel);
+
+        cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+
+        let maxArea = 0;
+        let bestApprox = null;
+        const totalArea = offCanvas.width * offCanvas.height;
+        const minArea = totalArea * SCAN_TUNE.deteksi.minArea; // abaikan noise kecil
+        const maxAllowedArea = totalArea * SCAN_TUNE.deteksi.maxArea; // abaikan bingkai kamera
+
+        for (let i = 0; i < contours.size(); i++) {
+          let cnt = contours.get(i);
+          let area = cv.contourArea(cnt);
+          if (area > minArea && area < maxAllowedArea && area > maxArea) {
+            let peri = cv.arcLength(cnt, true);
+            let approx = new cv.Mat();
+            cv.approxPolyDP(cnt, approx, SCAN_TUNE.deteksi.approxEpsilon * peri, true);
+
+            // Check if quadrilateral and convex
+            if (approx.rows === 4 && cv.isContourConvex(approx)) {
+              maxArea = area;
+              if (bestApprox) bestApprox.delete();
+              bestApprox = approx;
+            } else if (approx.rows >= 4 && approx.rows <= 7) {
+              // Handle slightly rounded paper corners using minAreaRect
+              let rect = cv.minAreaRect(cnt);
+              let boxPoints = cv.RotatedRect.points(rect);
+              let boxMat = cv.matFromArray(4, 1, cv.CV_32SC2, [
+                Math.round(boxPoints[0].x), Math.round(boxPoints[0].y),
+                Math.round(boxPoints[1].x), Math.round(boxPoints[1].y),
+                Math.round(boxPoints[2].x), Math.round(boxPoints[2].y),
+                Math.round(boxPoints[3].x), Math.round(boxPoints[3].y)
+              ]);
+              maxArea = area;
+              if (bestApprox) bestApprox.delete();
+              bestApprox = boxMat;
+              approx.delete();
+            } else {
+              approx.delete();
+            }
+          }
+          cnt.delete();
+        }
+
+        let resultCorners = null;
+        if (bestApprox) {
+          const pts = [];
+          for (let i = 0; i < 4; i++) {
+            pts.push({
+              x: (bestApprox.data32S[i * 2]) / scale,
+              y: (bestApprox.data32S[i * 2 + 1]) / scale
+            });
+          }
+          resultCorners = orderCornerPoints(pts);
+          bestApprox.delete();
+        }
+
+        src.delete();
+        gray.delete();
+        blurred.delete();
+        thresh.delete();
+        closed.delete();
+        edges.delete();
+        morphKernel.delete();
+        dilateKernel.delete();
+        contours.delete();
+        hierarchy.delete();
+
+        return resultCorners;
+      } catch (err) {
+        return null;
+      }
+    }
+
+    function orderCornerPoints(pts) {
+      // Sort corners: [TL, TR, BR, BL]
+      pts.sort((a, b) => (a.x + a.y) - (b.x + b.y));
+      const tl = pts[0];
+      const br = pts[3];
+
+      const remaining = [pts[1], pts[2]];
+      remaining.sort((a, b) => (a.y - a.x) - (b.y - b.x));
+      const tr = remaining[0];
+      const bl = remaining[1];
+
+      return { tl, tr, br, bl };
+    }
+
+    function drawPolyOnCanvas(ctx, corners) {
+      ctx.beginPath();
+      ctx.moveTo(corners.tl.x, corners.tl.y);
+      ctx.lineTo(corners.tr.x, corners.tr.y);
+      ctx.lineTo(corners.br.x, corners.br.y);
+      ctx.lineTo(corners.bl.x, corners.bl.y);
+      ctx.closePath();
+
+      // iOS translucent sky blue overlay with subtle glow
+      ctx.fillStyle = 'rgba(59, 130, 246, 0.25)';
+      ctx.fill();
+
+      ctx.strokeStyle = '#60a5fa';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      // Draw stylized anchor vertices
+      const pts = [corners.tl, corners.tr, corners.br, corners.bl];
+      pts.forEach(pt => {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 8, 0, 2 * Math.PI);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.strokeStyle = '#3b82f6';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      });
+    }
+
+    async function captureFrame(fromAuto = false) {
+      const origCanvas = document.getElementById('canvas-original-capture');
+      const v = elements.video;
+      let rawWidth = v.videoWidth || 1920;
+      let rawHeight = v.videoHeight || 1080;
+
+      // Try capturing at full hardware sensor resolution via ImageCapture API if available
+      let photoCaptured = false;
+      const track = AppState.videoStream ? AppState.videoStream.getVideoTracks()[0] : null;
+      if (track && window.ImageCapture) {
+        try {
+          const ic = new ImageCapture(track);
+          const blob = await ic.takePhoto({ fillLightMode: AppState.flashEnabled ? 'flash' : 'off' });
+          const imgBitmap = await createImageBitmap(blob);
+          
+          const scaleFactorX = imgBitmap.width / rawWidth;
+          const scaleFactorY = imgBitmap.height / rawHeight;
+
+          origCanvas.width = imgBitmap.width;
+          origCanvas.height = imgBitmap.height;
+          const oCtx = origCanvas.getContext('2d');
+          oCtx.imageSmoothingEnabled = true;
+          oCtx.imageSmoothingQuality = 'high';
+          oCtx.drawImage(imgBitmap, 0, 0);
+
+          // Scale detected corners to the full-resolution sensor bitmap
+          if (AppState.detectedCorners) {
+            AppState.detectedCorners = {
+              tl: { x: AppState.detectedCorners.tl.x * scaleFactorX, y: AppState.detectedCorners.tl.y * scaleFactorY },
+              tr: { x: AppState.detectedCorners.tr.x * scaleFactorX, y: AppState.detectedCorners.tr.y * scaleFactorY },
+              br: { x: AppState.detectedCorners.br.x * scaleFactorX, y: AppState.detectedCorners.br.y * scaleFactorY },
+              bl: { x: AppState.detectedCorners.bl.x * scaleFactorX, y: AppState.detectedCorners.bl.y * scaleFactorY }
+            };
+          }
+          photoCaptured = true;
+        } catch (e) {
+          // Fallback to direct video canvas capture
+          photoCaptured = false;
+        }
+      }
+
+      if (!photoCaptured) {
+        origCanvas.width = rawWidth;
+        origCanvas.height = rawHeight;
+        const oCtx = origCanvas.getContext('2d');
+        oCtx.imageSmoothingEnabled = true;
+        oCtx.imageSmoothingQuality = 'high';
+        oCtx.drawImage(v, 0, 0, rawWidth, rawHeight);
+      }
+
+      AppState.rawCapturedImage = origCanvas;
+
+      // Fallback corners if none detected
+      if (!AppState.detectedCorners) {
+        const w = origCanvas.width;
+        const h = origCanvas.height;
+        AppState.detectedCorners = {
+          tl: { x: w * 0.12, y: h * 0.12 },
+          tr: { x: w * 0.88, y: h * 0.12 },
+          br: { x: w * 0.88, y: h * 0.88 },
+          bl: { x: w * 0.12, y: h * 0.88 }
+        };
+      }
+
+      // In iOS Auto mode: warp perspective immediately and stack page without stopping camera
+      if (fromAuto && AppState.autoDetectMode) {
+        executePerspectiveTransform(true); // true = auto-save silently
+      } else {
+        openCornerAdjustment();
+      }
+    }
+
+    // Display image in main viewport so handles match with sub-pixel precision
+    function openCornerAdjustment() {
+      AppState.isAdjustingMode = true;
+
+      const disp = elements.captureDisplay;
+      disp.width = AppState.rawCapturedImage.width;
+      disp.height = AppState.rawCapturedImage.height;
+      const dCtx = disp.getContext('2d');
+      dCtx.drawImage(AppState.rawCapturedImage, 0, 0);
+
+      // Switch live camera to still display
+      elements.video.classList.add('hidden');
+      elements.overlayCanvas.classList.add('hidden');
+      disp.classList.remove('hidden');
+
+      elements.cornerBox.classList.remove('hidden');
+      elements.instructionText.innerText = "Tarik sudut untuk menyesuaikan dokumen";
+      elements.topStatusText.innerText = "Sesuaikan Sudut";
+      elements.topStatusText.className = "text-[10px] text-blue-400 font-medium";
+      elements.btnLeftAction.innerText = "Ulangi";
+      elements.rightActionText.innerText = "Simpan";
+      elements.btnShutter.classList.add('opacity-30', 'pointer-events-none');
+      
+      updateHandlePositions();
+    }
+
+    // Compute the exact displayed rectangle of an object-contain element
+    function getRenderedImageRect(element, originalWidth, originalHeight) {
+      const containerRect = element.getBoundingClientRect();
+      const containerRatio = containerRect.width / containerRect.height;
+      const imageRatio = originalWidth / originalHeight;
+
+      let renderedWidth, renderedHeight, offsetX, offsetY;
+
+      if (imageRatio > containerRatio) {
+        renderedWidth = containerRect.width;
+        renderedHeight = containerRect.width / imageRatio;
+        offsetX = containerRect.left;
+        offsetY = containerRect.top + (containerRect.height - renderedHeight) / 2;
+      } else {
+        renderedHeight = containerRect.height;
+        renderedWidth = containerRect.height * imageRatio;
+        offsetY = containerRect.top;
+        offsetX = containerRect.left + (containerRect.width - renderedWidth) / 2;
+      }
+
+      return {
+        left: offsetX,
+        top: offsetY,
+        width: renderedWidth,
+        height: renderedHeight,
+        scaleX: renderedWidth / originalWidth,
+        scaleY: renderedHeight / originalHeight
+      };
+    }
+
+    function updateHandlePositions() {
+      if (!AppState.rawCapturedImage || !AppState.detectedCorners) return;
+
+      const rect = getRenderedImageRect(
+        elements.captureDisplay,
+        AppState.rawCapturedImage.width,
+        AppState.rawCapturedImage.height
+      );
+      // Handle & poligon diposisikan relatif ke cornerBox (offsetParent),
+      // sedangkan rect.left/top relatif ke viewport -> kurangkan origin box
+      // agar titik handle TEPAT di sudut gambar (bug geser sebelumnya).
+      const box = elements.cornerBox.getBoundingClientRect();
+
+      const setHandle = (el, pt) => {
+        el.style.left = `${rect.left + pt.x * rect.scaleX - box.left}px`;
+        el.style.top = `${rect.top + pt.y * rect.scaleY - box.top}px`;
+      };
+
+      setHandle(elements.handleTL, AppState.detectedCorners.tl);
+      setHandle(elements.handleTR, AppState.detectedCorners.tr);
+      setHandle(elements.handleBR, AppState.detectedCorners.br);
+      setHandle(elements.handleBL, AppState.detectedCorners.bl);
+
+      const px = (pt) => `${rect.left + pt.x * rect.scaleX - box.left},${rect.top + pt.y * rect.scaleY - box.top}`;
+      const c = AppState.detectedCorners;
+      elements.guidePolygon.setAttribute(
+        'points',
+        `${px(c.tl)} ${px(c.tr)} ${px(c.br)} ${px(c.bl)}`
+      );
+    }
+
+    function renderLoupe(x, y, clientX, clientY) {
+      const loupe = elements.loupe;
+      const loupeCanvas = elements.loupeCanvas;
+      const lCtx = loupeCanvas.getContext('2d');
+      
+      loupe.style.display = 'block';
+      loupe.style.left = `${clientX}px`;
+      loupe.style.top = `${clientY}px`;
+
+      const zoomSize = 56;
+      lCtx.clearRect(0, 0, 100, 100);
+      lCtx.drawImage(
+        AppState.rawCapturedImage,
+        x - zoomSize / 2, y - zoomSize / 2, zoomSize, zoomSize,
+        0, 0, 100, 100
+      );
+    }
+
+    function setupDraggableHandles() {
+      const handles = [
+        { el: elements.handleTL, key: 'tl' },
+        { el: elements.handleTR, key: 'tr' },
+        { el: elements.handleBR, key: 'br' },
+        { el: elements.handleBL, key: 'bl' }
+      ];
+
+      handles.forEach(({ el, key }) => {
+        const onMove = (e) => {
+          if (AppState.activeDragHandle !== key) return;
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+          const rect = getRenderedImageRect(
+            elements.captureDisplay,
+            AppState.rawCapturedImage.width,
+            AppState.rawCapturedImage.height
+          );
+
+          let rawX = (clientX - rect.left) / rect.scaleX;
+          let rawY = (clientY - rect.top) / rect.scaleY;
+
+          rawX = Math.max(0, Math.min(AppState.rawCapturedImage.width, rawX));
+          rawY = Math.max(0, Math.min(AppState.rawCapturedImage.height, rawY));
+
+          AppState.detectedCorners[key] = { x: rawX, y: rawY };
+          updateHandlePositions();
+          renderLoupe(rawX, rawY, clientX, clientY);
+        };
+
+        const onEnd = () => {
+          AppState.activeDragHandle = null;
+          elements.loupe.style.display = 'none';
+          window.removeEventListener('mousemove', onMove);
+          window.removeEventListener('mouseup', onEnd);
+          window.removeEventListener('touchmove', onMove);
+          window.removeEventListener('touchend', onEnd);
+        };
+
+        const onStart = (e) => {
+          e.preventDefault();
+          AppState.activeDragHandle = key;
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+          const pt = AppState.detectedCorners[key];
+          renderLoupe(pt.x, pt.y, clientX, clientY);
+
+          window.addEventListener('mousemove', onMove);
+          window.addEventListener('mouseup', onEnd);
+          window.addEventListener('touchmove', onMove, { passive: false });
+          window.addEventListener('touchend', onEnd);
+        };
+
+        el.addEventListener('mousedown', onStart);
+        el.addEventListener('touchstart', onStart, { passive: false });
+      });
+    }
+
+    function executePerspectiveTransform(autoSave = false) {
+      try {
+        const srcMat = cv.imread(AppState.rawCapturedImage);
+        const c = AppState.detectedCorners;
+
+        // Validasi segi-empat: tolak bila menyilang/terlalu kecil (hasil warp sampah)
+        const _luas = Math.abs(
+          (c.tr.x - c.tl.x) * (c.bl.y - c.tl.y) - (c.br.x - c.tr.x) * (c.tr.y - c.tl.y)
+        );
+        const _luasImg = AppState.rawCapturedImage.width * AppState.rawCapturedImage.height;
+        const _sisi = [c.tl, c.tr, c.br, c.bl];
+        let _valid = _luas > _luasImg * 0.02;
+        for (let i = 0; i < 4 && _valid; i++) {
+          const p = _sisi[i], q = _sisi[(i + 1) % 4];
+          if (!(p.x >= 0 && p.y >= 0 &&
+                p.x <= AppState.rawCapturedImage.width && p.y <= AppState.rawCapturedImage.height)) {
+            _valid = false;
+          }
+          if (Math.hypot(q.x - p.x, q.y - p.y) < 20) _valid = false;
+        }
+        if (!_valid) {
+          try { srcMat.delete(); } catch (e) {}
+          showToast("Sudut tidak valid — atur ulang keempat sudut dokumen.");
+          return;
+        }
+
+        const widthTop = Math.hypot(c.tr.x - c.tl.x, c.tr.y - c.tl.y);
+        const widthBottom = Math.hypot(c.br.x - c.bl.x, c.br.y - c.bl.y);
+        let maxWidth = Math.round(Math.max(widthTop, widthBottom));
+
+        const heightRight = Math.hypot(c.tr.x - c.br.x, c.tr.y - c.br.y);
+        const heightLeft = Math.hypot(c.tl.x - c.bl.x, c.tl.y - c.bl.y);
+        let maxHeight = Math.round(Math.max(heightRight, heightLeft));
+
+        // Ensure high-DPI clarity for text (preventing tiny downscaled text pixelation)
+        const minLongEdge = SCAN_TUNE.warp.minSisiPanjang;
+        const currentLongEdge = Math.max(maxWidth, maxHeight);
+        if (currentLongEdge < minLongEdge && currentLongEdge > 0) {
+          const boost = minLongEdge / currentLongEdge;
+          maxWidth = Math.round(maxWidth * boost);
+          maxHeight = Math.round(maxHeight * boost);
+        }
+
+        let srcCoords = cv.matFromArray(4, 1, cv.CV_32FC2, [
+          c.tl.x, c.tl.y,
+          c.tr.x, c.tr.y,
+          c.br.x, c.br.y,
+          c.bl.x, c.bl.y
+        ]);
+
+        let dstCoords = cv.matFromArray(4, 1, cv.CV_32FC2, [
+          0, 0,
+          maxWidth, 0,
+          maxWidth, maxHeight,
+          0, maxHeight
+        ]);
+
+        let M = cv.getPerspectiveTransform(srcCoords, dstCoords);
+        let dst = new cv.Mat();
+        let dsize = new cv.Size(maxWidth, maxHeight);
+
+        // Bicubic interpolation (INTER_CUBIC) provides pristine text sharpness without jagged pixel edges
+        cv.warpPerspective(srcMat, dst, M, dsize, cv.INTER_CUBIC, cv.BORDER_CONSTANT, new cv.Scalar(255, 255, 255, 255));
+
+        elements.canvasWarped.width = maxWidth;
+        elements.canvasWarped.height = maxHeight;
+        cv.imshow(elements.canvasWarped, dst);
+
+        const badge = document.getElementById('resolution-badge');
+        if (badge) {
+          badge.innerText = `${maxWidth} × ${maxHeight} HD`;
+        }
+
+        if (window._baseWarpedMat) window._baseWarpedMat.delete();
+        window._baseWarpedMat = dst.clone();
+
+        srcMat.delete();
+        srcCoords.delete();
+        dstCoords.delete();
+        M.delete();
+        dst.delete();
+
+        // Apply ultra-sharp document enhancement filter
+        applyScanFilter(AppState.currentFilter);
+
+        if (autoSave) {
+          saveCurrentScanToCollection(true); // true = continuous scan without closing camera
+        } else {
+          elements.cornerBox.classList.add('hidden');
+          elements.reviewModal.classList.remove('hidden');
+        }
+      } catch (err) {
+        console.error("Warp error:", err);
+        showToast("Gagal melakukan perataan perspektif.");
+      }
+    }
+
+    // Tampilkan hasil + terapkan kecerahan pilihan user (satu pintu render)
+    function tampilkanHasil(mat) {
+      try {
+        const b = parseFloat(AppState.brightnessBoost) || 0;
+        if (b !== 0) {
+          mat.convertTo(mat, -1, 1.0, b);
+        }
+        cv.imshow(elements.canvasWarped, mat);
+      } catch (e) {
+        cv.imshow(elements.canvasWarped, mat);
+      }
+    }
+
+    // High-Fidelity Multi-Pass Document Sharpening Engine
+    // Anti-lag: cegah tumpukan proses + debounce pemicu slider.
+    let _sedangFilter = false;
+    let _filterTertunda = null;
+    function mintaFilter(filterType) {
+      _filterTertunda = filterType;
+      if (_sedangFilter) return; // proses berjalan: giliran berikutnya dikerjakan
+      if (mintaFilter._t) clearTimeout(mintaFilter._t);
+      mintaFilter._t = setTimeout(() => {
+        const ft = _filterTertunda;
+        _filterTertunda = null;
+        applyScanFilter(ft);
+      }, 90);
+    }
+    function applyScanFilter(filterType) {
+      if (!window._baseWarpedMat) return;
+      if (_sedangFilter) { _filterTertunda = filterType; return; }
+      _sedangFilter = true;
+      AppState.currentFilter = filterType;
+
+      elements.filterButtons.forEach(btn => {
+        const isSelected = btn.getAttribute('data-filter') === filterType;
+        const iconDiv = btn.querySelector('.icon-filter');
+        if (isSelected) {
+          iconDiv.className = "w-9 h-9 rounded-full bg-blue-600 border-2 border-white flex items-center justify-center icon-filter shadow-lg";
+          btn.classList.add('text-white');
+          btn.classList.remove('text-neutral-400');
+        } else {
+          iconDiv.className = "w-9 h-9 rounded-full bg-neutral-800 border-2 border-transparent flex items-center justify-center icon-filter";
+          btn.classList.add('text-neutral-400');
+          btn.classList.remove('text-white');
+        }
+      });
+
+      let src = window._baseWarpedMat.clone();
+      let output = new cv.Mat();
+
+      const sharpWeight = parseFloat(AppState.sharpnessBoost) || 3.0;
+      const contrastMult = parseFloat(AppState.contrastBoost) || 1.3;
+
+      try {
+        if (filterType === 'magic') {
+          // iOS "Magic Color" - Whitens background paper, enhances ink contrast, and sharpens typography
+          let gray = new cv.Mat();
+          let bgIllum = new cv.Mat();
+          let norm = new cv.Mat();
+          cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+
+          // Estimate paper illumination background using wide morphological dilation
+          // CEPAT: iluminasi bersifat frekuensi-rendah -> hitung di gambar
+          // kecil (maks 480px) lalu besarkan lagi. Hasil visual identik,
+          // jauh lebih ringan di HP untuk kanvas 2000px+.
+          let skalaBg = Math.min(1.0, 480 / Math.max(gray.rows, gray.cols));
+          let grayKecil = new cv.Mat();
+          let bgKecil = new cv.Mat();
+          if (skalaBg < 1.0) {
+            cv.resize(gray, grayKecil, new cv.Size(0, 0), skalaBg, skalaBg, cv.INTER_AREA);
+          } else {
+            gray.copyTo(grayKecil);
+          }
+          let kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(SCAN_TUNE.magic.dilatasi, SCAN_TUNE.magic.dilatasi));
+          cv.dilate(grayKecil, bgKecil, kernel);
+          cv.medianBlur(bgKecil, bgKecil, SCAN_TUNE.magic.median);
+          if (skalaBg < 1.0) {
+            cv.resize(bgKecil, bgIllum, new cv.Size(gray.cols, gray.rows), 0, 0, cv.INTER_LINEAR);
+          } else {
+            bgKecil.copyTo(bgIllum);
+          }
+          grayKecil.delete();
+          bgKecil.delete();
+
+          // Re-blend color information with shadow-free luminance & contrast stretch
+          // (bagi tiap kanal dengan iluminasi; norm skalar tak dipakai -> dibuang)
+          let channels = new cv.MatVector();
+          cv.split(src, channels);
+          let daftarKanal = [];
+          for (let i = 0; i < 3; i++) {
+            let ch = channels.get(i);
+            daftarKanal.push(ch);
+            cv.divide(ch, bgIllum, ch, 255.0);
+            ch.convertTo(ch, -1, contrastMult, SCAN_TUNE.magic.kontrasKurang);
+          }
+          cv.merge(channels, output);
+
+          // Dynamic Unsharp Masking for razor-sharp letters and line art
+          const edgeFactor = -0.5 * (sharpWeight / 3.0);
+          const centerFactor = 1.0 - (4 * edgeFactor);
+          let sharpKernel = cv.matFromArray(3, 3, cv.CV_32F, [
+             0, edgeFactor, 0,
+            edgeFactor, centerFactor, edgeFactor,
+             0, edgeFactor, 0
+          ]);
+          cv.filter2D(output, output, -1, sharpKernel);
+
+          tampilkanHasil( output);
+
+          gray.delete();
+          bgIllum.delete();
+          norm.delete();
+          kernel.delete();
+          sharpKernel.delete();
+          daftarKanal.forEach(m => m.delete());
+          channels.delete();
+        } else if (filterType === 'bw') {
+          // Anti-aliased high-contrast B&W document scan without noisy grain
+          let gray = new cv.Mat();
+          let blurred = new cv.Mat();
+          let bin = new cv.Mat();
+          cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+
+          // High-frequency edge preservation filter
+          cv.GaussianBlur(gray, blurred, new cv.Size(SCAN_TUNE.bw.blur, SCAN_TUNE.bw.blur), 0);
+          if (SCAN_TUNE.bw.denoiseMedian > 0) {
+            cv.medianBlur(blurred, blurred, SCAN_TUNE.bw.denoiseMedian);
+          }
+          cv.adaptiveThreshold(blurred, bin, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, SCAN_TUNE.bw.blokAdaptif, SCAN_TUNE.bw.konstantaAdaptif);
+
+          // Convert back to RGBA for canvas rendering
+          cv.cvtColor(bin, output, cv.COLOR_GRAY2RGBA, 0);
+          tampilkanHasil( output);
+
+          gray.delete();
+          blurred.delete();
+          bin.delete();
+        } else if (filterType === 'gray') {
+          let gray = new cv.Mat();
+          cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+
+          // Enhance text contrast using CLAHE
+          let clahe = new cv.CLAHE(2.5, new cv.Size(8, 8));
+          clahe.apply(gray, gray);
+
+          // Subtle sharpening on grayscale
+          let sharpKernel = cv.matFromArray(3, 3, cv.CV_32F, [
+            -0.2, -0.2, -0.2,
+            -0.2,  2.6, -0.2,
+            -0.2, -0.2, -0.2
+          ]);
+          cv.filter2D(gray, gray, -1, sharpKernel);
+
+          cv.cvtColor(gray, output, cv.COLOR_GRAY2RGBA, 0);
+          tampilkanHasil( output);
+
+          gray.delete();
+          clahe.delete();
+          sharpKernel.delete();
+        } else {
+          // Original HD with adjustable high-pass sharpness boost
+          const edgeFactor = -0.25 * (sharpWeight / 3.0);
+          const centerFactor = 1.0 - (8 * edgeFactor);
+          let sharpKernel = cv.matFromArray(3, 3, cv.CV_32F, [
+            edgeFactor, edgeFactor, edgeFactor,
+            edgeFactor, centerFactor, edgeFactor,
+            edgeFactor, edgeFactor, edgeFactor
+          ]);
+          src.convertTo(src, -1, contrastMult, 0);
+          cv.filter2D(src, output, -1, sharpKernel);
+          tampilkanHasil( output);
+          sharpKernel.delete();
+        }
+      } catch (e) {
+        console.error("Filter error, falling back to original:", e);
+        cv.imshow(elements.canvasWarped, src);
+        _sedangFilter = false;
+      }
+
+      src.delete();
+      if (output) output.delete();
+      _sedangFilter = false;
+      if (_filterTertunda) {
+        const ft = _filterTertunda;
+        _filterTertunda = null;
+        setTimeout(() => applyScanFilter(ft), 0);
+      }
+    }
+
+    function saveCurrentScanToCollection(isContinuous = false) {
+      // JPEG kualitas latih: cukup tajam untuk OCR, jauh lebih ringan dari 0.98
+      const dataUrl = elements.canvasWarped.toDataURL('image/jpeg', SCAN_TUNE.ekspor.jpeg);
+      AppState.scannedPages.push({
+        id: Date.now(),
+        dataUrl: dataUrl,
+        width: elements.canvasWarped.width,
+        height: elements.canvasWarped.height
+      });
+
+      updateThumbnailAndBadges();
+
+      if (isContinuous) {
+        showToast(`Halaman ${AppState.scannedPages.length} dipindai tajam!`);
+        elements.instructionText.innerText = "Siap untuk halaman berikutnya...";
+      } else {
+        elements.reviewModal.classList.add('hidden');
+        resetCameraUI();
+        showToast(`Halaman ${AppState.scannedPages.length} tersimpan HD!`);
+      }
+    }
+
+    function updateThumbnailAndBadges() {
+      const count = AppState.scannedPages.length;
+      elements.galleryCount.innerText = count;
+      elements.badgeCount.innerText = count;
+
+      if (count > 0) {
+        elements.badgeCount.classList.remove('hidden');
+        const last = AppState.scannedPages[count - 1];
+        elements.thumbBox.innerHTML = `<img src="${last.dataUrl}" class="w-full h-full object-cover">`;
+        elements.btnExportPdf.removeAttribute('disabled');
+      } else {
+        elements.badgeCount.classList.add('hidden');
+        elements.thumbBox.innerHTML = `<i data-lucide="file-text" class="w-5 h-5 text-neutral-500"></i>`;
+        elements.btnExportPdf.setAttribute('disabled', 'true');
+        safeIcons();
+      }
+    }
+
+    function resetCameraUI() {
+      AppState.isAdjustingMode = false;
+      AppState.detectedCorners = null;
+      AppState.stableFrames = 0;
+      updateAutoProgress(0);
+
+      elements.cornerBox.classList.add('hidden');
+      elements.captureDisplay.classList.add('hidden');
+      elements.video.classList.remove('hidden');
+      elements.overlayCanvas.classList.remove('hidden');
+      
+      elements.instructionText.innerText = "Sejajarkan dokumen di dalam bingkai";
+      elements.btnLeftAction.innerText = "Batal";
+      elements.rightActionText.innerText = "Simpan";
+      elements.btnShutter.classList.remove('opacity-30', 'pointer-events-none');
+    }
+
+    function renderGalleryGrid() {
+      elements.scannedGrid.innerHTML = '';
+      if (AppState.scannedPages.length === 0) {
+        elements.scannedGrid.innerHTML = `
+          <div class="col-span-full py-16 text-center text-neutral-500 text-xs">
+            Belum ada halaman dipindai.
+          </div>`;
+        return;
+      }
+
+      AppState.scannedPages.forEach((page, index) => {
+        const card = document.createElement('div');
+        card.className = "relative rounded-xl overflow-hidden bg-neutral-900 border border-white/10 group shadow-md";
+        card.innerHTML = `
+          <img src="${page.dataUrl}" class="w-full h-44 object-contain bg-black/40">
+          <div class="p-2 flex items-center justify-between bg-neutral-900/90 text-xs">
+            <span class="font-medium text-neutral-300">Hal. ${index + 1}</span>
+            <div class="flex items-center gap-1.5">
+              <a href="${page.dataUrl}" download="scan-hal-${index + 1}.jpg" class="p-1 text-neutral-400 hover:text-white" title="Unduh JPG">
+                <i data-lucide="download" class="w-4 h-4"></i>
+              </a>
+              <button onclick="removePage(${page.id})" class="p-1 text-red-400 hover:text-red-300" title="Hapus">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        elements.scannedGrid.appendChild(card);
+      });
+      safeIcons();
+    }
+
+    window.removePage = function(id) {
+      AppState.scannedPages = AppState.scannedPages.filter(p => p.id !== id);
+      updateThumbnailAndBadges();
+      renderGalleryGrid();
+    };
+
+    function exportToPdf() {
+      if (AppState.scannedPages.length === 0) return;
+      showToast("Menyusun PDF...");
+
+      const { jsPDF } = window.jspdf;
+      let pdf = null;
+
+      AppState.scannedPages.forEach((page, idx) => {
+        const orientation = page.width > page.height ? 'l' : 'p';
+        if (idx === 0) {
+          pdf = new jsPDF({
+            orientation: orientation,
+            unit: 'px',
+            format: [page.width, page.height]
+          });
+        } else {
+          pdf.addPage([page.width, page.height], orientation);
+        }
+        pdf.addImage(page.dataUrl, 'JPEG', 0, 0, page.width, page.height);
+      });
+
+      pdf.save(`Dokumen_Pindai_${new Date().toISOString().slice(0, 10)}.pdf`);
+      showToast("PDF berkualitas tinggi berhasil diunduh!");
+    }
+
+    elements.btnShutter?.addEventListener('click', () => {
+      playShutterSound();
+      triggerScreenFlash();
+      captureFrame(false);
+    });
+
+    elements.btnLeftAction?.addEventListener('click', () => {
+      if (AppState.isAdjustingMode) {
+        resetCameraUI();
+      } else {
+        showToast("Memindai dibatalkan");
+      }
+    });
+
+    elements.btnRightAction?.addEventListener('click', () => {
+      if (AppState.isAdjustingMode) {
+        executePerspectiveTransform(false);
+      } else {
+        renderGalleryGrid();
+        elements.galleryModal.classList.remove('hidden');
+      }
+    });
+
+    // Auto / Manual toggle
+    elements.btnModeToggle?.addEventListener('click', () => {
+      AppState.autoDetectMode = !AppState.autoDetectMode;
+      elements.modeText.innerText = AppState.autoDetectMode ? "Otomatis" : "Manual";
+      elements.btnModeToggle.className = AppState.autoDetectMode ?
+        "px-3 py-1.5 text-xs font-semibold rounded-full bg-blue-600 text-white ios-btn-active flex items-center gap-1.5 transition" :
+        "px-3 py-1.5 text-xs font-semibold rounded-full bg-white/10 text-neutral-200 hover:bg-white/20 ios-btn-active flex items-center gap-1.5 transition";
+      showToast(AppState.autoDetectMode ? "Mode Otomatis: Jepret otomatis saat dokumen stabil" : "Mode Manual: Ketuk tombol jepret");
+    });
+
+    elements.btnFlash?.addEventListener('click', toggleFlash);
+
+    // Tap to focus on camera
+    elements.video?.addEventListener('click', handleTapToFocus);
+
+    // Filter selection (lewat antrean agar tap cepat tak menumpuk proses)
+    elements.filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        mintaFilter(btn.getAttribute('data-filter'));
+      });
+    });
+
+    // Live Sharpness, Contrast & Brightness Adjustments (debounced)
+    elements.sliderSharpness?.addEventListener('input', (e) => {
+      AppState.sharpnessBoost = parseFloat(e.target.value);
+      elements.labelSharpness.innerText = AppState.sharpnessBoost.toFixed(1);
+      mintaFilter(AppState.currentFilter);
+    });
+
+    elements.sliderContrast?.addEventListener('input', (e) => {
+      AppState.contrastBoost = parseFloat(e.target.value);
+      elements.labelContrast.innerText = `${AppState.contrastBoost.toFixed(1)}x`;
+      mintaFilter(AppState.currentFilter);
+    });
+
+    elements.sliderBrightness = document.getElementById('slider-brightness');
+    elements.labelBrightness = document.getElementById('label-brightness');
+    elements.sliderBrightness?.addEventListener('input', (e) => {
+      AppState.brightnessBoost = parseFloat(e.target.value);
+      elements.labelBrightness.innerText = `${AppState.brightnessBoost}`;
+      mintaFilter(AppState.currentFilter);
+    });
+
+    // Double-tap or double-click to inspect sharpness up close
+    elements.canvasWarped?.addEventListener('dblclick', () => {
+      AppState.isPreviewZoomed = !AppState.isPreviewZoomed;
+      elements.canvasWarped.style.transform = AppState.isPreviewZoomed ? 'scale(2.2)' : 'scale(1)';
+      elements.canvasWarped.style.cursor = AppState.isPreviewZoomed ? 'zoom-out' : 'zoom-in';
+    });
+
+    elements.btnReviewBack?.addEventListener('click', () => {
+      elements.reviewModal.classList.add('hidden');
+      openCornerAdjustment();
+    });
+
+    elements.btnReviewDone?.addEventListener('click', () => saveCurrentScanToCollection(false));
+
+    // Refresh posisi handle/poligon saat viewport berubah (rotasi HP)
+    window.addEventListener('resize', () => {
+      if (AppState.isAdjustingMode) updateHandlePositions();
+    });
+
+    // Retake: buang hasil ini, kembali ke kamera untuk foto ulang
+    document.getElementById('btn-review-retake')?.addEventListener('click', () => {
+      elements.reviewModal.classList.add('hidden');
+      if (window._baseWarpedMat) { window._baseWarpedMat.delete(); window._baseWarpedMat = null; }
+      AppState.detectedCorners = null;
+      AppState.smoothedCorners = null;
+      AppState.previousCorners = null;
+      AppState.stableFrames = 0;
+      resetCameraUI();
+      showToast("Ambil ulang foto dokumen.");
+    });
+
+    elements.btnOpenGallery?.addEventListener('click', () => {
+      renderGalleryGrid();
+      elements.galleryModal.classList.remove('hidden');
+    });
+
+    elements.btnGalleryClose?.addEventListener('click', () => {
+      elements.galleryModal.classList.add('hidden');
+    });
+
+    elements.btnAddMore?.addEventListener('click', () => {
+      elements.galleryModal.classList.add('hidden');
+      resetCameraUI();
+    });
+
+    elements.btnClearAll?.addEventListener('click', () => {
+      if (AppState.scannedPages.length === 0) return;
+      AppState.scannedPages = [];
+      updateThumbnailAndBadges();
+      renderGalleryGrid();
+      showToast("Semua pindaian dihapus");
+    });
+
+    elements.btnExportPdf?.addEventListener('click', exportToPdf);
+    elements.btnRequestCam?.addEventListener('click', startCamera);
+
+    // File Input Upload with automatic edge detection and auto-fit
+    elements.fileInput?.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const origCanvas = document.getElementById('canvas-original-capture');
+          origCanvas.width = img.naturalWidth || img.width;
+          origCanvas.height = img.naturalHeight || img.height;
+          const ctx = origCanvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+
+          AppState.rawCapturedImage = origCanvas;
+
+          // Attempt intelligent document contour detection on uploaded image
+          const detected = detectDocumentContourFromSource(img);
+          if (detected) {
+            AppState.detectedCorners = detected;
+            showToast("Tepi kertas berhasil terdeteksi otomatis!");
+          } else {
+            // Intelligent margin fallback
+            const w = origCanvas.width;
+            const h = origCanvas.height;
+            AppState.detectedCorners = {
+              tl: { x: w * 0.08, y: h * 0.08 },
+              tr: { x: w * 0.92, y: h * 0.08 },
+              br: { x: w * 0.92, y: h * 0.92 },
+              bl: { x: w * 0.08, y: h * 0.92 }
+            };
+            showToast("Silakan sesuaikan sudut dokumen");
+          }
+          openCornerAdjustment();
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+      e.target.value = '';
+    });
+
+    window.addEventListener('resize', () => {
+      if (AppState.isAdjustingMode) {
+        updateHandlePositions();
+      }
+    });
+
+    // Bungkus lucide agar halaman tetap jalan walau CDN ikon gagal
+    function safeIcons(){ try{ if(window.lucide) lucide.createIcons(); }catch(e){} }
+    // Fallback: jika OpenCV sudah ter-cache / onload terlewat, inisialisasi langsung
+    setTimeout(() => {
+      try{
+        if(!AppState.isOpenCvReady && window.cv && cv.Mat){
+          AppState.isOpenCvReady = true;
+          if(elements.cvLoader) elements.cvLoader.remove();
+          showToast("Pemindai Dokumen Siap");
+          startCamera();
+        }
+      }catch(e){}
+    }, 6000);
+    // Darurat: jangan kunci layar selamanya bila OpenCV gagal total
+    setTimeout(() => {
+      if(!AppState.isOpenCvReady && elements.cvLoader){
+        elements.cvLoader.querySelector('h2').innerText = "Mode Kamera Dasar";
+        elements.cvLoader.querySelector('p').innerText = "OpenCV lambat dimuat — kamera tetap bisa dipakai, deteksi otomatis menyusul aktif.";
+        setTimeout(()=>{ try{ elements.cvLoader.remove(); startCamera(); }catch(e){} }, 1500);
+      }
+    }, 14000);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      safeIcons();
+      setupDraggableHandles();
+    });
+  </script>
+</body>
+</html>
