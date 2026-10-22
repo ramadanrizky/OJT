@@ -1,0 +1,86 @@
+@startuml Use Case - Portal Karyawan OJT
+' ============================================================
+' USE CASE DIAGRAM : Portal Karyawan (OJT)
+' Cara melihat : buka file ini di VS Code (ekstensi PlantUML)
+'                atau tempel isinya ke https://www.plantuml.com/plantuml
+' ============================================================
+
+skinparam useCase {
+  BackgroundColor white
+  BorderColor black
+  FontSize 13
+}
+skinparam actor {
+  BackgroundColor white
+  BorderColor black
+  FontSize 13
+}
+skinparam rectangle {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam arrowColor black
+
+' Aktor kiri
+actor "Admin" as admin
+actor "Atasan" as atasan
+actor "Staf" as staf
+
+rectangle "Use Case Portal Karyawan\n(Sistem Informasi Kantor: Tugas, Persetujuan, Rapat & Kalender)" {
+
+  usecase "Mengelola\nPengguna" as UC1
+  usecase "Mengelola Kotak\nBagan Struktur" as UC2
+  usecase "Mengelola\nJadwal Rapat" as UC3
+  usecase "Mengelola\nPengumuman" as UC4
+  usecase "Memberi Tugas\nke Staf" as UC5
+  usecase "Persetujuan\nHasil Tugas" as UC6
+  usecase "Melihat Tim &\nDirektori Staf" as UC7
+  usecase "Mengelola\nTugas Pribadi" as UC8
+  usecase "Mengirim File\nHasil Tugas" as UC9
+  usecase "Melihat Kalender\nKegiatan" as UC10
+  usecase "Alat Bantuan\nDokumen" as UC11
+  usecase "Mengelola\nProfil" as UC12
+  usecase "Login" as Login
+  usecase "Mengirim\nNotifikasi Telegram" as UCNotif
+}
+
+' Aktor kanan
+actor "Bot Telegram" as bot
+
+' --- Relasi aktor kiri ke use case ---
+admin --> UC1
+admin --> UC2
+admin --> UC3
+admin --> UC4
+
+atasan --> UC5
+atasan --> UC6
+atasan --> UC7
+
+staf --> UC6
+staf --> UC7
+staf --> UC8
+staf --> UC9
+staf --> UC10
+staf --> UC11
+staf --> UC12
+
+' --- Semua use case membutuhkan Login ---
+UC1 ..> Login : <<include>>
+UC2 ..> Login : <<include>>
+UC3 ..> Login : <<include>>
+UC4 ..> Login : <<include>>
+UC5 ..> Login : <<include>>
+UC6 ..> Login : <<include>>
+UC7 ..> Login : <<include>>
+UC8 ..> Login : <<include>>
+UC9 ..> Login : <<include>>
+UC10 ..> Login : <<include>>
+UC11 ..> Login : <<include>>
+UC12 ..> Login : <<include>>
+
+' --- Aktor kanan ---
+bot --> UCNotif
+UCNotif ..> Login : <<include>>
+
+@enduml

@@ -1,0 +1,30 @@
+# Dependensi utama Portal Karyawan K.O.M.A.N.D.O
+# Python yang dipakai: 3.12 (Windows)
+# Install semua sekaligus dengan: INSTALL-DEPENDENSI.bat
+# atau manual: python -m pip install -r requirements.txt
+
+Flask==3.1.0
+flask-cors==6.0.1
+PyMySQL==1.2.0
+requests==2.34.2
+
+# Dokumen & konversi
+python-docx==1.1.2
+pdf2docx==0.5.13
+docx2pdf==0.1.8
+PyMuPDF==1.28.2
+
+# Ringkas / jelaskan dokumen
+sumy==0.13.0
+Sastrawi==1.0.1
+nltk==3.10.3
+numpy==2.5.2
+
+# OCR PDF hasil scan
+rapidocr-onnxruntime==1.4.4
+
+# Windows COM: Word, WIA scanner
+pywin32==308
+
+# Opsional: hanya dibutuhkan jika DATA_BACKEND=firestore
+firebase-admin==7.5.0
